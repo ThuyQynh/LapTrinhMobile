@@ -126,7 +126,7 @@ class LoginViewModel : ViewModel() {
                 _uiState.update {
                     it.copy(
                         isLoading = false,
-                        errorMessage = "Đăng nhập Google thất bại: ${e.localizedMessage}"
+                        errorMessage = mapFirebaseError(e.message ?: e.localizedMessage)
                     )
                 }
             }
@@ -203,10 +203,10 @@ class LoginViewModel : ViewModel() {
         return "403911937731-p004v6umhf2fgertf1mscq325cdprsg9.apps.googleusercontent.com"
     }
 
-    /** Map Firebase error codes sang tiếng Việt */
+    /** Map Firebase và Google Sign-In error codes sang tiếng Việt */
     private fun mapFirebaseError(message: String?): String {
         return when {
-            message == null -> "Đã xảy ra lỗi"
+            message == null -> "Đã xảy ra lỗi không xác định."
             message.contains("timeout") || message.contains("timed out") || message.contains("Timed out") ->
                 "Quá thời gian kết nối. Vui lòng kiểm tra mạng hoặc đảm bảo bạn đã cấu hình vân tay SHA-1/SHA-256 trong Firebase Console."
             message.contains("Configuration not found") || message.contains("CONFIGURATION_NOT_FOUND") || message.contains("configuration not found") ->
@@ -218,6 +218,14 @@ class LoginViewModel : ViewModel() {
             message.contains("too-many-requests") -> "Quá nhiều lần thử. Vui lòng thử lại sau"
             message.contains("network") -> "Lỗi mạng. Kiểm tra kết nối Internet"
             message.contains("user-disabled") -> "Tài khoản đã bị vô hiệu hóa"
+            message.contains("supplied auth credential") || message.contains("auth credential") ->
+                "Thông tin xác thực Google không hợp lệ hoặc không khớp chữ ký SHA-1/SHA-256 trong cấu hình Firebase."
+            message.contains("developer error") || message.contains("DEVELOPER_ERROR") || message.contains("10:") ->
+                "Lỗi cấu hình (DEVELOPER_ERROR): Vui lòng kiểm tra chữ ký SHA-1 và Web Client ID trên Firebase Console."
+            message.contains("cancel") || message.contains("canceled") || message.contains("Canceled") ->
+                "Đăng nhập đã bị hủy."
+            message.contains("no credential") || message.contains("No credentials available") ->
+                "Không tìm thấy tài khoản để đăng nhập."
             else -> "Đăng nhập thất bại: $message"
         }
     }
