@@ -26,6 +26,7 @@ import com.team.smartnutrition.common.components.LoadingScreen
 import com.team.smartnutrition.habit.viewmodel.HabitUiState
 import com.team.smartnutrition.habit.viewmodel.HabitViewModel
 import com.team.smartnutrition.navigation.Screen
+import com.team.smartnutrition.habit.model.CustomReminder
 
 /**
  * ═══════════════════════════════════════════
@@ -35,8 +36,8 @@ import com.team.smartnutrition.navigation.Screen
  * Màn hình chính theo dõi thói quen hàng ngày:
  * - CircularProgress: số cốc nước / mục tiêu
  * - Nút +1/-1 cốc nước
- * - Slider giờ ngủ (0-12h, step 0.5)
- * - Checkbox vitamin
+ * - Giờ đi ngủ & Thức dậy (Hẹn giờ ngủ)
+ * - Checkbox danh sách nhắc nhở tùy chỉnh
  * - Nút navigate sang Settings
  */
 @Composable
@@ -53,8 +54,11 @@ fun HabitDashboardScreen(
                 uiState = uiState,
                 onAddWater = { viewModel.addWaterCup() },
                 onRemoveWater = { viewModel.removeWaterCup() },
-                onSleepChanged = { viewModel.updateSleepHours(it) },
-                onVitaminToggled = { viewModel.toggleVitamin() },
+                onSleepEnabledChanged = { viewModel.setSleepReminderEnabled(it) },
+                onSleepSettingsChanged = { bHour, bMin, wHour, wMin ->
+                    viewModel.updateSleepSettings(bHour, bMin, wHour, wMin)
+                },
+                onToggleReminder = { viewModel.toggleReminderCompleted(it) },
                 onSettingsClick = { navController.navigate(Screen.ReminderSettings.route) }
             )
         }
@@ -100,8 +104,9 @@ private fun HabitDashboardContent(
     uiState: HabitUiState,
     onAddWater: () -> Unit,
     onRemoveWater: () -> Unit,
-    onSleepChanged: (Float) -> Unit,
-    onVitaminToggled: () -> Unit,
+    onSleepEnabledChanged: (Boolean) -> Unit,
+    onSleepSettingsChanged: (Int, Int, Int, Int) -> Unit,
+    onToggleReminder: (String) -> Unit,
     onSettingsClick: () -> Unit
 ) {
     val habit = uiState.habitDay ?: return
@@ -127,16 +132,23 @@ private fun HabitDashboardContent(
             onRemove = onRemoveWater
         )
 
-        // Sleep Section
-        SleepSection(
-            sleepHours = habit.sleepHours,
-            onSleepChanged = onSleepChanged
+        // Hẹn giờ ngủ (Thay thế thanh trượt giờ ngủ cũ)
+        SleepAlarmSection(
+            enabled = uiState.sleepReminderEnabled,
+            bedtimeHour = uiState.bedtimeHour,
+            bedtimeMinute = uiState.bedtimeMinute,
+            wakeupHour = uiState.wakeupHour,
+            wakeupMinute = uiState.wakeupMinute,
+            onEnabledChanged = onSleepEnabledChanged,
+            onSettingsChanged = onSleepSettingsChanged
         )
 
-        // Vitamin Section
-        VitaminSection(
-            vitaminTaken = habit.vitaminTaken,
-            onToggle = onVitaminToggled
+        // Nhắc nhở thói quen tùy chỉnh (Thay thế vitamin section)
+        CustomRemindersDashboardSection(
+            customReminders = uiState.customReminders,
+            completedReminders = habit.completedReminders,
+            onToggleCompletion = onToggleReminder,
+            onSettingsClick = onSettingsClick
         )
 
         // Navigate to Settings
@@ -274,16 +286,294 @@ private fun WaterProgressSection(
 }
 
 // ═══════════════════════════════════════════════════════════
-// SLEEP SECTION - Slider giờ ngủ
+// SLEEP SECTION - Hẹn giờ ngủ & Báo thức dậy
 // ═══════════════════════════════════════════════════════════
 
 @Composable
-private fun SleepSection(
-    sleepHours: Float,
-    onSleepChanged: (Float) -> Unit
+private fun SleepAlarmSection(
+    enabled: Boolean,
+    bedtimeHour: Int,
+    bedtimeMinute: Int,
+    wakeupHour: Int,
+    wakeupMinute: Int,
+    onEnabledChanged: (Boolean) -> Unit,
+    onSettingsChanged: (Int, Int, Int, Int) -> Unit
 ) {
-    // Local state để slider smooth khi kéo, chỉ save Firestore khi thả
-    var localSleepHours by remember(sleepHours) { mutableFloatStateOf(sleepHours) }
+    var showSetupDialog by remember { mutableStateOf(false) }
+
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp, vertical = 8.dp),
+        shape = RoundedCornerShape(24.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surfaceVariant
+        )
+    ) {
+        Column(modifier = Modifier.padding(24.dp)) {
+            // Header row
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text("🛌 ", style = MaterialTheme.typography.titleMedium)
+                    Text(
+                        text = "Hẹn giờ giấc ngủ",
+                        style = MaterialTheme.typography.titleMedium,
+                        fontWeight = FontWeight.SemiBold
+                    )
+                }
+
+                Switch(
+                    checked = enabled,
+                    onCheckedChange = { onEnabledChanged(it) }
+                )
+            }
+
+            Spacer(Modifier.height(16.dp))
+
+            // Times Display row
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceEvenly,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                // Bedtime Column
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier.weight(1f)
+                ) {
+                    Text(
+                        text = "🌙 Giờ đi ngủ",
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                    Spacer(Modifier.height(4.dp))
+                    Text(
+                        text = String.format("%02d:%02d", bedtimeHour, bedtimeMinute),
+                        style = MaterialTheme.typography.titleLarge,
+                        fontWeight = FontWeight.Bold,
+                        color = if (enabled) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f)
+                    )
+                }
+
+                // Divider line
+                Box(
+                    modifier = Modifier
+                        .height(40.dp)
+                        .width(1.dp)
+                        .padding(horizontal = 2.dp)
+                ) {
+                    VerticalDivider(color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.2f))
+                }
+
+                // Wakeup Column
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier.weight(1f)
+                ) {
+                    Text(
+                        text = "⏰ Giờ thức dậy",
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                    Spacer(Modifier.height(4.dp))
+                    Text(
+                        text = String.format("%02d:%02d", wakeupHour, wakeupMinute),
+                        style = MaterialTheme.typography.titleLarge,
+                        fontWeight = FontWeight.Bold,
+                        color = if (enabled) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f)
+                    )
+                }
+            }
+
+            Spacer(Modifier.height(16.dp))
+
+            // Action button
+            OutlinedButton(
+                onClick = { showSetupDialog = true },
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(12.dp)
+            ) {
+                Text("⚙️ Cài đặt giờ ngủ")
+            }
+        }
+    }
+
+    if (showSetupDialog) {
+        SleepSetupDialog(
+            currentBedtimeHour = bedtimeHour,
+            currentBedtimeMinute = bedtimeMinute,
+            currentWakeupHour = wakeupHour,
+            currentWakeupMinute = wakeupMinute,
+            onConfirm = { bHour, bMin, wHour, wMin ->
+                onSettingsChanged(bHour, bMin, wHour, wMin)
+                showSetupDialog = false
+            },
+            onDismiss = { showSetupDialog = false }
+        )
+    }
+}
+
+// ═══════════════════════════════════════════════════════════
+// DIALOG: SLEEP SETUP HELPERS
+// ═══════════════════════════════════════════════════════════
+
+@Composable
+private fun SleepSetupDialog(
+    currentBedtimeHour: Int,
+    currentBedtimeMinute: Int,
+    currentWakeupHour: Int,
+    currentWakeupMinute: Int,
+    onConfirm: (Int, Int, Int, Int) -> Unit,
+    onDismiss: () -> Unit
+) {
+    var bedtimeHour by remember { mutableStateOf(currentBedtimeHour) }
+    var bedtimeMinute by remember { mutableStateOf(currentBedtimeMinute) }
+    var wakeupHour by remember { mutableStateOf(currentWakeupHour) }
+    var wakeupMinute by remember { mutableStateOf(currentWakeupMinute) }
+
+    var showBedtimePicker by remember { mutableStateOf(false) }
+    var showWakeupPicker by remember { mutableStateOf(false) }
+
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text("Thiết lập giờ ngủ & thức dậy") },
+        text = {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 8.dp),
+                verticalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
+                // Bedtime picker trigger
+                Column {
+                    Text("🌙 Giờ đi ngủ:", style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.Medium)
+                    Spacer(Modifier.height(8.dp))
+                    OutlinedButton(
+                        onClick = { showBedtimePicker = true },
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = RoundedCornerShape(12.dp)
+                    ) {
+                        Text(String.format("%02d:%02d", bedtimeHour, bedtimeMinute), style = MaterialTheme.typography.titleMedium)
+                    }
+                }
+
+                // Wakeup picker trigger
+                Column {
+                    Text("⏰ Giờ thức dậy:", style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.Medium)
+                    Spacer(Modifier.height(8.dp))
+                    OutlinedButton(
+                        onClick = { showWakeupPicker = true },
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = RoundedCornerShape(12.dp)
+                    ) {
+                        Text(String.format("%02d:%02d", wakeupHour, wakeupMinute), style = MaterialTheme.typography.titleMedium)
+                    }
+                }
+            }
+        },
+        confirmButton = {
+            TextButton(
+                onClick = { onConfirm(bedtimeHour, bedtimeMinute, wakeupHour, wakeupMinute) }
+            ) {
+                Text("Lưu")
+            }
+        },
+        dismissButton = {
+            TextButton(onClick = onDismiss) {
+                Text("Hủy")
+            }
+        }
+    )
+
+    if (showBedtimePicker) {
+        TimePickerDialogHelper(
+            initialHour = bedtimeHour,
+            initialMinute = bedtimeMinute,
+            onConfirm = { h, m ->
+                bedtimeHour = h
+                bedtimeMinute = m
+                showBedtimePicker = false
+            },
+            onDismiss = { showBedtimePicker = false }
+        )
+    }
+
+    if (showWakeupPicker) {
+        TimePickerDialogHelper(
+            initialHour = wakeupHour,
+            initialMinute = wakeupMinute,
+            onConfirm = { h, m ->
+                wakeupHour = h
+                wakeupMinute = m
+                showWakeupPicker = false
+            },
+            onDismiss = { showWakeupPicker = false }
+        )
+    }
+}
+
+// ═══════════════════════════════════════════════════════════
+// TIMEPICKER DIALOG HELPER
+// ═══════════════════════════════════════════════════════════
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun TimePickerDialogHelper(
+    initialHour: Int,
+    initialMinute: Int,
+    onConfirm: (Int, Int) -> Unit,
+    onDismiss: () -> Unit
+) {
+    val timePickerState = rememberTimePickerState(
+        initialHour = initialHour,
+        initialMinute = initialMinute,
+        is24Hour = true
+    )
+
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text("Chọn thời gian") },
+        text = {
+            Box(
+                modifier = Modifier.fillMaxWidth(),
+                contentAlignment = Alignment.Center
+            ) {
+                TimePicker(state = timePickerState)
+            }
+        },
+        confirmButton = {
+            TextButton(
+                onClick = { onConfirm(timePickerState.hour, timePickerState.minute) }
+            ) {
+                Text("Đồng ý")
+            }
+        },
+        dismissButton = {
+            TextButton(onClick = onDismiss) {
+                Text("Hủy")
+            }
+        }
+    )
+}
+
+// ═══════════════════════════════════════════════════════════
+// CUSTOM REMINDERS SECTION - Danh sách thói quen hôm nay
+// ═══════════════════════════════════════════════════════════
+
+@Composable
+private fun CustomRemindersDashboardSection(
+    customReminders: List<CustomReminder>,
+    completedReminders: List<String>,
+    onToggleCompletion: (String) -> Unit,
+    onSettingsClick: () -> Unit
+) {
+    val activeReminders = customReminders.filter { it.enabled }
+    val totalCount = activeReminders.size
+    val completedCount = activeReminders.count { completedReminders.contains(it.id) }
 
     Card(
         modifier = Modifier
@@ -296,106 +586,99 @@ private fun SleepSection(
         elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
+            // Header
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "😴 " + stringResource(R.string.sleep_last_night),
-                    style = MaterialTheme.typography.titleSmall,
+                    text = "🔔 Thói quen hôm nay",
+                    style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.SemiBold
                 )
-                Text(
-                    text = "${localSleepHours}h",
-                    style = MaterialTheme.typography.titleSmall,
-                    color = MaterialTheme.colorScheme.primary,
-                    fontWeight = FontWeight.Bold
-                )
-            }
-            Spacer(Modifier.height(8.dp))
 
-            Slider(
-                value = localSleepHours,
-                onValueChange = { localSleepHours = it },
-                onValueChangeFinished = { onSleepChanged(localSleepHours) },
-                valueRange = 0f..12f,
-                steps = 23, // 24 positions: 0.0, 0.5, 1.0, ..., 12.0
-                colors = SliderDefaults.colors(
-                    thumbColor = MaterialTheme.colorScheme.primary,
-                    activeTrackColor = MaterialTheme.colorScheme.primary
-                )
-            )
-
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Text("0h", style = MaterialTheme.typography.labelSmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant)
-                Text("6h", style = MaterialTheme.typography.labelSmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant)
-                Text("12h", style = MaterialTheme.typography.labelSmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant)
-            }
-        }
-    }
-}
-
-// ═══════════════════════════════════════════════════════════
-// VITAMIN SECTION - Checkbox
-// ═══════════════════════════════════════════════════════════
-
-@Composable
-private fun VitaminSection(
-    vitaminTaken: Boolean,
-    onToggle: () -> Unit
-) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 8.dp),
-        shape = RoundedCornerShape(16.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = if (vitaminTaken)
-                MaterialTheme.colorScheme.primaryContainer
-            else MaterialTheme.colorScheme.surface
-        ),
-        elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Text("💊", style = MaterialTheme.typography.titleMedium)
-                Spacer(Modifier.width(12.dp))
-                Column {
+                if (totalCount > 0) {
                     Text(
-                        text = stringResource(R.string.vitamin_today),
-                        style = MaterialTheme.typography.bodyLarge,
-                        fontWeight = FontWeight.Medium
-                    )
-                    Text(
-                        text = if (vitaminTaken) stringResource(R.string.vitamin_taken)
-                        else stringResource(R.string.vitamin_not_taken),
+                        text = "Đã xong $completedCount/$totalCount",
                         style = MaterialTheme.typography.bodySmall,
-                        color = if (vitaminTaken) Color(0xFF4CAF50)
-                        else MaterialTheme.colorScheme.onSurfaceVariant
+                        color = MaterialTheme.colorScheme.primary,
+                        fontWeight = FontWeight.Bold
                     )
                 }
             }
 
-            Checkbox(
-                checked = vitaminTaken,
-                onCheckedChange = { onToggle() },
-                colors = CheckboxDefaults.colors(
-                    checkedColor = MaterialTheme.colorScheme.primary
-                )
-            )
+            Spacer(Modifier.height(12.dp))
+
+            if (activeReminders.isEmpty()) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 8.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text(
+                        text = "Chưa có nhắc nhở thói quen nào được kích hoạt.",
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        textAlign = TextAlign.Center
+                    )
+                    Spacer(Modifier.height(8.dp))
+                    TextButton(onClick = onSettingsClick) {
+                        Text("⚙️ Quản lý nhắc nhở")
+                    }
+                }
+            } else {
+                activeReminders.forEachIndexed { index, reminder ->
+                    if (index > 0) {
+                        HorizontalDivider(
+                            modifier = Modifier.padding(vertical = 8.dp),
+                            color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.08f)
+                        )
+                    }
+
+                    val isCompleted = completedReminders.contains(reminder.id)
+
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Text(
+                                text = if (reminder.id == "vitamin" || reminder.name.lowercase().contains("vitamin")) "💊" 
+                                       else if (reminder.name.lowercase().contains("thuốc") || reminder.name.lowercase().contains("medicine")) "💊"
+                                       else if (reminder.name.lowercase().contains("nước") || reminder.name.lowercase().contains("water")) "💧"
+                                       else if (reminder.name.lowercase().contains("sữa") || reminder.name.lowercase().contains("milk")) "🥛"
+                                       else "📝",
+                                style = MaterialTheme.typography.titleMedium
+                            )
+                            Spacer(Modifier.width(12.dp))
+                            Column {
+                                Text(
+                                    text = reminder.name,
+                                    style = MaterialTheme.typography.bodyLarge,
+                                    fontWeight = FontWeight.Medium,
+                                    color = if (isCompleted) MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f) else MaterialTheme.colorScheme.onSurface
+                                )
+                                Text(
+                                    text = String.format("⏰ Hẹn giờ lúc %02d:%02d", reminder.hour, reminder.minute),
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+                            }
+                        }
+
+                        Checkbox(
+                            checked = isCompleted,
+                            onCheckedChange = { onToggleCompletion(reminder.id) },
+                            colors = CheckboxDefaults.colors(
+                                checkedColor = MaterialTheme.colorScheme.primary
+                            )
+                        )
+                    }
+                }
+            }
         }
     }
 }

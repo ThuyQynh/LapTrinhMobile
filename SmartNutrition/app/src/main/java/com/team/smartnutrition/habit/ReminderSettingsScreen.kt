@@ -14,6 +14,10 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -29,6 +33,7 @@ import com.team.smartnutrition.R
 import com.team.smartnutrition.common.components.SmartTopBar
 import com.team.smartnutrition.habit.viewmodel.HabitUiState
 import com.team.smartnutrition.habit.viewmodel.HabitViewModel
+import com.team.smartnutrition.habit.model.CustomReminder
 
 /**
  * ═══════════════════════════════════════════
@@ -36,9 +41,9 @@ import com.team.smartnutrition.habit.viewmodel.HabitViewModel
  * ═══════════════════════════════════════════
  *
  * Cài đặt:
- * - Mục tiêu cốc nước/ngày (5/6/7/8/10)
+ * - Mục tiêu cốc nước/ngày
  * - Nhắc uống nước: switch + interval (1h/2h/3h) + start/end hour
- * - Nhắc uống vitamin: switch + giờ cố định
+ * - Nhắc nhở thói quen tùy chỉnh (uống thuốc, uống vitamin, uống sữa, v.v.)
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -120,19 +125,14 @@ fun ReminderSettingsScreen(
                 onEndHourChanged = { viewModel.setWaterEndHour(it) }
             )
 
-            // Vitamin reminder section
-            VitaminReminderSection(
+            // Custom reminders section (Thay thế cho Vitamin Reminder Section cũ)
+            CustomRemindersSettingsSection(
                 uiState = uiState,
-                onEnabledChanged = { enabled ->
-                    if (enabled) {
-                        withNotificationPermission {
-                            viewModel.setVitaminReminderEnabled(true)
-                        }
-                    } else {
-                        viewModel.setVitaminReminderEnabled(false)
-                    }
-                },
-                onTimeChanged = { hour, minute -> viewModel.setVitaminTime(hour, minute) }
+                onAddReminder = { name, hour, minute -> viewModel.addCustomReminder(name, hour, minute) },
+                onUpdateReminder = { viewModel.updateCustomReminder(it) },
+                onDeleteReminder = { viewModel.deleteCustomReminder(it) },
+                onToggleReminder = { id, enabled -> viewModel.toggleCustomReminderEnabled(id, enabled) },
+                withPermission = { action -> withNotificationPermission(action) }
             )
 
             Spacer(Modifier.height(32.dp))
@@ -374,17 +374,20 @@ private fun WaterReminderSection(
 }
 
 // ═══════════════════════════════════════════════════════════
-// VITAMIN REMINDER SECTION
+// CUSTOM REMINDERS SETTINGS SECTION - Quản lý nhắc nhở tùy chỉnh
 // ═══════════════════════════════════════════════════════════
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun VitaminReminderSection(
+private fun CustomRemindersSettingsSection(
     uiState: HabitUiState,
-    onEnabledChanged: (Boolean) -> Unit,
-    onTimeChanged: (hour: Int, minute: Int) -> Unit
+    onAddReminder: (String, Int, Int) -> Unit,
+    onUpdateReminder: (CustomReminder) -> Unit,
+    onDeleteReminder: (String) -> Unit,
+    onToggleReminder: (String, Boolean) -> Unit,
+    withPermission: (() -> Unit) -> Unit
 ) {
-    var showTimePicker by remember { mutableStateOf(false) }
+    var showAddDialog by remember { mutableStateOf(false) }
+    var editingReminder by remember { mutableStateOf<CustomReminder?>(null) }
 
     Card(
         modifier = Modifier
@@ -403,49 +406,203 @@ private fun VitaminReminderSection(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "💊 " + stringResource(R.string.vitamin_reminder_label),
+                    text = "🔔 Nhắc nhở thói quen tùy chỉnh",
                     style = MaterialTheme.typography.titleSmall,
                     fontWeight = FontWeight.SemiBold
                 )
-                Switch(
-                    checked = uiState.vitaminReminderEnabled,
-                    onCheckedChange = { onEnabledChanged(it) }
-                )
+
+                IconButton(
+                    onClick = {
+                        withPermission {
+                            showAddDialog = true
+                        }
+                    }
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Add,
+                        contentDescription = "Thêm nhắc nhở",
+                        tint = MaterialTheme.colorScheme.primary
+                    )
+                }
             }
 
-            AnimatedVisibility(visible = uiState.vitaminReminderEnabled) {
-                Column {
-                    Spacer(Modifier.height(12.dp))
-                    HorizontalDivider()
-                    Spacer(Modifier.height(12.dp))
+            Spacer(Modifier.height(8.dp))
 
-                    Text(
-                        text = stringResource(R.string.vitamin_reminder_hour),
-                        style = MaterialTheme.typography.bodyMedium,
-                        fontWeight = FontWeight.Medium
-                    )
-                    Spacer(Modifier.height(8.dp))
-                    OutlinedButton(
-                        onClick = { showTimePicker = true },
-                        modifier = Modifier.fillMaxWidth(),
-                        shape = RoundedCornerShape(12.dp)
-                    ) {
-                        Text(
-                            "⏰ ${String.format("%02d:%02d", uiState.vitaminHour, uiState.vitaminMinute)}",
-                            style = MaterialTheme.typography.titleMedium
+            if (uiState.customReminders.isEmpty()) {
+                Text(
+                    text = "Chưa có nhắc nhở nào được thiết lập. Hãy nhấn nút '+' để thêm (ví dụ: uống thuốc, uống sữa, ...)",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier.padding(vertical = 8.dp)
+                )
+            } else {
+                uiState.customReminders.forEachIndexed { index, reminder ->
+                    if (index > 0) {
+                        HorizontalDivider(
+                            modifier = Modifier.padding(vertical = 8.dp),
+                            color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.08f)
                         )
+                    }
+
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Column(modifier = Modifier.weight(1f)) {
+                            Text(
+                                text = reminder.name,
+                                style = MaterialTheme.typography.bodyLarge,
+                                fontWeight = FontWeight.Medium
+                            )
+                            Text(
+                                text = String.format("⏰ Hằng ngày lúc %02d:%02d", reminder.hour, reminder.minute),
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                        }
+
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            IconButton(
+                                onClick = {
+                                    withPermission {
+                                        editingReminder = reminder
+                                    }
+                                }
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Default.Edit,
+                                    contentDescription = "Chỉnh sửa",
+                                    tint = MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+                            }
+
+                            IconButton(onClick = { onDeleteReminder(reminder.id) }) {
+                                Icon(
+                                    imageVector = Icons.Default.Delete,
+                                    contentDescription = "Xóa",
+                                    tint = MaterialTheme.colorScheme.error
+                                )
+                            }
+
+                            Switch(
+                                checked = reminder.enabled,
+                                onCheckedChange = { enabled ->
+                                    if (enabled) {
+                                        withPermission {
+                                            onToggleReminder(reminder.id, true)
+                                        }
+                                    } else {
+                                        onToggleReminder(reminder.id, false)
+                                    }
+                                }
+                            )
+                        }
                     }
                 }
             }
         }
     }
 
+    if (showAddDialog) {
+        AddEditReminderDialog(
+            reminder = null,
+            onConfirm = { name, hour, minute ->
+                onAddReminder(name, hour, minute)
+                showAddDialog = false
+            },
+            onDismiss = { showAddDialog = false }
+        )
+    }
+
+    if (editingReminder != null) {
+        AddEditReminderDialog(
+            reminder = editingReminder,
+            onConfirm = { name, hour, minute ->
+                onUpdateReminder(editingReminder!!.copy(name = name, hour = hour, minute = minute))
+                editingReminder = null
+            },
+            onDismiss = { editingReminder = null }
+        )
+    }
+}
+
+// ═══════════════════════════════════════════════════════════
+// DIALOG: ADD/EDIT CUSTOM REMINDER
+// ═══════════════════════════════════════════════════════════
+
+@Composable
+private fun AddEditReminderDialog(
+    reminder: CustomReminder?,
+    onConfirm: (String, Int, Int) -> Unit,
+    onDismiss: () -> Unit
+) {
+    var name by remember { mutableStateOf(reminder?.name ?: "") }
+    var hour by remember { mutableStateOf(reminder?.hour ?: 7) }
+    var minute by remember { mutableStateOf(reminder?.minute ?: 0) }
+
+    var showTimePicker by remember { mutableStateOf(false) }
+
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text(if (reminder == null) "Thêm nhắc nhở mới" else "Chỉnh sửa nhắc nhở") },
+        text = {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 8.dp),
+                verticalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
+                // Tên nhắc nhở
+                OutlinedTextField(
+                    value = name,
+                    onValueChange = { name = it },
+                    label = { Text("Tên nhắc nhở (ví dụ: Uống thuốc A)") },
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = RoundedCornerShape(12.dp),
+                    singleLine = true
+                )
+
+                // Trigger chọn giờ
+                Column {
+                    Text("⏰ Giờ nhắc nhở:", style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.Medium)
+                    Spacer(Modifier.height(8.dp))
+                    OutlinedButton(
+                        onClick = { showTimePicker = true },
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = RoundedCornerShape(12.dp)
+                    ) {
+                        Text(String.format("%02d:%02d", hour, minute), style = MaterialTheme.typography.titleMedium)
+                    }
+                }
+            }
+        },
+        confirmButton = {
+            TextButton(
+                onClick = {
+                    if (name.isNotBlank()) {
+                        onConfirm(name.trim(), hour, minute)
+                    }
+                },
+                enabled = name.isNotBlank()
+            ) {
+                Text("Lưu")
+            }
+        },
+        dismissButton = {
+            TextButton(onClick = onDismiss) {
+                Text("Hủy")
+            }
+        }
+    )
+
     if (showTimePicker) {
         TimePickerDialog(
-            initialHour = uiState.vitaminHour,
-            initialMinute = uiState.vitaminMinute,
-            onConfirm = { hour, minute ->
-                onTimeChanged(hour, minute)
+            initialHour = hour,
+            initialMinute = minute,
+            onConfirm = { h, m ->
+                hour = h
+                minute = m
                 showTimePicker = false
             },
             onDismiss = { showTimePicker = false }

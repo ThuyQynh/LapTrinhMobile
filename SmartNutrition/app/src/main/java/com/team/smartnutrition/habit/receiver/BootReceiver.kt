@@ -53,5 +53,25 @@ class BootReceiver : BroadcastReceiver() {
             )
             Log.d("BootReceiver", "Vitamin alarm restored: ${prefs.vitaminHour}:${String.format("%02d", prefs.vitaminMinute)}")
         }
+
+        // Khôi phục các custom reminders tùy chỉnh
+        prefs.customReminders.forEach { reminder ->
+            if (reminder.enabled) {
+                AlarmScheduler.scheduleCustomReminderAlarm(context, reminder)
+                Log.d("BootReceiver", "Custom reminder restored: ${reminder.name} at ${reminder.hour}:${String.format("%02d", reminder.minute)}")
+            }
+        }
+
+        // Khôi phục các báo thức ngủ & thức dậy
+        if (prefs.sleepReminderEnabled) {
+            AlarmScheduler.scheduleSleepAlarms(
+                context,
+                prefs.bedtimeHour,
+                prefs.bedtimeMinute,
+                prefs.wakeupHour,
+                prefs.wakeupMinute
+            )
+            Log.d("BootReceiver", "Sleep alarms restored: Bedtime ${prefs.bedtimeHour}:${prefs.bedtimeMinute}, Wakeup ${prefs.wakeupHour}:${prefs.wakeupMinute}")
+        }
     }
 }

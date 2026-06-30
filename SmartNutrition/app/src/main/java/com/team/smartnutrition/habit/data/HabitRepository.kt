@@ -96,17 +96,21 @@ class HabitRepository {
         "waterGoal" to h.waterGoal,
         "sleepHours" to h.sleepHours,
         "vitaminTaken" to h.vitaminTaken,
+        "completedReminders" to h.completedReminders,
         "updatedAt" to Timestamp.now()
     )
 
     private fun docToHabitDay(doc: DocumentSnapshot): HabitDay {
         val data = doc.data ?: return HabitDay(date = doc.id)
+        val completedRaw = data["completedReminders"] as? List<*>
+        val completedReminders = completedRaw?.mapNotNull { it?.toString() } ?: emptyList()
         return HabitDay(
             date = doc.id,
             waterCups = (data["waterCups"] as? Number)?.toInt() ?: 0,
             waterGoal = (data["waterGoal"] as? Number)?.toInt() ?: 8,
             sleepHours = (data["sleepHours"] as? Number)?.toFloat() ?: 0f,
             vitaminTaken = data["vitaminTaken"] as? Boolean ?: false,
+            completedReminders = completedReminders,
             updatedAt = data["updatedAt"] as? Timestamp
         )
     }

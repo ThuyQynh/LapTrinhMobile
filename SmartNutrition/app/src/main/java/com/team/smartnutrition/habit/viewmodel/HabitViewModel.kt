@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.team.smartnutrition.habit.data.HabitRepository
 import com.team.smartnutrition.habit.data.ReminderPrefs
 import com.team.smartnutrition.habit.model.HabitDay
+import com.team.smartnutrition.habit.model.CustomReminder
 import com.team.smartnutrition.habit.util.AlarmScheduler
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -35,23 +36,23 @@ data class HabitUiState(
     val waterGoal: Int = 8,
     val vitaminReminderEnabled: Boolean = false,
     val vitaminHour: Int = 7,
-    val vitaminMinute: Int = 0
+    val vitaminMinute: Int = 0,
+
+    // === Custom reminders ===
+    val customReminders: List<CustomReminder> = emptyList(),
+
+    // === Sleep alarm timer settings ===
+    val sleepReminderEnabled: Boolean = false,
+    val bedtimeHour: Int = 22,
+    val bedtimeMinute: Int = 30,
+    val wakeupHour: Int = 6,
+    val wakeupMinute: Int = 0
 )
 
 /**
  * ═══════════════════════════════════════════
  * HABIT VIEW MODEL
  * ═══════════════════════════════════════════
- *
- * Shared ViewModel cho HabitDashboardScreen + ReminderSettingsScreen.
- *
- * Dùng AndroidViewModel (thay vì ViewModel) vì cần Application context
- * cho SharedPreferences và AlarmScheduler.
- *
- * Actions:
- *   Dashboard: addWaterCup, removeWaterCup, updateSleepHours, toggleVitamin
- *   Settings: setWaterReminderEnabled, setWaterInterval, setWaterStartHour,
- *             setWaterEndHour, setWaterGoal, setVitaminReminderEnabled, setVitaminTime
  */
 class HabitViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -119,6 +120,137 @@ class HabitViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     // ═══════════════════════════════════════════════════
+    // CUSTOM REMINDERS ACTIONS (SharedPreferences + AlarmScheduler)
+    // ═══════════════════════════════════════════════════
+
+    /** Thêm một nhắc nhở tùy chỉnh mới */
+    fun addCustomReminder(name: String, hour: Int, minute: Int) {
+        val newReminder = CustomReminder(
+            id = "reminder_${System.currentTimeMillis()}",
+            name = name,
+            hour = hour,
+            minute = minute,
+            enabled = true
+        )
+        val list = prefs.customReminders + newReminder
+        prefs.customReminders = list
+        _uiState.update { it.copy(customReminders = list) }
+
+        AlarmScheduler.scheduleCustomReminderAlarm(getApplication(), newReminder)
+    }
+
+    /** Cập nhật nhắc nhở tùy chỉnh */
+    fun updateCustomReminder(reminder: CustomReminder) {
+        val list = prefs.customReminders.map {
+            if (it.id == reminder.id) reminder else it
+        }
+        prefs.customReminders = list
+        _uiState.update { it.copy(customReminders = list) }
+
+        if (reminder.enabled) {
+            AlarmScheduler.scheduleCustomReminderAlarm(getApplication(), reminder)
+        } else {
+            AlarmScheduler.cancelCustomReminderAlarm(getApplication(), reminder.id)
+        }
+    }
+
+    /** Xóa nhắc nhở tùy chỉnh */
+    fun deleteCustomReminder(reminderId: String) {
+        val list = prefs.customReminders.filter { it.id != reminderId }
+        prefs.customReminders = list
+        _uiState.update { it.copy(customReminders = list) }
+
+        AlarmScheduler.cancelCustomReminderAlarm(getApplication(), reminderId)
+    }
+
+    /** Bật/Tắt nhắc nhở tùy chỉnh */
+    fun toggleCustomReminderEnabled(reminderId: String, enabled: Boolean) {
+        val list = prefs.customReminders.map {
+            if (it.id == reminderId) it.copy(enabled = enabled) else it
+        }
+        prefs.customReminders = list
+        _uiState.update { it.copy(customReminders = list) }
+
+        val updated = list.find { it.id == reminderId } ?: return
+        if (enabled) {
+            AlarmScheduler.scheduleCustomReminderAlarm(getApplication(), updated)
+        } else {
+            AlarmScheduler.cancelCustomReminderAlarm(getApplication(), reminderId)
+        }
+    }
+
+    /** Check/Uncheck hoàn thành thói quen hôm nay trên Dashboard */
+    fun toggleReminderCompleted(reminderId: String) {
+        val uid = repository.currentUid ?: return
+        val current = _uiState.value.habitDay ?: return
+        val completed = current.completedReminders.toMutableList()
+        if (completed.contains(reminderId)) {
+            completed.remove(reminderId)
+        } else {
+            completed.add(reminderId)
+        }
+        
+        // Cập nhật vitaminTaken cho tương thích ngược nếu ID là "vitamin"
+        val isVitamin = reminderId == "vitamin"
+        val updated = current.copy(
+            completedReminders = completed,
+            vitaminTaken = if (isVitamin) completed.contains("vitamin") else current.vitaminTaken
+        )
+
+        _uiState.update { it.copy(habitDay = updated) }
+        repository.saveHabitDay(uid, updated)
+    }
+
+    // ═══════════════════════════════════════════════════
+    // SLEEP REMINDER SETTINGS ACTIONS
+    // ═══════════════════════════════════════════════════
+
+    /** Bật/tắt nhắc nhở đi ngủ & thức dậy */
+    fun setSleepReminderEnabled(enabled: Boolean) {
+        prefs.sleepReminderEnabled = enabled
+        _uiState.update { it.copy(sleepReminderEnabled = enabled) }
+
+        val context = getApplication<Application>()
+        if (enabled) {
+            AlarmScheduler.scheduleSleepAlarms(
+                context,
+                prefs.bedtimeHour,
+                prefs.bedtimeMinute,
+                prefs.wakeupHour,
+                prefs.wakeupMinute
+            )
+        } else {
+            AlarmScheduler.cancelSleepAlarms(context)
+        }
+    }
+
+    /** Cập nhật giờ ngủ & thức dậy */
+    fun updateSleepSettings(bedtimeHour: Int, bedtimeMinute: Int, wakeupHour: Int, wakeupMinute: Int) {
+        prefs.bedtimeHour = bedtimeHour
+        prefs.bedtimeMinute = bedtimeMinute
+        prefs.wakeupHour = wakeupHour
+        prefs.wakeupMinute = wakeupMinute
+        _uiState.update {
+            it.copy(
+                bedtimeHour = bedtimeHour,
+                bedtimeMinute = bedtimeMinute,
+                wakeupHour = wakeupHour,
+                wakeupMinute = wakeupMinute
+            )
+        }
+
+        if (prefs.sleepReminderEnabled) {
+            AlarmScheduler.scheduleSleepAlarms(
+                getApplication(),
+                bedtimeHour,
+                bedtimeMinute,
+                wakeupHour,
+                wakeupMinute
+            )
+        }
+    }
+
+    // ═══════════════════════════════════════════════════
     // SETTINGS ACTIONS (SharedPreferences + AlarmScheduler)
     // ═══════════════════════════════════════════════════
 
@@ -172,7 +304,7 @@ class HabitViewModel(application: Application) : AndroidViewModel(application) {
         repository.saveHabitDay(uid, updated)
     }
 
-    /** Bật/tắt nhắc nhở uống vitamin. */
+    /** Bật/tắt nhắc nhở uống vitamin (Tương thích ngược). */
     fun setVitaminReminderEnabled(enabled: Boolean) {
         prefs.vitaminReminderEnabled = enabled
         _uiState.update { it.copy(vitaminReminderEnabled = enabled) }
@@ -183,9 +315,16 @@ class HabitViewModel(application: Application) : AndroidViewModel(application) {
         } else {
             AlarmScheduler.cancelVitaminAlarm(context)
         }
+
+        // Đồng bộ với customReminders nếu có
+        val list = prefs.customReminders.map {
+            if (it.id == "vitamin") it.copy(enabled = enabled) else it
+        }
+        prefs.customReminders = list
+        _uiState.update { it.copy(customReminders = list) }
     }
 
-    /** Đổi giờ nhắc vitamin. */
+    /** Đổi giờ nhắc vitamin (Tương thích ngược). */
     fun setVitaminTime(hour: Int, minute: Int) {
         prefs.vitaminHour = hour
         prefs.vitaminMinute = minute
@@ -194,6 +333,13 @@ class HabitViewModel(application: Application) : AndroidViewModel(application) {
         if (prefs.vitaminReminderEnabled) {
             AlarmScheduler.scheduleVitaminAlarm(getApplication(), hour, minute)
         }
+
+        // Đồng bộ với customReminders nếu có
+        val list = prefs.customReminders.map {
+            if (it.id == "vitamin") it.copy(hour = hour, minute = minute) else it
+        }
+        prefs.customReminders = list
+        _uiState.update { it.copy(customReminders = list) }
     }
 
     // ═══════════════════════════════════════════════════
@@ -248,7 +394,13 @@ class HabitViewModel(application: Application) : AndroidViewModel(application) {
                 waterGoal = prefs.waterGoal,
                 vitaminReminderEnabled = prefs.vitaminReminderEnabled,
                 vitaminHour = prefs.vitaminHour,
-                vitaminMinute = prefs.vitaminMinute
+                vitaminMinute = prefs.vitaminMinute,
+                customReminders = prefs.customReminders,
+                sleepReminderEnabled = prefs.sleepReminderEnabled,
+                bedtimeHour = prefs.bedtimeHour,
+                bedtimeMinute = prefs.bedtimeMinute,
+                wakeupHour = prefs.wakeupHour,
+                wakeupMinute = prefs.wakeupMinute
             )
         }
     }

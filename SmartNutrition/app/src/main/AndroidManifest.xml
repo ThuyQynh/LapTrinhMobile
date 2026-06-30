@@ -42,6 +42,8 @@
         <receiver android:name=".habit.receiver.WaterReminderReceiver" android:exported="false" />
         <receiver android:name=".habit.receiver.WaterActionReceiver" android:exported="false" />
         <receiver android:name=".habit.receiver.VitaminReminderReceiver" android:exported="false" />
+        <receiver android:name=".habit.receiver.CustomReminderReceiver" android:exported="false" />
+        <receiver android:name=".habit.receiver.SleepReminderReceiver" android:exported="false" />
         <receiver android:name=".habit.receiver.BootReceiver" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />

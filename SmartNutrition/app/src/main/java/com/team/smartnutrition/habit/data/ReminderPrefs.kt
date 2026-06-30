@@ -2,6 +2,9 @@ package com.team.smartnutrition.habit.data
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import com.team.smartnutrition.habit.model.CustomReminder
 
 /**
  * ═══════════════════════════════════════════
@@ -9,10 +12,6 @@ import android.content.SharedPreferences
  * ═══════════════════════════════════════════
  *
  * Lưu cài đặt nhắc nhở LOCAL (không lên Firestore).
- * Dùng bởi:
- * - HabitViewModel: đọc/ghi settings
- * - AlarmScheduler: đọc settings khi schedule
- * - BootReceiver: đọc settings khi khôi phục alarms
  */
 class ReminderPrefs(context: Context) {
 
@@ -49,7 +48,7 @@ class ReminderPrefs(context: Context) {
         set(v) = prefs.edit().putInt("water_goal", v).apply()
 
     // ═══════════════════════════════════════════
-    // VITAMIN REMINDER SETTINGS
+    // VITAMIN REMINDER SETTINGS (Backward compatibility)
     // ═══════════════════════════════════════════
 
     /** Bật/tắt nhắc nhở uống vitamin */
@@ -66,4 +65,66 @@ class ReminderPrefs(context: Context) {
     var vitaminMinute: Int
         get() = prefs.getInt("vitamin_minute", 0)
         set(v) = prefs.edit().putInt("vitamin_minute", v).apply()
+
+    // ═══════════════════════════════════════════
+    // CUSTOM REMINDERS SETTINGS
+    // ═══════════════════════════════════════════
+
+    /** Lấy danh sách nhắc nhở tùy chỉnh */
+    var customReminders: List<CustomReminder>
+        get() {
+            val json = prefs.getString("custom_reminders_json", null) ?: return getDefaultReminders()
+            val type = object : TypeToken<List<CustomReminder>>() {}.type
+            return try {
+                Gson().fromJson(json, type) ?: getDefaultReminders()
+            } catch (e: Exception) {
+                getDefaultReminders()
+            }
+        }
+        set(value) {
+            val json = Gson().toJson(value)
+            prefs.edit().putString("custom_reminders_json", json).apply()
+        }
+
+    private fun getDefaultReminders(): List<CustomReminder> {
+        // Tạo một nhắc nhở Vitamin mặc định để di chuyển người dùng cũ mượt mà
+        return listOf(
+            CustomReminder(
+                id = "vitamin",
+                name = "Uống vitamin",
+                hour = vitaminHour,
+                minute = vitaminMinute,
+                enabled = vitaminReminderEnabled
+            )
+        )
+    }
+
+    // ═══════════════════════════════════════════
+    // SLEEP REMINDER SETTINGS
+    // ═══════════════════════════════════════════
+
+    /** Bật/tắt nhắc nhở đi ngủ & thức dậy */
+    var sleepReminderEnabled: Boolean
+        get() = prefs.getBoolean("sleep_reminder_enabled", false)
+        set(v) = prefs.edit().putBoolean("sleep_reminder_enabled", v).apply()
+
+    /** Giờ đi ngủ (0-23, default 22:30) */
+    var bedtimeHour: Int
+        get() = prefs.getInt("bedtime_hour", 22)
+        set(v) = prefs.edit().putInt("bedtime_hour", v).apply()
+
+    /** Phút đi ngủ (0-59, default 30) */
+    var bedtimeMinute: Int
+        get() = prefs.getInt("bedtime_minute", 30)
+        set(v) = prefs.edit().putInt("bedtime_minute", v).apply()
+
+    /** Giờ thức dậy (0-23, default 6:00) */
+    var wakeupHour: Int
+        get() = prefs.getInt("wakeup_hour", 6)
+        set(v) = prefs.edit().putInt("wakeup_hour", v).apply()
+
+    /** Phút thức dậy (0-59, default 0) */
+    var wakeupMinute: Int
+        get() = prefs.getInt("wakeup_minute", 0)
+        set(v) = prefs.edit().putInt("wakeup_minute", v).apply()
 }
