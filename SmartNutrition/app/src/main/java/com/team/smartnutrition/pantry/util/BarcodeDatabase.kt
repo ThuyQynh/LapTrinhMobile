@@ -35,9 +35,7 @@ object BarcodeDatabase {
         "8935049501107" to FoodRecognitionResult("Nước C2 trà chanh", 30, 0),
         "5449000000996" to FoodRecognitionResult("Coca-Cola", 42, 0),
         "8934588062001" to FoodRecognitionResult("Pepsi", 44, 0),
-        "893835231014" to FoodRecognitionResult("Nước yến nha đam 500ml", 40, 0),
-        "0893835231014" to FoodRecognitionResult("Nước yến nha đam 500ml", 40, 0),
-        "8938352310146" to FoodRecognitionResult("Nước yến nha đam 500ml", 40, 0),
+        "8938535231014" to FoodRecognitionResult("Nước yến nha đam 500ml", 40, 0),
 
         // ═══ BÁNH KẸO ═══
         "8934680027205" to FoodRecognitionResult("Bánh Chocopie", 440, 5),
