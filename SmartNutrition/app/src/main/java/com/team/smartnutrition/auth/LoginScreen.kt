@@ -32,10 +32,25 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import android.content.Context
+import android.content.ContextWrapper
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import com.team.smartnutrition.R
 import com.team.smartnutrition.auth.viewmodel.LoginDestination
 import com.team.smartnutrition.auth.viewmodel.LoginViewModel
 import com.team.smartnutrition.navigation.Screen
+
+private fun Context.findActivity(): Activity? {
+    var currentContext = this
+    while (currentContext is ContextWrapper) {
+        if (currentContext is Activity) {
+            return currentContext
+        }
+        currentContext = currentContext.baseContext
+    }
+    return null
+}
 
 /**
  * ═══════════════════════════════════════════
@@ -213,7 +228,7 @@ fun LoginScreen(
             // ═══ Google Sign-In Button ═══
             OutlinedButton(
                 onClick = {
-                    val activity = context as? Activity
+                    val activity = context.findActivity()
                     if (activity != null) {
                         viewModel.signInWithGoogle(activity)
                     }
@@ -224,7 +239,17 @@ fun LoginScreen(
                 shape = RoundedCornerShape(12.dp),
                 enabled = !uiState.isLoading
             ) {
-                Text("🔵  " + stringResource(R.string.google_signin))
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_google),
+                    contentDescription = "Google Logo",
+                    modifier = Modifier.size(20.dp),
+                    tint = Color.Unspecified
+                )
+                Spacer(modifier = Modifier.width(12.dp))
+                Text(
+                    text = stringResource(R.string.google_signin),
+                    style = MaterialTheme.typography.labelLarge
+                )
             }
 
             Spacer(modifier = Modifier.weight(1f))
