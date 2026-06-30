@@ -270,6 +270,35 @@ private fun Step1Content(
             Text("2015", style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant)
         }
+        
+        var birthYearInputText by remember { mutableStateOf(uiState.birthYear.toString()) }
+        LaunchedEffect(uiState.birthYear) {
+            if (birthYearInputText.toIntOrNull() != uiState.birthYear) {
+                birthYearInputText = uiState.birthYear.toString()
+            }
+        }
+        
+        OutlinedTextField(
+            value = birthYearInputText,
+            onValueChange = { newValue ->
+                if (newValue.isEmpty() || newValue.all { it.isDigit() }) {
+                    birthYearInputText = newValue
+                    newValue.toIntOrNull()?.let { year ->
+                        if (year in 1940..2015) {
+                            viewModel.updateBirthYear(year)
+                        }
+                    }
+                }
+            },
+            label = { Text(stringResource(R.string.birth_year_label, uiState.birthYear).substringBefore(":") + " (1940 - 2015)") },
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Number,
+                imeAction = ImeAction.Next
+            ),
+            shape = RoundedCornerShape(12.dp),
+            modifier = Modifier.fillMaxWidth(),
+            singleLine = true
+        )
     }
 }
 
@@ -317,6 +346,21 @@ private fun Step2Content(
     uiState: ProfileSetupUiState,
     viewModel: ProfileSetupViewModel
 ) {
+    var heightInputText by remember { mutableStateOf(uiState.heightCm.toString()) }
+    LaunchedEffect(uiState.heightCm) {
+        if (heightInputText.toIntOrNull() != uiState.heightCm) {
+            heightInputText = uiState.heightCm.toString()
+        }
+    }
+
+    var weightInputText by remember { mutableStateOf("%.1f".format(uiState.weightKg)) }
+    LaunchedEffect(uiState.weightKg) {
+        val currentFloat = weightInputText.toDoubleOrNull() ?: 0.0
+        if (Math.abs(currentFloat - uiState.weightKg) > 0.05) {
+            weightInputText = "%.1f".format(uiState.weightKg)
+        }
+    }
+
     Column(verticalArrangement = Arrangement.spacedBy(24.dp)) {
         Text(
             text = stringResource(R.string.body_metrics_title),
@@ -367,6 +411,33 @@ private fun Step2Content(
                     Text("250 cm", style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
+                Spacer(modifier = Modifier.height(12.dp))
+                OutlinedTextField(
+                    value = heightInputText,
+                    onValueChange = { newValue ->
+                        if (newValue.isEmpty() || newValue.all { it.isDigit() }) {
+                            heightInputText = newValue
+                            newValue.toIntOrNull()?.let { height ->
+                                if (height in 100..250) {
+                                    viewModel.updateHeightCm(height)
+                                }
+                            }
+                        }
+                    },
+                    label = { Text("Nhập chiều cao thủ công") },
+                    suffix = { Text("cm") },
+                    keyboardOptions = KeyboardOptions(
+                        keyboardType = KeyboardType.Number,
+                        imeAction = ImeAction.Next
+                    ),
+                    shape = RoundedCornerShape(12.dp),
+                    modifier = Modifier.fillMaxWidth(),
+                    singleLine = true,
+                    colors = OutlinedTextFieldDefaults.colors(
+                        unfocusedContainerColor = MaterialTheme.colorScheme.surface,
+                        focusedContainerColor = MaterialTheme.colorScheme.surface
+                    )
+                )
             }
         }
 
@@ -413,6 +484,34 @@ private fun Step2Content(
                     Text("200 kg", style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
+                Spacer(modifier = Modifier.height(12.dp))
+                OutlinedTextField(
+                    value = weightInputText,
+                    onValueChange = { newValue ->
+                        val normalized = newValue.replace(',', '.')
+                        if (normalized.isEmpty() || normalized.toDoubleOrNull() != null || normalized == "." || normalized.endsWith(".")) {
+                            weightInputText = newValue
+                            normalized.toDoubleOrNull()?.let { weight ->
+                                if (weight >= 30.0 && weight <= 200.0) {
+                                    viewModel.updateWeightKg(weight)
+                                }
+                            }
+                        }
+                    },
+                    label = { Text("Nhập cân nặng thủ công") },
+                    suffix = { Text("kg") },
+                    keyboardOptions = KeyboardOptions(
+                        keyboardType = KeyboardType.Decimal,
+                        imeAction = ImeAction.Done
+                    ),
+                    shape = RoundedCornerShape(12.dp),
+                    modifier = Modifier.fillMaxWidth(),
+                    singleLine = true,
+                    colors = OutlinedTextFieldDefaults.colors(
+                        unfocusedContainerColor = MaterialTheme.colorScheme.surface,
+                        focusedContainerColor = MaterialTheme.colorScheme.surface
+                    )
+                )
             }
         }
 

@@ -23,6 +23,8 @@ import com.team.smartnutrition.auth.viewmodel.ProfileViewUiState
 import com.team.smartnutrition.auth.viewmodel.ProfileViewViewModel
 import com.team.smartnutrition.auth.viewmodel.activityLevelOptions
 import com.team.smartnutrition.auth.viewmodel.goalOptions
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.ui.text.input.KeyboardType
 import com.team.smartnutrition.common.components.ErrorCard
 import com.team.smartnutrition.common.components.LoadingScreen
 import com.team.smartnutrition.navigation.Screen
@@ -179,6 +181,28 @@ private fun EditProfileContent(uiState: ProfileViewUiState, viewModel: ProfileVi
     val snackbarHostState = remember { SnackbarHostState() }
     LaunchedEffect(uiState.errorMessage) { uiState.errorMessage?.let { snackbarHostState.showSnackbar(it) } }
 
+    var birthYearInputText by remember { mutableStateOf(uiState.editBirthYear.toString()) }
+    LaunchedEffect(uiState.editBirthYear) {
+        if (birthYearInputText.toIntOrNull() != uiState.editBirthYear) {
+            birthYearInputText = uiState.editBirthYear.toString()
+        }
+    }
+
+    var heightInputText by remember { mutableStateOf(uiState.editHeightCm.toString()) }
+    LaunchedEffect(uiState.editHeightCm) {
+        if (heightInputText.toIntOrNull() != uiState.editHeightCm) {
+            heightInputText = uiState.editHeightCm.toString()
+        }
+    }
+
+    var weightInputText by remember { mutableStateOf("%.1f".format(uiState.editWeightKg)) }
+    LaunchedEffect(uiState.editWeightKg) {
+        val currentFloat = weightInputText.toDoubleOrNull() ?: 0.0
+        if (Math.abs(currentFloat - uiState.editWeightKg) > 0.05) {
+            weightInputText = "%.1f".format(uiState.editWeightKg)
+        }
+    }
+
     Scaffold(
         topBar = {
             TopAppBar(title = { Text(stringResource(R.string.edit_profile_title)) },
@@ -206,12 +230,69 @@ private fun EditProfileContent(uiState: ProfileViewUiState, viewModel: ProfileVi
 
             Text(stringResource(R.string.birth_year_label, uiState.editBirthYear), style = MaterialTheme.typography.titleMedium)
             Slider(value = uiState.editBirthYear.toFloat(), onValueChange = { viewModel.updateEditBirthYear(it.toInt()) }, valueRange = 1940f..2015f)
+            OutlinedTextField(
+                value = birthYearInputText,
+                onValueChange = { newValue ->
+                    if (newValue.isEmpty() || newValue.all { it.isDigit() }) {
+                        birthYearInputText = newValue
+                        newValue.toIntOrNull()?.let { year ->
+                            if (year in 1940..2015) {
+                                viewModel.updateEditBirthYear(year)
+                            }
+                        }
+                    }
+                },
+                label = { Text(stringResource(R.string.birth_year_label, uiState.editBirthYear).substringBefore(":") + " (1940 - 2015)") },
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                shape = RoundedCornerShape(12.dp),
+                modifier = Modifier.fillMaxWidth(),
+                singleLine = true
+            )
 
             Text(stringResource(R.string.height_slider_label, uiState.editHeightCm), style = MaterialTheme.typography.titleMedium)
             Slider(value = uiState.editHeightCm.toFloat(), onValueChange = { viewModel.updateEditHeightCm(it.toInt()) }, valueRange = 100f..250f)
+            OutlinedTextField(
+                value = heightInputText,
+                onValueChange = { newValue ->
+                    if (newValue.isEmpty() || newValue.all { it.isDigit() }) {
+                        heightInputText = newValue
+                        newValue.toIntOrNull()?.let { height ->
+                            if (height in 100..250) {
+                                viewModel.updateEditHeightCm(height)
+                            }
+                        }
+                    }
+                },
+                label = { Text("Nhập chiều cao thủ công") },
+                suffix = { Text("cm") },
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                shape = RoundedCornerShape(12.dp),
+                modifier = Modifier.fillMaxWidth(),
+                singleLine = true
+            )
 
             Text(stringResource(R.string.weight_slider_label, uiState.editWeightKg), style = MaterialTheme.typography.titleMedium)
             Slider(value = uiState.editWeightKg.toFloat(), onValueChange = { viewModel.updateEditWeightKg((it * 10).toInt() / 10.0) }, valueRange = 30f..200f)
+            OutlinedTextField(
+                value = weightInputText,
+                onValueChange = { newValue ->
+                    val normalized = newValue.replace(',', '.')
+                    if (normalized.isEmpty() || normalized.toDoubleOrNull() != null || normalized == "." || normalized.endsWith(".")) {
+                        weightInputText = newValue
+                        normalized.toDoubleOrNull()?.let { weight ->
+                            if (weight >= 30.0 && weight <= 200.0) {
+                                viewModel.updateEditWeightKg(weight)
+                            }
+                        }
+                    }
+                },
+                label = { Text("Nhập cân nặng thủ công") },
+                suffix = { Text("kg") },
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
+                shape = RoundedCornerShape(12.dp),
+                modifier = Modifier.fillMaxWidth(),
+                singleLine = true
+            )
 
             Text(stringResource(R.string.goal_label), style = MaterialTheme.typography.titleMedium)
             goalOptions.forEach { option ->

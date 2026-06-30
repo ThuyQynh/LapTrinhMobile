@@ -2,6 +2,7 @@
 .idea
 *.iml
 .gradle
+.kotlin/
 /local.properties
 /.idea/caches
 /.idea/libraries
@@ -10,6 +11,7 @@
 /.idea/navEditor.xml
 /.idea/assetWizardSettings.xml
 .DS_Store
+Thumbs.db
 /build
 /captures
 .externalNativeBuild
@@ -17,6 +19,15 @@
 local.properties
 /app/build
 /app/release
+
+# Built artifacts
+*.apk
+*.aar
+*.ap_
+*.aab
+
+# Log files
+*.log
 
 # Google Services (chứa API keys - KHÔNG push lên GitHub)
 google-services.json
