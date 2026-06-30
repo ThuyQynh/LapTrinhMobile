@@ -447,6 +447,70 @@ class MealPlanViewModel : ViewModel() {
         }
     }
 
+    /**
+     * Cập nhật món ăn bằng tay (không qua AI) và tự tính lại Calo + Protein toàn bộ thực đơn.
+     */
+    fun updateMealManually(
+        dayIndex: Int,
+        mealType: String,
+        name: String,
+        calories: Int,
+        protein: Int,
+        ingredients: List<Ingredient>,
+        recipe: String
+    ) {
+        val uid = mealRepository.currentUid ?: return
+        val currentPlan = _uiState.value.mealPlan ?: return
+        val day = currentPlan.days.getOrNull(dayIndex) ?: return
+        val meal = day.meals[mealType] ?: return
+
+        viewModelScope.launch {
+            try {
+                val updatedMeal = meal.copy(
+                    name = name,
+                    totalCalories = calories,
+                    totalProtein = protein,
+                    ingredients = ingredients,
+                    recipe = recipe
+                )
+
+                val updatedMeals = day.meals.toMutableMap().apply {
+                    put(mealType, updatedMeal)
+                }
+
+                val updatedDay = day.copy(
+                    meals = updatedMeals,
+                    totalCalories = updatedMeals.values.sumOf { it.totalCalories },
+                    totalProtein = updatedMeals.values.sumOf { it.totalProtein }
+                )
+
+                val updatedDays = currentPlan.days.toMutableList().apply {
+                    set(dayIndex, updatedDay)
+                }
+
+                val updatedPlan = currentPlan.copy(
+                    days = updatedDays,
+                    totalCalories = updatedDays.sumOf { it.totalCalories }
+                )
+
+                // Lưu vào database
+                mealRepository.saveMealPlan(uid, updatedPlan)
+
+                // Cập nhật UI State
+                _uiState.update {
+                    it.copy(
+                        mealPlan = updatedPlan,
+                        errorMessage = null
+                    )
+                }
+            } catch (e: Exception) {
+                _uiState.update {
+                    it.copy(errorMessage = "Lỗi khi lưu món ăn: ${e.message}")
+                }
+            }
+        }
+    }
+
     // ═══════════════════════════════════════════════════
     // HELPER PROPERTIES
     // ═══════════════════════════════════════════════════
