@@ -27,6 +27,7 @@ object BarcodeDatabase {
         "8934673583237" to FoodRecognitionResult("Sữa Vinamilk không đường", 46, 3),
         "8936036020427" to FoodRecognitionResult("Sữa TH True Milk", 63, 3),
         "8934804019529" to FoodRecognitionResult("Sữa đậu nành Fami", 42, 3),
+        "8934673573344" to FoodRecognitionResult("Sữa tươi Vinamilk có đường 180ml", 76, 3),
 
         // ═══ NƯỚC GIẢI KHÁT ═══
         "8935049500100" to FoodRecognitionResult("Trà xanh Không Độ", 18, 0),
@@ -34,6 +35,9 @@ object BarcodeDatabase {
         "8935049501107" to FoodRecognitionResult("Nước C2 trà chanh", 30, 0),
         "5449000000996" to FoodRecognitionResult("Coca-Cola", 42, 0),
         "8934588062001" to FoodRecognitionResult("Pepsi", 44, 0),
+        "893835231014" to FoodRecognitionResult("Nước yến nha đam 500ml", 40, 0),
+        "0893835231014" to FoodRecognitionResult("Nước yến nha đam 500ml", 40, 0),
+        "8938352310146" to FoodRecognitionResult("Nước yến nha đam 500ml", 40, 0),
 
         // ═══ BÁNH KẸO ═══
         "8934680027205" to FoodRecognitionResult("Bánh Chocopie", 440, 5),
