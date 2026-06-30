@@ -23,6 +23,8 @@ class SleepReminderReceiver : BroadcastReceiver() {
         val action = intent.action ?: return
         Log.d("SleepReminderReceiver", "Triggered action: $action")
 
+        if (action != ACTION_BEDTIME) return
+
         // 1. Tạo Notification Channel
         createNotificationChannel(context)
 
@@ -36,27 +38,14 @@ class SleepReminderReceiver : BroadcastReceiver() {
         )
 
         // 3. Build Notification
-        val notificationBuilder = NotificationCompat.Builder(context, CHANNEL_ID)
+        val notification = NotificationCompat.Builder(context, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_launcher_foreground)
             .setAutoCancel(true)
             .setContentIntent(openAppPendingIntent)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
-
-        val notificationId = when (action) {
-            ACTION_BEDTIME -> {
-                notificationBuilder
-                    .setContentTitle("🌙 Đến giờ đi ngủ rồi!")
-                    .setContentText("Hãy chuẩn bị nghỉ ngơi để bảo vệ sức khỏe và phục hồi năng lượng nhé.")
-                NOTIFICATION_ID_BEDTIME
-            }
-            ACTION_WAKEUP -> {
-                notificationBuilder
-                    .setContentTitle("⏰ Chào ngày mới!")
-                    .setContentText("Đã đến giờ thức dậy rồi, chúc bạn một ngày mới đầy năng lượng và năng suất!")
-                NOTIFICATION_ID_WAKEUP
-            }
-            else -> return
-        }
+            .setContentTitle("🌙 Đến giờ đi ngủ rồi!")
+            .setContentText("Hãy chuẩn bị nghỉ ngơi để bảo vệ sức khỏe và phục hồi năng lượng nhé.")
+            .build()
 
         // 4. Hiển thị Notification
         if (Build.VERSION.SDK_INT < 33 ||
@@ -64,20 +53,13 @@ class SleepReminderReceiver : BroadcastReceiver() {
                 context, android.Manifest.permission.POST_NOTIFICATIONS
             ) == PackageManager.PERMISSION_GRANTED
         ) {
-            NotificationManagerCompat.from(context).notify(notificationId, notificationBuilder.build())
+            NotificationManagerCompat.from(context).notify(NOTIFICATION_ID_BEDTIME, notification)
         }
 
         // 5. Tự động đặt lại lịch cho ngày mai
         val prefs = ReminderPrefs(context)
         if (prefs.sleepReminderEnabled) {
-            when (action) {
-                ACTION_BEDTIME -> {
-                    AlarmScheduler.scheduleNextBedtimeAlarm(context, prefs.bedtimeHour, prefs.bedtimeMinute)
-                }
-                ACTION_WAKEUP -> {
-                    AlarmScheduler.scheduleNextWakeupAlarm(context, prefs.wakeupHour, prefs.wakeupMinute)
-                }
-            }
+            AlarmScheduler.scheduleNextBedtimeAlarm(context, prefs.bedtimeHour, prefs.bedtimeMinute)
         }
     }
 
@@ -85,10 +67,10 @@ class SleepReminderReceiver : BroadcastReceiver() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
                 CHANNEL_ID,
-                "Hẹn giờ ngủ & Thức dậy",
+                "Nhắc nhở đi ngủ",
                 NotificationManager.IMPORTANCE_HIGH
             ).apply {
-                description = "Nhận thông báo nhắc nhở đi ngủ và báo thức dậy hàng ngày"
+                description = "Nhận thông báo nhắc nhở đi ngủ hàng ngày"
             }
             context.getSystemService(NotificationManager::class.java)
                 .createNotificationChannel(channel)
@@ -98,8 +80,6 @@ class SleepReminderReceiver : BroadcastReceiver() {
     companion object {
         const val CHANNEL_ID = "sleep_reminder_channel"
         const val ACTION_BEDTIME = "com.team.smartnutrition.ACTION_BEDTIME"
-        const val ACTION_WAKEUP = "com.team.smartnutrition.ACTION_WAKEUP"
         const val NOTIFICATION_ID_BEDTIME = 4000
-        const val NOTIFICATION_ID_WAKEUP = 4001
     }
 }

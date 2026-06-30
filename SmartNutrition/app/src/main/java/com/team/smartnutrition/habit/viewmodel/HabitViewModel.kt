@@ -44,9 +44,7 @@ data class HabitUiState(
     // === Sleep alarm timer settings ===
     val sleepReminderEnabled: Boolean = false,
     val bedtimeHour: Int = 22,
-    val bedtimeMinute: Int = 30,
-    val wakeupHour: Int = 6,
-    val wakeupMinute: Int = 0
+    val bedtimeMinute: Int = 30
 )
 
 /**
@@ -205,47 +203,39 @@ class HabitViewModel(application: Application) : AndroidViewModel(application) {
     // SLEEP REMINDER SETTINGS ACTIONS
     // ═══════════════════════════════════════════════════
 
-    /** Bật/tắt nhắc nhở đi ngủ & thức dậy */
+    /** Bật/tắt nhắc nhở đi ngủ */
     fun setSleepReminderEnabled(enabled: Boolean) {
         prefs.sleepReminderEnabled = enabled
         _uiState.update { it.copy(sleepReminderEnabled = enabled) }
 
         val context = getApplication<Application>()
         if (enabled) {
-            AlarmScheduler.scheduleSleepAlarms(
+            AlarmScheduler.scheduleSleepAlarm(
                 context,
                 prefs.bedtimeHour,
-                prefs.bedtimeMinute,
-                prefs.wakeupHour,
-                prefs.wakeupMinute
+                prefs.bedtimeMinute
             )
         } else {
-            AlarmScheduler.cancelSleepAlarms(context)
+            AlarmScheduler.cancelSleepAlarm(context)
         }
     }
 
-    /** Cập nhật giờ ngủ & thức dậy */
-    fun updateSleepSettings(bedtimeHour: Int, bedtimeMinute: Int, wakeupHour: Int, wakeupMinute: Int) {
+    /** Cập nhật giờ ngủ */
+    fun updateSleepSettings(bedtimeHour: Int, bedtimeMinute: Int) {
         prefs.bedtimeHour = bedtimeHour
         prefs.bedtimeMinute = bedtimeMinute
-        prefs.wakeupHour = wakeupHour
-        prefs.wakeupMinute = wakeupMinute
         _uiState.update {
             it.copy(
                 bedtimeHour = bedtimeHour,
-                bedtimeMinute = bedtimeMinute,
-                wakeupHour = wakeupHour,
-                wakeupMinute = wakeupMinute
+                bedtimeMinute = bedtimeMinute
             )
         }
 
         if (prefs.sleepReminderEnabled) {
-            AlarmScheduler.scheduleSleepAlarms(
+            AlarmScheduler.scheduleSleepAlarm(
                 getApplication(),
                 bedtimeHour,
-                bedtimeMinute,
-                wakeupHour,
-                wakeupMinute
+                bedtimeMinute
             )
         }
     }
@@ -398,11 +388,14 @@ class HabitViewModel(application: Application) : AndroidViewModel(application) {
                 customReminders = prefs.customReminders,
                 sleepReminderEnabled = prefs.sleepReminderEnabled,
                 bedtimeHour = prefs.bedtimeHour,
-                bedtimeMinute = prefs.bedtimeMinute,
-                wakeupHour = prefs.wakeupHour,
-                wakeupMinute = prefs.wakeupMinute
+                bedtimeMinute = prefs.bedtimeMinute
             )
         }
+    }
+
+    /** Refresh các cài đặt từ SharedPreferences vào UI state */
+    fun refreshReminderSettings() {
+        loadReminderSettings()
     }
 
     /** Reschedule water alarms nếu đang bật. */

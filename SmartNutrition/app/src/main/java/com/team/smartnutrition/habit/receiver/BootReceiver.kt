@@ -62,16 +62,14 @@ class BootReceiver : BroadcastReceiver() {
             }
         }
 
-        // Khôi phục các báo thức ngủ & thức dậy
+        // Khôi phục báo thức đi ngủ
         if (prefs.sleepReminderEnabled) {
-            AlarmScheduler.scheduleSleepAlarms(
+            AlarmScheduler.scheduleSleepAlarm(
                 context,
                 prefs.bedtimeHour,
-                prefs.bedtimeMinute,
-                prefs.wakeupHour,
-                prefs.wakeupMinute
+                prefs.bedtimeMinute
             )
-            Log.d("BootReceiver", "Sleep alarms restored: Bedtime ${prefs.bedtimeHour}:${prefs.bedtimeMinute}, Wakeup ${prefs.wakeupHour}:${prefs.wakeupMinute}")
+            Log.d("BootReceiver", "Bedtime alarm restored: ${prefs.bedtimeHour}:${prefs.bedtimeMinute}")
         }
     }
 }

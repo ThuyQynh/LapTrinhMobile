@@ -351,20 +351,19 @@ object AlarmScheduler {
     }
 
     // ═══════════════════════════════════════════════════
-    // SLEEP ALARM TIMER (Bedtime & Wakeup)
+    // SLEEP REMINDER (Bedtime only)
     // ═══════════════════════════════════════════════════
 
-    fun scheduleSleepAlarms(context: Context, bedtimeHour: Int, bedtimeMinute: Int, wakeupHour: Int, wakeupMinute: Int) {
-        cancelSleepAlarms(context)
+    fun scheduleSleepAlarm(context: Context, bedtimeHour: Int, bedtimeMinute: Int) {
+        cancelSleepAlarm(context)
 
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && !alarmManager.canScheduleExactAlarms()) {
-            Log.w(TAG, "Cannot schedule exact alarms for sleep — permission not granted")
+            Log.w(TAG, "Cannot schedule exact alarms for bedtime — permission not granted")
             return
         }
 
-        // 1. Bedtime alarm
         val bedtimeCalendar = Calendar.getInstance().apply {
             set(Calendar.HOUR_OF_DAY, bedtimeHour)
             set(Calendar.MINUTE, bedtimeMinute)
@@ -389,38 +388,12 @@ object AlarmScheduler {
             bedtimePending
         )
 
-        // 2. Wakeup alarm
-        val wakeupCalendar = Calendar.getInstance().apply {
-            set(Calendar.HOUR_OF_DAY, wakeupHour)
-            set(Calendar.MINUTE, wakeupMinute)
-            set(Calendar.SECOND, 0)
-            set(Calendar.MILLISECOND, 0)
-            if (timeInMillis <= System.currentTimeMillis()) {
-                add(Calendar.DAY_OF_YEAR, 1)
-            }
-        }
-
-        val wakeupIntent = Intent(context, com.team.smartnutrition.habit.receiver.SleepReminderReceiver::class.java).apply {
-            action = com.team.smartnutrition.habit.receiver.SleepReminderReceiver.ACTION_WAKEUP
-        }
-        val wakeupPending = PendingIntent.getBroadcast(
-            context, com.team.smartnutrition.habit.receiver.SleepReminderReceiver.NOTIFICATION_ID_WAKEUP, wakeupIntent,
-            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
-        )
-
-        alarmManager.setExactAndAllowWhileIdle(
-            AlarmManager.RTC_WAKEUP,
-            wakeupCalendar.timeInMillis,
-            wakeupPending
-        )
-
-        Log.d(TAG, "Sleep alarms scheduled: Bedtime at $bedtimeHour:$bedtimeMinute, Wakeup at $wakeupHour:$wakeupMinute")
+        Log.d(TAG, "Bedtime alarm scheduled at $bedtimeHour:$bedtimeMinute")
     }
 
-    fun cancelSleepAlarms(context: Context) {
+    fun cancelSleepAlarm(context: Context) {
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
-        // Bedtime
         val bedtimeIntent = Intent(context, com.team.smartnutrition.habit.receiver.SleepReminderReceiver::class.java).apply {
             action = com.team.smartnutrition.habit.receiver.SleepReminderReceiver.ACTION_BEDTIME
         }
@@ -433,20 +406,7 @@ object AlarmScheduler {
             it.cancel()
         }
 
-        // Wakeup
-        val wakeupIntent = Intent(context, com.team.smartnutrition.habit.receiver.SleepReminderReceiver::class.java).apply {
-            action = com.team.smartnutrition.habit.receiver.SleepReminderReceiver.ACTION_WAKEUP
-        }
-        val wakeupPending = PendingIntent.getBroadcast(
-            context, com.team.smartnutrition.habit.receiver.SleepReminderReceiver.NOTIFICATION_ID_WAKEUP, wakeupIntent,
-            PendingIntent.FLAG_NO_CREATE or PendingIntent.FLAG_IMMUTABLE
-        )
-        wakeupPending?.let {
-            alarmManager.cancel(it)
-            it.cancel()
-        }
-
-        Log.d(TAG, "Sleep alarms cancelled")
+        Log.d(TAG, "Bedtime alarm cancelled")
     }
 
     fun scheduleNextBedtimeAlarm(context: Context, hour: Int, minute: Int) {
@@ -475,33 +435,5 @@ object AlarmScheduler {
             pendingIntent
         )
         Log.d(TAG, "Next Bedtime alarm scheduled: tomorrow at $hour:$minute")
-    }
-
-    fun scheduleNextWakeupAlarm(context: Context, hour: Int, minute: Int) {
-        val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && !alarmManager.canScheduleExactAlarms()) return
-
-        val calendar = Calendar.getInstance().apply {
-            add(Calendar.DAY_OF_YEAR, 1)
-            set(Calendar.HOUR_OF_DAY, hour)
-            set(Calendar.MINUTE, minute)
-            set(Calendar.SECOND, 0)
-            set(Calendar.MILLISECOND, 0)
-        }
-
-        val intent = Intent(context, com.team.smartnutrition.habit.receiver.SleepReminderReceiver::class.java).apply {
-            action = com.team.smartnutrition.habit.receiver.SleepReminderReceiver.ACTION_WAKEUP
-        }
-        val pendingIntent = PendingIntent.getBroadcast(
-            context, com.team.smartnutrition.habit.receiver.SleepReminderReceiver.NOTIFICATION_ID_WAKEUP, intent,
-            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
-        )
-
-        alarmManager.setExactAndAllowWhileIdle(
-            AlarmManager.RTC_WAKEUP,
-            calendar.timeInMillis,
-            pendingIntent
-        )
-        Log.d(TAG, "Next Wakeup alarm scheduled: tomorrow at $hour:$minute")
     }
 }

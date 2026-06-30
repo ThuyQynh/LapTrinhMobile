@@ -47,6 +47,10 @@ fun HabitDashboardScreen(
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
+    LaunchedEffect(Unit) {
+        viewModel.refreshReminderSettings()
+    }
+
     Box(modifier = Modifier.fillMaxSize()) {
         when {
             uiState.isLoading -> LoadingScreen(stringResource(R.string.loading_habits))
@@ -55,8 +59,8 @@ fun HabitDashboardScreen(
                 onAddWater = { viewModel.addWaterCup() },
                 onRemoveWater = { viewModel.removeWaterCup() },
                 onSleepEnabledChanged = { viewModel.setSleepReminderEnabled(it) },
-                onSleepSettingsChanged = { bHour, bMin, wHour, wMin ->
-                    viewModel.updateSleepSettings(bHour, bMin, wHour, wMin)
+                onSleepSettingsChanged = { bHour, bMin ->
+                    viewModel.updateSleepSettings(bHour, bMin)
                 },
                 onToggleReminder = { viewModel.toggleReminderCompleted(it) },
                 onSettingsClick = { navController.navigate(Screen.ReminderSettings.route) }
@@ -105,7 +109,7 @@ private fun HabitDashboardContent(
     onAddWater: () -> Unit,
     onRemoveWater: () -> Unit,
     onSleepEnabledChanged: (Boolean) -> Unit,
-    onSleepSettingsChanged: (Int, Int, Int, Int) -> Unit,
+    onSleepSettingsChanged: (Int, Int) -> Unit,
     onToggleReminder: (String) -> Unit,
     onSettingsClick: () -> Unit
 ) {
@@ -132,13 +136,11 @@ private fun HabitDashboardContent(
             onRemove = onRemoveWater
         )
 
-        // Hẹn giờ ngủ (Thay thế thanh trượt giờ ngủ cũ)
+        // Nhắc nhở đi ngủ (Thay thế thanh trượt giờ ngủ cũ)
         SleepAlarmSection(
             enabled = uiState.sleepReminderEnabled,
             bedtimeHour = uiState.bedtimeHour,
             bedtimeMinute = uiState.bedtimeMinute,
-            wakeupHour = uiState.wakeupHour,
-            wakeupMinute = uiState.wakeupMinute,
             onEnabledChanged = onSleepEnabledChanged,
             onSettingsChanged = onSleepSettingsChanged
         )
@@ -294,10 +296,8 @@ private fun SleepAlarmSection(
     enabled: Boolean,
     bedtimeHour: Int,
     bedtimeMinute: Int,
-    wakeupHour: Int,
-    wakeupMinute: Int,
     onEnabledChanged: (Boolean) -> Unit,
-    onSettingsChanged: (Int, Int, Int, Int) -> Unit
+    onSettingsChanged: (Int, Int) -> Unit
 ) {
     var showSetupDialog by remember { mutableStateOf(false) }
 
@@ -318,9 +318,9 @@ private fun SleepAlarmSection(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    Text("🛌 ", style = MaterialTheme.typography.titleMedium)
+                    Text("🌙 ", style = MaterialTheme.typography.titleMedium)
                     Text(
-                        text = "Hẹn giờ giấc ngủ",
+                        text = "Nhắc nhở đi ngủ",
                         style = MaterialTheme.typography.titleMedium,
                         fontWeight = FontWeight.SemiBold
                     )
@@ -334,55 +334,24 @@ private fun SleepAlarmSection(
 
             Spacer(Modifier.height(16.dp))
 
-            // Times Display row
+            // Time Display row
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceEvenly,
+                horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                // Bedtime Column
                 Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    modifier = Modifier.weight(1f)
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
-                        text = "🌙 Giờ đi ngủ",
+                        text = "Thời gian nhắc đi ngủ hằng ngày",
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                     Spacer(Modifier.height(4.dp))
                     Text(
                         text = String.format("%02d:%02d", bedtimeHour, bedtimeMinute),
-                        style = MaterialTheme.typography.titleLarge,
-                        fontWeight = FontWeight.Bold,
-                        color = if (enabled) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f)
-                    )
-                }
-
-                // Divider line
-                Box(
-                    modifier = Modifier
-                        .height(40.dp)
-                        .width(1.dp)
-                        .padding(horizontal = 2.dp)
-                ) {
-                    VerticalDivider(color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.2f))
-                }
-
-                // Wakeup Column
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    modifier = Modifier.weight(1f)
-                ) {
-                    Text(
-                        text = "⏰ Giờ thức dậy",
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                    Spacer(Modifier.height(4.dp))
-                    Text(
-                        text = String.format("%02d:%02d", wakeupHour, wakeupMinute),
-                        style = MaterialTheme.typography.titleLarge,
+                        style = MaterialTheme.typography.displaySmall,
                         fontWeight = FontWeight.Bold,
                         color = if (enabled) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f)
                     )
@@ -397,7 +366,7 @@ private fun SleepAlarmSection(
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(12.dp)
             ) {
-                Text("⚙️ Cài đặt giờ ngủ")
+                Text("⚙️ Thiết lập giờ nhắc ngủ")
             }
         }
     }
@@ -406,10 +375,8 @@ private fun SleepAlarmSection(
         SleepSetupDialog(
             currentBedtimeHour = bedtimeHour,
             currentBedtimeMinute = bedtimeMinute,
-            currentWakeupHour = wakeupHour,
-            currentWakeupMinute = wakeupMinute,
-            onConfirm = { bHour, bMin, wHour, wMin ->
-                onSettingsChanged(bHour, bMin, wHour, wMin)
+            onConfirm = { bHour, bMin ->
+                onSettingsChanged(bHour, bMin)
                 showSetupDialog = false
             },
             onDismiss = { showSetupDialog = false }
@@ -425,22 +392,17 @@ private fun SleepAlarmSection(
 private fun SleepSetupDialog(
     currentBedtimeHour: Int,
     currentBedtimeMinute: Int,
-    currentWakeupHour: Int,
-    currentWakeupMinute: Int,
-    onConfirm: (Int, Int, Int, Int) -> Unit,
+    onConfirm: (Int, Int) -> Unit,
     onDismiss: () -> Unit
 ) {
     var bedtimeHour by remember { mutableStateOf(currentBedtimeHour) }
     var bedtimeMinute by remember { mutableStateOf(currentBedtimeMinute) }
-    var wakeupHour by remember { mutableStateOf(currentWakeupHour) }
-    var wakeupMinute by remember { mutableStateOf(currentWakeupMinute) }
 
     var showBedtimePicker by remember { mutableStateOf(false) }
-    var showWakeupPicker by remember { mutableStateOf(false) }
 
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text("Thiết lập giờ ngủ & thức dậy") },
+        title = { Text("Thiết lập giờ nhắc đi ngủ") },
         text = {
             Column(
                 modifier = Modifier
@@ -460,24 +422,11 @@ private fun SleepSetupDialog(
                         Text(String.format("%02d:%02d", bedtimeHour, bedtimeMinute), style = MaterialTheme.typography.titleMedium)
                     }
                 }
-
-                // Wakeup picker trigger
-                Column {
-                    Text("⏰ Giờ thức dậy:", style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.Medium)
-                    Spacer(Modifier.height(8.dp))
-                    OutlinedButton(
-                        onClick = { showWakeupPicker = true },
-                        modifier = Modifier.fillMaxWidth(),
-                        shape = RoundedCornerShape(12.dp)
-                    ) {
-                        Text(String.format("%02d:%02d", wakeupHour, wakeupMinute), style = MaterialTheme.typography.titleMedium)
-                    }
-                }
             }
         },
         confirmButton = {
             TextButton(
-                onClick = { onConfirm(bedtimeHour, bedtimeMinute, wakeupHour, wakeupMinute) }
+                onClick = { onConfirm(bedtimeHour, bedtimeMinute) }
             ) {
                 Text("Lưu")
             }
@@ -499,19 +448,6 @@ private fun SleepSetupDialog(
                 showBedtimePicker = false
             },
             onDismiss = { showBedtimePicker = false }
-        )
-    }
-
-    if (showWakeupPicker) {
-        TimePickerDialogHelper(
-            initialHour = wakeupHour,
-            initialMinute = wakeupMinute,
-            onConfirm = { h, m ->
-                wakeupHour = h
-                wakeupMinute = m
-                showWakeupPicker = false
-            },
-            onDismiss = { showWakeupPicker = false }
         )
     }
 }

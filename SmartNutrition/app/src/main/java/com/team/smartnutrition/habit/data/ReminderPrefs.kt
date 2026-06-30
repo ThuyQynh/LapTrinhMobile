@@ -117,14 +117,4 @@ class ReminderPrefs(context: Context) {
     var bedtimeMinute: Int
         get() = prefs.getInt("bedtime_minute", 30)
         set(v) = prefs.edit().putInt("bedtime_minute", v).apply()
-
-    /** Giờ thức dậy (0-23, default 6:00) */
-    var wakeupHour: Int
-        get() = prefs.getInt("wakeup_hour", 6)
-        set(v) = prefs.edit().putInt("wakeup_hour", v).apply()
-
-    /** Phút thức dậy (0-59, default 0) */
-    var wakeupMinute: Int
-        get() = prefs.getInt("wakeup_minute", 0)
-        set(v) = prefs.edit().putInt("wakeup_minute", v).apply()
 }
