@@ -114,4 +114,33 @@ class HabitRepository {
             updatedAt = data["updatedAt"] as? Timestamp
         )
     }
+
+    // ═══ SETTINGS PERSISTENCE ═══
+
+    /**
+     * Lưu cài đặt nhắc nhở thói quen lên Firestore.
+     */
+    fun saveReminderSettings(uid: String, settings: Map<String, Any?>) {
+        firestore.collection("users").document(uid).collection("habitSettings").document("reminders").set(settings)
+    }
+
+    /**
+     * Tải cài đặt nhắc nhở thói quen từ Firestore.
+     */
+    suspend fun getReminderSettings(uid: String): Map<String, Any?>? {
+        val ref = firestore.collection("users").document(uid).collection("habitSettings").document("reminders")
+        return try {
+            val doc = withTimeout(3000) {
+                ref.get().await()
+            }
+            if (doc.exists()) doc.data else null
+        } catch (e: Exception) {
+            try {
+                val doc = ref.get(Source.CACHE).await()
+                if (doc.exists()) doc.data else null
+            } catch (e2: Exception) {
+                null
+            }
+        }
+    }
 }

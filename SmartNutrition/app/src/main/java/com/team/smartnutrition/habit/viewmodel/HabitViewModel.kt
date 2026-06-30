@@ -1,8 +1,12 @@
 package com.team.smartnutrition.habit.viewmodel
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.Timestamp
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.team.smartnutrition.habit.data.HabitRepository
 import com.team.smartnutrition.habit.data.ReminderPrefs
 import com.team.smartnutrition.habit.model.HabitDay
@@ -63,6 +67,7 @@ class HabitViewModel(application: Application) : AndroidViewModel(application) {
     init {
         loadReminderSettings()
         loadTodayHabit()
+        syncSettingsFromCloud()
     }
 
     // ═══════════════════════════════════════════════════
@@ -135,6 +140,7 @@ class HabitViewModel(application: Application) : AndroidViewModel(application) {
         _uiState.update { it.copy(customReminders = list) }
 
         AlarmScheduler.scheduleCustomReminderAlarm(getApplication(), newReminder)
+        syncSettingsToCloud()
     }
 
     /** Cập nhật nhắc nhở tùy chỉnh */
@@ -150,6 +156,7 @@ class HabitViewModel(application: Application) : AndroidViewModel(application) {
         } else {
             AlarmScheduler.cancelCustomReminderAlarm(getApplication(), reminder.id)
         }
+        syncSettingsToCloud()
     }
 
     /** Xóa nhắc nhở tùy chỉnh */
@@ -159,6 +166,7 @@ class HabitViewModel(application: Application) : AndroidViewModel(application) {
         _uiState.update { it.copy(customReminders = list) }
 
         AlarmScheduler.cancelCustomReminderAlarm(getApplication(), reminderId)
+        syncSettingsToCloud()
     }
 
     /** Bật/Tắt nhắc nhở tùy chỉnh */
@@ -175,6 +183,7 @@ class HabitViewModel(application: Application) : AndroidViewModel(application) {
         } else {
             AlarmScheduler.cancelCustomReminderAlarm(getApplication(), reminderId)
         }
+        syncSettingsToCloud()
     }
 
     /** Check/Uncheck hoàn thành thói quen hôm nay trên Dashboard */
@@ -218,6 +227,7 @@ class HabitViewModel(application: Application) : AndroidViewModel(application) {
         } else {
             AlarmScheduler.cancelSleepAlarm(context)
         }
+        syncSettingsToCloud()
     }
 
     /** Cập nhật giờ ngủ */
@@ -238,6 +248,7 @@ class HabitViewModel(application: Application) : AndroidViewModel(application) {
                 bedtimeMinute
             )
         }
+        syncSettingsToCloud()
     }
 
     // ═══════════════════════════════════════════════════
@@ -258,6 +269,7 @@ class HabitViewModel(application: Application) : AndroidViewModel(application) {
         } else {
             AlarmScheduler.cancelWaterAlarms(context)
         }
+        syncSettingsToCloud()
     }
 
     /** Đổi interval nhắc nước: 1h, 2h, 3h. */
@@ -265,6 +277,7 @@ class HabitViewModel(application: Application) : AndroidViewModel(application) {
         prefs.waterIntervalHours = hours
         _uiState.update { it.copy(waterIntervalHours = hours) }
         rescheduleWaterIfEnabled()
+        syncSettingsToCloud()
     }
 
     /** Đổi giờ bắt đầu nhắc nước. */
@@ -272,6 +285,7 @@ class HabitViewModel(application: Application) : AndroidViewModel(application) {
         prefs.waterStartHour = hour
         _uiState.update { it.copy(waterStartHour = hour) }
         rescheduleWaterIfEnabled()
+        syncSettingsToCloud()
     }
 
     /** Đổi giờ kết thúc nhắc nước. */
@@ -279,6 +293,7 @@ class HabitViewModel(application: Application) : AndroidViewModel(application) {
         prefs.waterEndHour = hour
         _uiState.update { it.copy(waterEndHour = hour) }
         rescheduleWaterIfEnabled()
+        syncSettingsToCloud()
     }
 
     /** Đổi mục tiêu cốc nước/ngày. */
@@ -292,6 +307,7 @@ class HabitViewModel(application: Application) : AndroidViewModel(application) {
         val updated = current.copy(waterGoal = cups)
         _uiState.update { it.copy(habitDay = updated) }
         repository.saveHabitDay(uid, updated)
+        syncSettingsToCloud()
     }
 
     /** Bật/tắt nhắc nhở uống vitamin (Tương thích ngược). */
@@ -312,6 +328,7 @@ class HabitViewModel(application: Application) : AndroidViewModel(application) {
         }
         prefs.customReminders = list
         _uiState.update { it.copy(customReminders = list) }
+        syncSettingsToCloud()
     }
 
     /** Đổi giờ nhắc vitamin (Tương thích ngược). */
@@ -330,6 +347,7 @@ class HabitViewModel(application: Application) : AndroidViewModel(application) {
         }
         prefs.customReminders = list
         _uiState.update { it.copy(customReminders = list) }
+        syncSettingsToCloud()
     }
 
     // ═══════════════════════════════════════════════════
@@ -396,6 +414,7 @@ class HabitViewModel(application: Application) : AndroidViewModel(application) {
     /** Refresh các cài đặt từ SharedPreferences vào UI state */
     fun refreshReminderSettings() {
         loadReminderSettings()
+        syncSettingsFromCloud()
     }
 
     /** Reschedule water alarms nếu đang bật. */
@@ -407,6 +426,103 @@ class HabitViewModel(application: Application) : AndroidViewModel(application) {
                 prefs.waterStartHour,
                 prefs.waterEndHour
             )
+        }
+    }
+
+    // ═══════════════════════════════════════════════════
+    // CLOUD SYNCHRONIZATION HELPERS
+    // ═══════════════════════════════════════════════════
+
+    private fun syncSettingsToCloud() {
+        val uid = repository.currentUid ?: return
+        val settingsMap = mapOf(
+            "waterReminderEnabled" to prefs.waterReminderEnabled,
+            "waterIntervalHours" to prefs.waterIntervalHours,
+            "waterStartHour" to prefs.waterStartHour,
+            "waterEndHour" to prefs.waterEndHour,
+            "waterGoal" to prefs.waterGoal,
+            "vitaminReminderEnabled" to prefs.vitaminReminderEnabled,
+            "vitaminHour" to prefs.vitaminHour,
+            "vitaminMinute" to prefs.vitaminMinute,
+            "customRemindersJson" to Gson().toJson(prefs.customReminders),
+            "sleepReminderEnabled" to prefs.sleepReminderEnabled,
+            "bedtimeHour" to prefs.bedtimeHour,
+            "bedtimeMinute" to prefs.bedtimeMinute,
+            "updatedAt" to Timestamp.now()
+        )
+        repository.saveReminderSettings(uid, settingsMap)
+    }
+
+    private fun syncSettingsFromCloud() {
+        val uid = repository.currentUid ?: return
+        viewModelScope.launch {
+            try {
+                val cloudSettings = repository.getReminderSettings(uid)
+                if (cloudSettings != null) {
+                    (cloudSettings["waterReminderEnabled"] as? Boolean)?.let { prefs.waterReminderEnabled = it }
+                    (cloudSettings["waterIntervalHours"] as? Number)?.toInt()?.let { prefs.waterIntervalHours = it }
+                    (cloudSettings["waterStartHour"] as? Number)?.toInt()?.let { prefs.waterStartHour = it }
+                    (cloudSettings["waterEndHour"] as? Number)?.toInt()?.let { prefs.waterEndHour = it }
+                    (cloudSettings["waterGoal"] as? Number)?.toInt()?.let { prefs.waterGoal = it }
+                    (cloudSettings["vitaminReminderEnabled"] as? Boolean)?.let { prefs.vitaminReminderEnabled = it }
+                    (cloudSettings["vitaminHour"] as? Number)?.toInt()?.let { prefs.vitaminHour = it }
+                    (cloudSettings["vitaminMinute"] as? Number)?.toInt()?.let { prefs.vitaminMinute = it }
+                    (cloudSettings["sleepReminderEnabled"] as? Boolean)?.let { prefs.sleepReminderEnabled = it }
+                    (cloudSettings["bedtimeHour"] as? Number)?.toInt()?.let { prefs.bedtimeHour = it }
+                    (cloudSettings["bedtimeMinute"] as? Number)?.toInt()?.let { prefs.bedtimeMinute = it }
+
+                    (cloudSettings["customRemindersJson"] as? String)?.let { json ->
+                        try {
+                            val type = object : TypeToken<List<CustomReminder>>() {}.type
+                            val list: List<CustomReminder> = Gson().fromJson(json, type) ?: emptyList()
+                            prefs.customReminders = list
+                        } catch (e: Exception) {
+                            // Ignore
+                        }
+                    }
+
+                    loadReminderSettings()
+                    rescheduleAllAlarms()
+                }
+            } catch (e: Exception) {
+                Log.e("HabitViewModel", "Lỗi đồng bộ settings từ cloud: ${e.message}", e)
+            }
+        }
+    }
+
+    private fun rescheduleAllAlarms() {
+        val context = getApplication<Application>()
+        if (prefs.waterReminderEnabled) {
+            AlarmScheduler.scheduleWaterAlarms(
+                context, prefs.waterIntervalHours,
+                prefs.waterStartHour, prefs.waterEndHour
+            )
+        } else {
+            AlarmScheduler.cancelWaterAlarms(context)
+        }
+
+        if (prefs.vitaminReminderEnabled) {
+            AlarmScheduler.scheduleVitaminAlarm(context, prefs.vitaminHour, prefs.vitaminMinute)
+        } else {
+            AlarmScheduler.cancelVitaminAlarm(context)
+        }
+
+        prefs.customReminders.forEach { reminder ->
+            if (reminder.enabled) {
+                AlarmScheduler.scheduleCustomReminderAlarm(context, reminder)
+            } else {
+                AlarmScheduler.cancelCustomReminderAlarm(context, reminder.id)
+            }
+        }
+
+        if (prefs.sleepReminderEnabled) {
+            AlarmScheduler.scheduleSleepAlarm(
+                context,
+                prefs.bedtimeHour,
+                prefs.bedtimeMinute
+            )
+        } else {
+            AlarmScheduler.cancelSleepAlarm(context)
         }
     }
 }
