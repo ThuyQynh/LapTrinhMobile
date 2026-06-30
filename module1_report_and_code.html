@@ -1,0 +1,3927 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Báo cáo Chi tiết & Mã nguồn Module 1 - Smart Nutrition</title>
+    <style>
+        body {
+            font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: #333333;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        /* Typography */
+        h1, h2, h3, h4 {
+            color: #2e7d32; /* Nutrition green */
+            font-weight: 600;
+            margin-top: 1.5em;
+            margin-bottom: 0.5em;
+        }
+        h1 {
+            font-size: 24pt;
+            border-bottom: 3px solid #81c784;
+            padding-bottom: 8px;
+            margin-top: 40px;
+            text-transform: uppercase;
+        }
+        h2 {
+            font-size: 18pt;
+            border-bottom: 1px solid #a5d6a7;
+            padding-bottom: 6px;
+            margin-top: 30px;
+        }
+        h3 {
+            font-size: 14pt;
+            color: #1b5e20;
+        }
+        p {
+            margin-bottom: 12px;
+            text-align: justify;
+        }
+        p.spacer {
+            height: 8px;
+            margin: 0;
+        }
+        
+        /* Lists */
+        ul, ol {
+            margin-bottom: 16px;
+            padding-left: 24px;
+        }
+        li {
+            margin-bottom: 6px;
+        }
+        
+        /* Inline markup */
+        code {
+            font-family: "Consolas", "Courier New", monospace;
+            background-color: #f1f8e9;
+            padding: 2px 5px;
+            border-radius: 4px;
+            color: #1b5e20;
+            font-size: 0.95em;
+        }
+        a {
+            color: #2e7d32;
+            text-decoration: none;
+            border-bottom: 1px dashed #2e7d32;
+        }
+        a:hover {
+            color: #1b5e20;
+            border-bottom-style: solid;
+        }
+        
+        /* Custom Blockquotes & Alerts */
+        blockquote {
+            margin: 20px 0;
+            padding: 10px 20px;
+            background-color: #f9f9f9;
+            border-left: 5px solid #cfd8dc;
+            color: #555555;
+            font-style: italic;
+        }
+        
+        .alert {
+            padding: 12px 18px;
+            margin: 18px 0;
+            border-radius: 6px;
+            border-left: 5px solid;
+            font-size: 10.5pt;
+        }
+        .alert-important {
+            background-color: #ffebee;
+            border-color: #e53935;
+            color: #c62828;
+        }
+        .alert-tip {
+            background-color: #f1f8e9;
+            border-color: #4caf50;
+            color: #1b5e20;
+        }
+        .alert-note {
+            background-color: #e3f2fd;
+            border-color: #1e88e5;
+            color: #0d47a1;
+        }
+        
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 10.5pt;
+        }
+        th, td {
+            border: 1px solid #c8e6c9;
+            padding: 10px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background-color: #f9fbf9;
+        }
+        
+        /* Code File Section */
+        .code-file-section {
+            margin-top: 40px;
+        }
+        .code-file-header {
+            background-color: #f5f5f5;
+            padding: 10px 16px;
+            border-radius: 6px 6px 0 0;
+            border: 1px solid #e0e0e0;
+            border-bottom: none;
+            font-family: "Consolas", "Courier New", monospace;
+            font-weight: bold;
+            color: #424242;
+            font-size: 11pt;
+        }
+        .code-file-section pre {
+            margin: 0;
+            background-color: #fafafa;
+            border: 1px solid #e0e0e0;
+            border-left: 5px solid #2e7d32;
+            border-radius: 0 0 6px 6px;
+            padding: 15px;
+            overflow-x: auto;
+        }
+        .code-file-section pre code {
+            background-color: transparent;
+            padding: 0;
+            color: #212121;
+            font-size: 8.5pt;
+            font-family: "Consolas", "Courier New", monospace;
+        }
+        
+        /* Cover Page Styling */
+        .cover-page {
+            text-align: center;
+            padding: 80px 20px;
+            margin-bottom: 60px;
+            border: 2px solid #81c784;
+            border-radius: 12px;
+            background-color: #f1f8e9;
+        }
+        .cover-title {
+            font-size: 28pt;
+            color: #1b5e20;
+            margin-bottom: 20px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        .cover-subtitle {
+            font-size: 16pt;
+            color: #4caf50;
+            margin-bottom: 40px;
+        }
+        .cover-info {
+            font-size: 12pt;
+            color: #424242;
+            line-height: 1.8;
+            margin-top: 60px;
+        }
+        
+        /* Print Layout Rules */
+        @media print {
+            .page-break {
+                page-break-before: always;
+            }
+            body {
+                padding: 0;
+                margin: 0;
+                font-size: 11pt;
+            }
+            table, pre, blockquote, .alert {
+                page-break-inside: avoid;
+            }
+            h1, h2, h3 {
+                page-break-after: avoid;
+            }
+            a {
+                border-bottom: none;
+                color: #333333;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Cover Page -->
+    <div class="cover-page">
+        <div class="cover-title">Báo Cáo Chi Tiết & Mã Nguồn</div>
+        <div class="cover-subtitle">MODULE 1: ĐĂNG NHẬP & THIẾT LẬP THỂ TRẠNG</div>
+        <div class="cover-info">
+            <strong>Dự án:</strong> Ứng dụng Quản lý Dinh dưỡng Cá nhân với AI (Smart Nutrition)<br/>
+            <strong>Nền tảng:</strong> Android Native (Kotlin) + Firebase Auth & Firestore + Jetpack Compose<br/>
+            <strong>Người thực hiện:</strong> Thành viên 1 - Module Auth & Profile Setup<br/>
+            <strong>Thời gian báo cáo:</strong> Tháng 7 năm 2026
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- Report Section -->
+    <div class="report-section">
+        <h1>BÁO CÁO CHI TIẾT MODULE 1: ĐĂNG NHẬP &amp; THIẾT LẬP THỂ TRẠNG</h1>
+<h2>📱 Dự án: Ứng dụng Quản lý Dinh dưỡng Cá nhân với AI (Smart Nutrition)</h2>
+<p>---</p>
+<p class="spacer"></p>
+<div class="alert alert-important"><strong>MỤC TIÊU CỐT LÕI:</strong><br/>
+<strong>Vai trò của Module 1 trong dự án</strong>: Đây là module nền tảng <strong>bắt buộc phải hoàn thành đầu tiên</strong>. Nó quản lý định danh người dùng (<code>UID</code>) từ Firebase Auth và cung cấp các chỉ số thể trạng cốt lõi (Calories Target, Macros) cho tất cả các module còn lại (Pantry, AI Meal Planner, Habit Tracker, Analytics) truy vấn và sử dụng. 
+</div>
+<p class="spacer"></p>
+<div class="alert alert-tip"><strong>GỢI Ý/TÀI LIỆU:</strong><br/>
+<strong>Thư mục lưu trữ mã nguồn riêng</strong>: Toàn bộ mã nguồn liên quan đến Module 1 đã được sao chép và đóng gói vào thư mục <a href="file:///d:/code_github/LapTrinhMobile/module1_code">module1_code</a> tại thư mục gốc của dự án. Bạn có thể sử dụng thư mục này để nén (zip) gửi nộp bài hoặc mở xem nhanh các file code. 
+</div>
+<p class="spacer"></p>
+<p>---</p>
+<p class="spacer"></p>
+<h2>1. TỔNG QUAN VÀ PHÂN CÔNG CỦA THÀNH VIÊN 1</h2>
+<p class="spacer"></p>
+<ul>
+  <li><strong>Tên Module</strong>: Auth &amp; Profile Setup (Đăng nhập &amp; Thiết lập thể trạng).</li>
+  <li><strong>Độ khó</strong>: ⭐⭐ (Dễ/Trung bình).</li>
+  <li><strong>Thành viên phụ trách</strong>: Thành viên 1.</li>
+  <li><strong>Mục tiêu chính</strong>:</li>
+</ul>
+<p>1.  Xác thực danh tính người dùng bảo mật và thuận tiện.</p>
+<p>2.  Thiết lập hồ sơ thể trạng cơ bản, từ đó tính toán tự động và chính xác mục tiêu năng lượng và dinh dưỡng hàng ngày (chạy local trên app).</p>
+<p>3.  Lưu trữ dữ liệu đồng bộ đám mây và hoạt động offline (Offline-first).</p>
+<p>4.  Cung cấp chức năng ghi chép cân nặng hàng ngày để theo dõi sự biến động (weight logging).</p>
+<p class="spacer"></p>
+<p>---</p>
+<p class="spacer"></p>
+<h2>2. DANH SÁCH MÀN HÌNH (SCREENS) VÀ LUỒNG ĐI (FLOW)</h2>
+<p class="spacer"></p>
+<p>Module sử dụng <strong>Jetpack Compose</strong> kết hợp với <strong>Material Design 3</strong> đem lại giao diện hiện đại và mượt mà.</p>
+<p class="spacer"></p>
+<h3>2.1 Danh sách màn hình UI</h3>
+<p>1.  <strong>LoginScreen</strong>: Form đăng nhập bằng Email/Password + Nút đăng nhập nhanh bằng Google + Nút chuyển sang Đăng ký.</p>
+<p>2.  <strong>RegisterScreen</strong>: Form đăng ký (Email, Mật khẩu có xác thực độ mạnh, Xác nhận mật khẩu).</p>
+<p>3.  <strong>ProfileSetupScreen</strong>: Giao diện Wizard 3 bước (chỉ hiện 1 lần duy nhất sau khi đăng ký tài khoản mới):</p>
+<ul>
+  <li><strong>Bước 1 (Thông tin cơ bản)</strong>: Tên hiển thị, Giới tính, Năm sinh (dùng Slider + Ô nhập).</li>
+  <li><strong>Bước 2 (Chỉ số cơ thể)</strong>: Chiều cao, Cân nặng (Slider + Ô nhập) $\rightarrow$ Xem trước chỉ số BMI tức thời.</li>
+  <li><strong>Bước 3 (Mục tiêu &amp; Vận động)</strong>: Chọn mục tiêu (Giảm cân, Tăng cơ, Duy trì) + Mức độ vận động (5 cấp độ) $\rightarrow$ Hiển thị toàn bộ kết quả tính toán (BMI, BMR, TDEE, Target Calories, Macros).</li>
+</ul>
+<p>4.  <strong>ProfileViewScreen</strong>: Xem và cập nhật thông tin cá nhân.</p>
+<p>5.  <strong>WeightLogScreen</strong>: Cho phép người dùng nhập cân nặng hôm nay, tự động cập nhật lại BMI và xem danh sách lịch sử cân nặng (sắp xếp giảm dần theo ngày).</p>
+<p class="spacer"></p>
+<h3>2.2 Luồng hoạt động (User Flow)</h3>
+<pre><code class="language-mermaid">
+graph TD
+    A[Mở App] --&gt; B{Đã đăng nhập?}
+    B -- Chưa (FirebaseAuth.currentUser == null) --&gt; C[LoginScreen]
+    C --&gt;|Click Đăng ký| D[RegisterScreen]
+    D --&gt;|Đăng ký thành công| E[ProfileSetupScreen - 3 Bước]
+    C --&gt;|Đăng nhập thành công| F{Kiểm tra Firestore đã có profile?}
+    B -- Rồi (FirebaseAuth.currentUser != null) --&gt; F
+    F -- Chưa có --&gt; E
+    F -- Có rồi --&gt; G[MainActivity - Home Dashboard]
+    E --&gt;|Hoàn tất &amp; Lưu| G
+</code></pre>
+<p class="spacer"></p>
+<p>---</p>
+<p class="spacer"></p>
+<h2>3. DANH SÁCH CHI TIẾT CÁC FILE CODE &amp; CLASS TRONG MODULE 1</h2>
+<p class="spacer"></p>
+<p>Toàn bộ các file nằm trong package <code>com.team.smartnutrition.auth</code>.</p>
+<p class="spacer"></p>
+<pre><code class="language-">
+com.team.smartnutrition.auth/
+│
+├── data/
+│   └── UserRepository.kt            (Tầng Data - Quản lý Firebase Auth + Firestore)
+│
+├── model/
+│   └── User.kt                      (Data model đại diện User profile và Weight log)
+│
+├── util/
+│   ├── HealthCalculator.kt          (Utility chứa toàn bộ công thức tính chỉ số sức khỏe)
+│   └── Validators.kt                (Utility xác thực định dạng Email/Password đầu vào)
+│
+├── viewmodel/
+│   ├── LoginViewModel.kt            (Quản lý State và xử lý logic Đăng nhập)
+│   ├── RegisterViewModel.kt         (Quản lý State và xử lý logic Đăng ký)
+│   ├── ProfileSetupViewModel.kt     (Quản lý State và xử lý luồng wizard 3 bước)
+│   ├── ProfileViewViewModel.kt      (Quản lý State và xử lý cập nhật profile)
+│   └── WeightLogViewModel.kt        (Quản lý State và xử lý nhật ký cân nặng)
+│
+└── (Screens - Jetpack Compose UI)
+    ├── LoginScreen.kt               (UI Đăng nhập)
+    ├── RegisterScreen.kt            (UI Đăng ký)
+    ├── ProfileSetupScreen.kt        (UI Thiết lập thể trạng 3 bước)
+    ├── ProfileViewScreen.kt         (UI Xem/Sửa Profile)
+    └── WeightLogScreen.kt           (UI Nhật ký cân nặng)
+</code></pre>
+<p class="spacer"></p>
+<p>---</p>
+<p class="spacer"></p>
+<h3>3.1 Nhóm 1: Tầng dữ liệu (Model &amp; Data Repository)</h3>
+<p class="spacer"></p>
+<p>#### 3.1.1 Class <code>User</code> &amp; <code>WeightEntry</code> (trong file <code>User.kt</code>)</p>
+<ul>
+  <li><strong>Mục đích</strong>: Ánh xạ dữ liệu trực tiếp 1:1 với tài liệu Firestore.</li>
+  <li><strong>Class <code>User</code></strong>:</li>
+  <li><code>uid: String</code>: Mã định danh người dùng từ Firebase Auth.</li>
+  <li><code>email: String</code>: Địa chỉ email.</li>
+  <li><code>displayName: String</code>: Tên hiển thị người dùng nhập vào.</li>
+  <li><code>gender: String</code>: Giới tính (<code>"male"</code> | <code>"female"</code>).</li>
+  <li><code>birthYear: Int</code>: Năm sinh (dùng để tính tuổi).</li>
+  <li><code>heightCm: Int</code>: Chiều cao (cm).</li>
+  <li><code>weightKg: Double</code>: Cân nặng hiện tại (kg).</li>
+  <li><code>activityLevel: Double</code>: Hệ số vận động ($1.2 \rightarrow 1.9$).</li>
+  <li><code>goal: String</code>: Mục tiêu sức khỏe (<code>"lose_weight"</code> | <code>"maintain"</code> | <code>"gain_muscle"</code>).</li>
+  <li><code>bmi: Double</code>, <code>bmr: Double</code>, <code>tdee: Double</code>: Các chỉ số thể chất.</li>
+  <li><code>proteinTarget: Int</code>, <code>carbTarget: Int</code>, <code>fatTarget: Int</code>: Lượng Macros mục tiêu (gram/ngày).</li>
+  <li><code>calorieTarget: Int</code>: Lượng calo cần nạp hàng ngày (kcal/ngày).</li>
+  <li><code>createdAt: Timestamp?</code>, <code>updatedAt: Timestamp?</code>: Thời gian tạo và cập nhật.</li>
+  <li><strong>Class <code>WeightEntry</code></strong>: Đại diện cho 1 lần ghi nhận cân nặng trong sub-collection <code>weightLog</code>.</li>
+  <li><code>weightKg: Double</code>: Cân nặng được ghi nhận.</li>
+  <li><code>bmi: Double</code>: Chỉ số BMI tính lại dựa trên cân nặng mới này.</li>
+  <li><code>loggedAt: Timestamp?</code>: Ngày giờ ghi nhận.</li>
+  <li><code>date: String</code>: Định dạng <code>yyyy-MM-dd</code> (Đồng thời là Document ID).</li>
+</ul>
+<p class="spacer"></p>
+<p>#### 3.1.2 Class <code>UserRepository</code> (trong <code>UserRepository.kt</code>)</p>
+<ul>
+  <li><strong>Mục đích</strong>: Đóng gói các phương thức của Firebase SDK.</li>
+  <li><strong>Các thuộc tính</strong>:</li>
+  <li><code>auth = FirebaseAuth.getInstance()</code></li>
+  <li><code>firestore = FirebaseFirestore.getInstance()</code></li>
+  <li><strong>Các phương thức chính</strong>:</li>
+  <li><code>signInWithEmail(email, password)</code>: Xác thực email/password.</li>
+  <li><code>signInWithCredential(credential)</code>: Đăng nhập Google (dùng Credential Manager).</li>
+  <li><code>registerWithEmail(email, password)</code>: Tạo tài khoản mới.</li>
+  <li><code>signOut()</code>: Đăng xuất người dùng.</li>
+  <li><code>hasProfile(uid)</code>: Kiểm tra xem user có document trong collection <code>users</code> chưa.</li>
+  <li><code>getUser(uid)</code>: Lấy dữ liệu user hiện tại.</li>
+  <li><code>saveUser(user)</code>: Lưu/Cập nhật profile user lên Firestore.</li>
+  <li><code>logWeight(uid, date, weight, bmi)</code>: Ghi nhận cân nặng mới (sử dụng <strong>Batch Write</strong> để ghi đè vào sub-collection <code>weightLog</code> đồng thời update trường <code>weightKg</code> và <code>bmi</code> ở user document gốc).</li>
+  <li><code>getWeightHistory(uid, limit)</code>: Lấy danh sách lịch sử cân nặng từ <code>weightLog</code>, sắp xếp giảm dần theo thời gian.</li>
+</ul>
+<p class="spacer"></p>
+<p>---</p>
+<p class="spacer"></p>
+<h3>3.2 Nhóm 2: Lớp nghiệp vụ &amp; Tính toán (Utility Classes)</h3>
+<p class="spacer"></p>
+<p>#### 3.2.1 Object <code>HealthCalculator</code> (trong <code>HealthCalculator.kt</code>)</p>
+<ul>
+  <li><strong>Mục đích</strong>: Tính toán toàn bộ các chỉ số sức khỏe bằng các hàm thuần khiết (pure functions) chạy trực tiếp tại client.</li>
+  <li><strong>Các phương thức chính</strong>:</li>
+  <li><code>calculateBmi(weightKg, heightCm)</code>: Trả về chỉ số BMI ($Cân nặng / Chiều cao(m)^2$).</li>
+  <li><code>getBmiCategory(bmi)</code>: Phân loại thể trạng thành "Thiếu cân", "Bình thường", "Thừa cân", "Béo phì".</li>
+  <li><code>calculateBmr(weightKg, heightCm, age, gender)</code>: Tính BMR theo công thức Harris-Benedict (phân chia nam/nữ).</li>
+  <li><code>calculateTdee(bmr, activityLevel)</code>: Tính TDEE ($BMR \times activityLevel$).</li>
+  <li><code>calculateCalorieTarget(tdee, goal)</code>: Điều chỉnh calo đích theo mục tiêu (Giảm mỡ: $-500$ kcal, Tăng cơ: $+300$ kcal, Duy trì: giữ nguyên).</li>
+  <li><code>calculateMacros(calorieTarget, goal)</code>: Trả về bộ ba giá trị dinh dưỡng đạm/tinh bột/béo (Protein/Carb/Fat) theo tỷ lệ phần trăm năng lượng phù hợp.</li>
+  <li><code>calculateAllMetrics(...)</code>: Hàm tổng hợp chạy 1 lượt tính hết các chỉ số trên $\rightarrow$ Trả về object <code>HealthMetrics</code>.</li>
+</ul>
+<p class="spacer"></p>
+<p>#### 3.2.2 Object <code>Validators</code> (trong <code>Validators.kt</code>)</p>
+<ul>
+  <li><strong>Mục đích</strong>: Kiểm tra tính hợp lệ của dữ liệu người dùng nhập vào Form trước khi gửi lên Firebase.</li>
+  <li><strong>Các phương thức chính</strong>:</li>
+  <li><code>isValidEmail(email)</code>: Sử dụng regex mặc định của Android (<code>Patterns.EMAIL_ADDRESS</code>).</li>
+  <li><code>isValidPassword(password)</code>: Kiểm tra mật khẩu có $\ge 6$ ký tự, có ít nhất 1 chữ viết hoa, và ít nhất 1 chữ số.</li>
+  <li><code>doPasswordsMatch(password, confirmPassword)</code>: Đối chiếu tính trùng khớp.</li>
+  <li><code>getEmailError()</code>, <code>getPasswordError()</code>, <code>getConfirmPasswordError()</code>: Trả về chuỗi thông báo lỗi cụ thể hiển thị trực tiếp lên TextField.</li>
+</ul>
+<p class="spacer"></p>
+<p>---</p>
+<p class="spacer"></p>
+<h3>3.3 Nhóm 3: Tầng logic giao diện (ViewModels)</h3>
+<p class="spacer"></p>
+<p>Các ViewModel sử dụng <code>StateFlow</code> để phát trạng thái (UI State) đến các Composable UI và sử dụng <code>viewModelScope</code> để chạy các tác vụ bất đồng bộ thông qua Kotlin Coroutines.</p>
+<p class="spacer"></p>
+<p>1.  <strong>LoginViewModel</strong>:</p>
+<ul>
+  <li><code>uiState: StateFlow&lt;LoginUiState&gt;</code>: Chứa thông tin email, password nhập vào, trạng thái loading, lỗi, định hướng màn hình (<code>LoginDestination</code>).</li>
+  <li><code>signInWithEmail()</code>: Đăng nhập bằng Email/Password.</li>
+  <li><code>signInWithGoogle(activity)</code>: Kích hoạt Credential Manager lấy Google ID Token và chuyển đổi sang Firebase Credential để đăng nhập Google.</li>
+  <li><code>checkProfileAndNavigate(uid)</code>: Kiểm tra Firestore profile $\rightarrow$ Chọn điều hướng sang Home hay Setup.</li>
+</ul>
+<p>2.  <strong>RegisterViewModel</strong>:</p>
+<ul>
+  <li><code>uiState: StateFlow&lt;RegisterUiState&gt;</code>: Quản lý form đăng ký và lỗi hiển thị trực quan cho từng trường đầu vào.</li>
+  <li><code>register()</code>: Gọi repository để tạo tài khoản, nếu thành công đặt trạng thái <code>isRegistered = true</code>.</li>
+</ul>
+<p>3.  <strong>ProfileSetupViewModel</strong>:</p>
+<ul>
+  <li><code>uiState: StateFlow&lt;ProfileSetupUiState&gt;</code>: Quản lý biến bước hiện tại (<code>currentStep</code>), các dữ liệu nhập ở 3 bước (tên, giới tính, chiều cao, cân nặng, mục tiêu, vận động) và kết quả tính toán <code>HealthMetrics</code>.</li>
+  <li><code>nextStep()</code>, <code>previousStep()</code>: Chuyển bước trong giao diện Wizard. Khi chuyển sang bước 3, tự động gọi <code>recalculateMetrics()</code> để tính toán.</li>
+  <li><code>saveProfile()</code>: Tạo đối tượng <code>User</code> hoàn chỉnh và lưu lên Firestore thông qua repository.</li>
+</ul>
+<p>4.  <strong>ProfileViewViewModel</strong>:</p>
+<ul>
+  <li>Đọc và hiển thị hồ sơ cá nhân hiện tại.</li>
+  <li>Cập nhật và tính toán lại toàn bộ chỉ số khi người dùng sửa hồ sơ.</li>
+</ul>
+<p>5.  <strong>WeightLogViewModel</strong>:</p>
+<ul>
+  <li><code>uiState: StateFlow&lt;WeightLogUiState&gt;</code>: Chứa cân nặng nhập mới nhất, BMI tính realtime, danh sách lịch sử <code>history</code>.</li>
+  <li><code>saveWeight()</code>: Thực hiện lưu cân nặng hôm nay qua <code>repository.logWeight</code>.</li>
+  <li><code>loadWeightHistory()</code>: Nạp lịch sử cân nặng từ database.</li>
+</ul>
+<p class="spacer"></p>
+<p>---</p>
+<p class="spacer"></p>
+<h2>4. THUẬT TOÁN VÀ CÔNG THỨC TÍNH TOÁN LOCAL</h2>
+<p class="spacer"></p>
+<h3>4.1 Chỉ số khối cơ thể (BMI)</h3>
+<p>$$BMI = \frac{WeightKg}{(HeightCm / 100)^2}$$</p>
+<p class="spacer"></p>
+<h3>4.2 Tỷ lệ trao đổi chất cơ bản (BMR) - Công thức Harris-Benedict cải tiến</h3>
+<ul>
+  <li><strong>Nam giới</strong>:</li>
+</ul>
+<p>$$BMR = 88.362 + (13.397 \times WeightKg) + (4.799 \times HeightCm) - (5.677 \times Age)$$</p>
+<ul>
+  <li><strong>Nữ giới</strong>:</li>
+</ul>
+<p>$$BMR = 447.593 + (9.247 \times WeightKg) + (3.098 \times HeightCm) - (4.330 \times Age)$$</p>
+<p class="spacer"></p>
+<h3>4.3 Tổng lượng tiêu hao năng lượng hàng ngày (TDEE)</h3>
+<p>$$TDEE = BMR \times ActivityLevel$$</p>
+<p><em>(Activity level tương ứng từ 1.2 đến 1.9)</em></p>
+<p class="spacer"></p>
+<h3>4.4 Calorie Target (Năng lượng mục tiêu mỗi ngày)</h3>
+<ul>
+  <li><strong>Giảm mỡ (<code>lose_weight</code>)</strong>: $TDEE - 500\text{ kcal}$</li>
+  <li><strong>Tăng cơ (<code>gain_muscle</code>)</strong>: $TDEE + 300\text{ kcal}$</li>
+  <li><strong>Duy trì cân nặng (<code>maintain</code>)</strong>: Giữ nguyên $TDEE$.</li>
+</ul>
+<p class="spacer"></p>
+<h3>4.5 Macros Target (Tỷ lệ đạm, tinh bột, chất béo)</h3>
+<ul>
+  <li><strong>Tăng cơ</strong>: 30% Protein (4 kcal/g), 45% Carb (4 kcal/g), 25% Fat (9 kcal/g).</li>
+  <li><strong>Giảm mỡ</strong>: 35% Protein, 35% Carb, 30% Fat.</li>
+  <li><strong>Duy trì</strong>: 25% Protein, 50% Carb, 25% Fat.</li>
+</ul>
+<p class="spacer"></p>
+<p>---</p>
+<p class="spacer"></p>
+<h2>5. CẤU TRÚC FIRESTORE DATABASE (SCHEMA)</h2>
+<p class="spacer"></p>
+<h3>5.1 Document User: <code>users/{uid}</code></h3>
+<pre><code class="language-json">
+{
+  &quot;uid&quot;: &quot;1hF3Hj...&quot;,
+  &quot;email&quot;: &quot;user@gmail.com&quot;,
+  &quot;displayName&quot;: &quot;Nguyễn Văn A&quot;,
+  &quot;gender&quot;: &quot;male&quot;,
+  &quot;birthYear&quot;: 2003,
+  &quot;heightCm&quot;: 170,
+  &quot;weightKg&quot;: 65.5,
+  &quot;activityLevel&quot;: 1.55,
+  &quot;goal&quot;: &quot;lose_weight&quot;,
+  &quot;bmi&quot;: 22.66,
+  &quot;bmr&quot;: 1632.5,
+  &quot;tdee&quot;: 2530.4,
+  &quot;proteinTarget&quot;: 130,
+  &quot;carbTarget&quot;: 280,
+  &quot;fatTarget&quot;: 70,
+  &quot;calorieTarget&quot;: 2024,
+  &quot;createdAt&quot;: &quot;2026-06-30T17:00:00Z&quot;,
+  &quot;updatedAt&quot;: &quot;2026-07-01T01:00:00Z&quot;
+}
+</code></pre>
+<p class="spacer"></p>
+<h3>5.2 Collection Nhật ký Cân nặng: <code>users/{uid}/weightLog/{date}</code></h3>
+<ul>
+  <li><strong>Document ID</strong>: Định dạng <code>yyyy-MM-dd</code> (Ví dụ: <code>2026-07-01</code>).</li>
+<pre><code class="language-json">
+{
+  &quot;weightKg&quot;: 65.2,
+  &quot;bmi&quot;: 22.56,
+  &quot;loggedAt&quot;: &quot;2026-07-01T08:30:00Z&quot;
+}
+</code></pre>
+</ul>
+<p class="spacer"></p>
+<p>---</p>
+<p class="spacer"></p>
+<h2>6. HƯỚNG DẪN TRẢ LỜI CÁC CÂU HỎI CHỈNH SỬA CODE &amp; LUỒNG HOẠT ĐỘNG (Q&amp;A CHO HỘI ĐỒNG)</h2>
+<p class="spacer"></p>
+<p>Đây là các câu hỏi phổ biến nhất mà các thầy cô thường hỏi liên quan đến code và lập trình.</p>
+<p class="spacer"></p>
+<h3>❓ Câu 1: "Thầy muốn thêm một trường mới vào hồ sơ sức khỏe, ví dụ dị ứng thực phẩm (<code>allergies</code>) hoặc bệnh nền (<code>medicalConditions</code>), em cần sửa những file nào và sửa ra sao?"</h3>
+<ul>
+  <li><strong>Trả lời</strong>: Để thêm trường mới, chúng ta cần sửa qua 4 tầng code:</li>
+</ul>
+<p>1.  <strong>Tầng Model (<code>User.kt</code>)</strong>: Khai báo thêm biến trong data class <code>User</code> (ví dụ: <code>val medicalConditions: String = ""</code>).</p>
+<p>2.  <strong>Tầng UI State &amp; ViewModel (<code>ProfileSetupViewModel.kt</code>)</strong>:</p>
+<ul>
+  <li>Thêm biến <code>medicalConditions: String</code> vào data class <code>ProfileSetupUiState</code>.</li>
+  <li>Tạo hàm cập nhật <code>fun updateMedicalConditions(text: String)</code> trong ViewModel để cập nhật State.</li>
+  <li>Trong hàm <code>saveProfile()</code>, bổ sung trường <code>medicalConditions = state.medicalConditions</code> vào hàm dựng đối tượng <code>User</code> trước khi truyền sang Repository.</li>
+</ul>
+<p>3.  <strong>Tầng Data (<code>UserRepository.kt</code>)</strong>: Trong hàm <code>saveUser(user: User)</code>, bổ sung cặp khóa-giá trị <code>"medicalConditions" to user.medicalConditions</code> vào đối tượng HashMap để đẩy lên Firestore.</p>
+<p>4.  <strong>Tầng UI (<code>ProfileSetupScreen.kt</code>)</strong>: Tạo thêm một Composable TextField ở bước 3 (hoặc tạo thêm bước mới) để người dùng gõ/chọn thông tin bệnh nền, liên kết sự kiện <code>onValueChange</code> với hàm <code>viewModel.updateMedicalConditions(it)</code>.</p>
+<p class="spacer"></p>
+<p>---</p>
+<p class="spacer"></p>
+<h3>❓ Câu 2: "Hiện tại quy tắc mật khẩu tối thiểu là 6 ký tự, có 1 chữ hoa, 1 chữ số. Nếu thầy muốn đổi thành: tối thiểu 8 ký tự, bắt buộc có ít nhất 1 ký tự đặc biệt (như @, #, $,...) thì em sửa ở đâu?"</h3>
+<ul>
+  <li><strong>Trả lời</strong>: Logic xác thực định dạng đầu vào được gom gọn hoàn toàn trong lớp tiện ích <code>Validators.kt</code>. Chúng ta chỉ cần chỉnh sửa tại đây mà không cần đụng đến UI hay ViewModel:</li>
+</ul>
+<p>1.  Mở file <code>Validators.kt</code>.</p>
+<p>2.  Tìm hàm <code>isValidPassword(password: String)</code> và cập nhật điều kiện:</p>
+<pre><code class="language-kotlin">
+        fun isValidPassword(password: String): Boolean {
+            val specialChars = setOf(&apos;@&apos;, &apos;#&apos;, &apos;$&apos;, &apos;%&apos;, &apos;^&apos;, &apos;&amp;&apos;, &apos;*&apos;, &apos;!&apos;, &apos;_&apos;, &apos;-&apos;)
+            return password.length &gt;= 8 &amp;&amp; // Đổi từ 6 lên 8
+                    password.any { it.isUpperCase() } &amp;&amp;
+                    password.any { it.isDigit() } &amp;&amp;
+                    password.any { it in specialChars } // Thêm điều kiện ký tự đặc biệt
+        }
+</code></pre>
+<p>3.  Tìm hàm <code>getPasswordError(password: String)</code> để cập nhật các câu thông báo lỗi tương ứng trả về cho giao diện (ví dụ đổi thành: "Mật khẩu phải có ít nhất 8 ký tự" và thêm thông báo "Cần ít nhất 1 ký tự đặc biệt").</p>
+<p class="spacer"></p>
+<p>---</p>
+<p class="spacer"></p>
+<h3>❓ Câu 3: "Khi người dùng ấn nút đăng nhập bằng Google trên màn hình UI, luồng code chạy qua những đâu để đăng nhập thành công?"</h3>
+<ul>
+  <li><strong>Trả lời</strong>: Luồng hoạt động chi tiết gồm các bước:</li>
+</ul>
+<p>1.  <strong>UI (<code>LoginScreen.kt</code>)</strong>: Người dùng click nút Google $\rightarrow$ UI gọi <code>context.findActivity()</code> để lấy context hiện tại và gọi <code>viewModel.signInWithGoogle(activity)</code>.</p>
+<p>2.  <strong>ViewModel (<code>LoginViewModel.kt</code>)</strong>: Chạy coroutine <code>viewModelScope.launch</code> gọi <code>CredentialManager</code> của hệ thống để hiển thị BottomSheet tài khoản Google của Android. Khi người dùng chọn tài khoản $\rightarrow$ Credential Manager trả về <code>GoogleIdTokenCredential</code> chứa chuỗi <code>idToken</code>.</p>
+<p>3.  <strong>Chuyển đổi Credential</strong>: ViewModel dùng <code>GoogleAuthProvider.getCredential(idToken, null)</code> để chuyển đổi ID Token của Google sang đối tượng <code>AuthCredential</code> phù hợp với Firebase.</p>
+<p>4.  <strong>Repository (<code>UserRepository.kt</code>)</strong>: ViewModel gọi <code>repository.signInWithCredential(credential)</code> $\rightarrow$ Repository thực hiện xác thực với Firebase SDK qua <code>.signInWithCredential(credential).await()</code> và trả về đối tượng <code>FirebaseUser</code>.</p>
+<p>5.  <strong>Điều hướng</strong>: Trở lại ViewModel, hàm <code>checkProfileAndNavigate(uid)</code> được kích hoạt. Nó kiểm tra xem UID này đã tồn tại trong collection <code>users</code> trên Firestore chưa. Nếu có $\rightarrow$ đặt trạng thái hướng đến là <code>LoginDestination.HOME</code>. Nếu chưa $\rightarrow$ chuyển hướng đến <code>LoginDestination.PROFILE_SETUP</code>.</p>
+<p class="spacer"></p>
+<p>---</p>
+<p class="spacer"></p>
+<h3>❓ Câu 4: "Tại sao trong hàm lưu cân nặng (<code>logWeight</code>) ở UserRepository, em lại sử dụng Batch Write mà không ghi lần lượt? Code cụ thể chạy ra sao?"</h3>
+<ul>
+  <li><strong>Trả lời</strong>:</li>
+</ul>
+<p>1.  <em>Lý do</em>: Khi người dùng cập nhật cân nặng mới, chúng ta cần ghi nhận nó vào <strong>hai nơi khác nhau</strong> trên Firestore: một bản ghi lịch sử ở sub-collection <code>users/{uid}/weightLog/{date}</code> và cập nhật trực tiếp hai trường <code>weightKg</code> và <code>bmi</code> tại document của user đó (<code>users/{uid}</code>) để các chức năng khác đọc được ngay lập tức. Nếu ghi lần lượt bằng 2 lệnh riêng biệt, khi mạng chập chờn hoặc có lỗi xảy ra, có thể lệnh 1 thành công nhưng lệnh 2 thất bại $\rightarrow$ dẫn đến dữ liệu không nhất quán.</p>
+<p>2.  <em>Cơ chế Batch Write</em>: Firebase Firestore cung cấp Batch Write để gộp các thao tác ghi lại thành một khối giao dịch nguyên tử (Atomic).</p>
+<p>3.  <em>Giải thích Code</em>:</p>
+<pre><code class="language-kotlin">
+        val batch = firestore.batch()
+        // 1. Tạo tham chiếu và nạp lệnh ghi cân nặng ngày hôm nay
+        val weightRef = firestore.collection(&quot;users&quot;).document(uid)
+            .collection(&quot;weightLog&quot;).document(date)
+        batch.set(weightRef, entry)
+
+        // 2. Tạo tham chiếu và nạp lệnh cập nhật cân nặng &amp; bmi tại user profile
+        val userRef = firestore.collection(&quot;users&quot;).document(uid)
+        batch.update(userRef, mapOf(
+            &quot;weightKg&quot; to weightKg,
+            &quot;bmi&quot; to bmi,
+            &quot;updatedAt&quot; to Timestamp.now()
+        ))
+
+        // 3. Thực hiện commit toàn bộ batch. Cả hai ghi thành công hoặc cùng thất bại
+        batch.commit()
+</code></pre>
+<p class="spacer"></p>
+<p>---</p>
+<p class="spacer"></p>
+<h3>❓ Câu 5: "Lớp <code>HealthCalculator</code> là class thông thường hay là gì? Tại sao em khai báo là <code>object</code>?"</h3>
+<ul>
+  <li><strong>Trả lời</strong>: Trong Kotlin, <code>object</code> định nghĩa một lớp Singleton (chỉ có duy nhất một thực thể trong suốt vòng đời ứng dụng). Lớp <code>HealthCalculator</code> chỉ chứa các hàm tiện ích tính toán (hàm static helper), không lưu trữ trạng thái (state-less) của một đối tượng cụ thể nào. Việc dùng <code>object</code> giúp chúng ta gọi trực tiếp các phương thức như <code>HealthCalculator.calculateBmi(...)</code> từ bất kỳ đâu mà không cần tốn bộ nhớ khởi tạo đối tượng mới (không cần dùng từ khóa <code>new</code> như Java).</li>
+</ul>
+<p class="spacer"></p>
+
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- Source Code Section Divider -->
+    <h1>Mã Nguồn Chi Tiết Module 1 (Source Code)</h1>
+    <p>Dưới đây là nội dung toàn bộ mã nguồn của các lớp thuộc Module 1, sắp xếp theo cấu trúc thư mục dự án.</p>
+    
+    <div class=""code-file-section page-break"">
+    <div class=""code-file-header"">File: auth/LoginScreen.kt</div>
+    <pre class=""line-numbers""><code>package com.team.smartnutrition.auth
+
+import android.app.Activity
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusDirection
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import android.content.Context
+import android.content.ContextWrapper
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
+import com.team.smartnutrition.R
+import com.team.smartnutrition.auth.viewmodel.LoginDestination
+import com.team.smartnutrition.auth.viewmodel.LoginViewModel
+import com.team.smartnutrition.navigation.Screen
+
+private fun Context.findActivity(): Activity? {
+    var currentContext = this
+    while (currentContext is ContextWrapper) {
+        if (currentContext is Activity) {
+            return currentContext
+        }
+        currentContext = currentContext.baseContext
+    }
+    return null
+}
+
+/**
+ * ═══════════════════════════════════════════
+ * MODULE 1 - TV1: MÀN HÌNH ĐĂNG NHẬP
+ * ═══════════════════════════════════════════
+ *
+ * Tính năng:
+ * - Đăng nhập Email/Password (Firebase Auth)
+ * - Đăng nhập Google (Credential Manager)
+ * - Kiểm tra profile → navigate phù hợp
+ * - Validation + error handling tiếng Việt/Anh
+ */
+@Composable
+fun LoginScreen(
+    navController: NavController,
+    viewModel: LoginViewModel = viewModel()
+) {
+    val uiState by viewModel.uiState.collectAsState()
+    var passwordVisible by remember { mutableStateOf(false) }
+    val focusManager = LocalFocusManager.current
+    val context = LocalContext.current
+    val snackbarHostState = remember { SnackbarHostState() }
+
+    // Handle navigation
+    LaunchedEffect(uiState.navigateTo) {
+        uiState.navigateTo?.let { destination -&gt;
+            val route = when (destination) {
+                LoginDestination.HOME -&gt; Screen.Home.route
+                LoginDestination.PROFILE_SETUP -&gt; Screen.ProfileSetup.route
+            }
+            navController.navigate(route) {
+                popUpTo(Screen.Login.route) { inclusive = true }
+            }
+            viewModel.onNavigated()
+        }
+    }
+
+    // Handle error snackbar
+    LaunchedEffect(uiState.errorMessage) {
+        uiState.errorMessage?.let { message -&gt;
+            snackbarHostState.showSnackbar(message)
+            viewModel.clearError()
+        }
+    }
+
+    Scaffold(
+        snackbarHost = { SnackbarHost(snackbarHostState) }
+    ) { padding -&gt;
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(padding)
+                .padding(24.dp)
+                .verticalScroll(rememberScrollState()),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            Spacer(modifier = Modifier.weight(1f))
+
+            // ═══ Logo &amp; App Name ═══
+            Text(
+                text = &quot;🥗&quot;,
+                style = MaterialTheme.typography.displayMedium,
+                modifier = Modifier.padding(bottom = 8.dp)
+            )
+            Text(
+                text = &quot;Smart Nutrition&quot;,
+                style = MaterialTheme.typography.headlineLarge.copy(
+                    fontWeight = FontWeight.Bold
+                ),
+                color = MaterialTheme.colorScheme.primary
+            )
+            Text(
+                text = stringResource(R.string.login_subtitle),
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.padding(top = 4.dp, bottom = 40.dp)
+            )
+
+            // ═══ Email Field ═══
+            OutlinedTextField(
+                value = uiState.email,
+                onValueChange = { viewModel.updateEmail(it) },
+                label = { Text(stringResource(R.string.email_label)) },
+                leadingIcon = {
+                    Icon(Icons.Filled.Email, contentDescription = null)
+                },
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Email,
+                    imeAction = ImeAction.Next
+                ),
+                keyboardActions = KeyboardActions(
+                    onNext = { focusManager.moveFocus(FocusDirection.Down) }
+                ),
+                shape = RoundedCornerShape(12.dp),
+                modifier = Modifier.fillMaxWidth(),
+                singleLine = true,
+                enabled = !uiState.isLoading
+            )
+            Spacer(modifier = Modifier.height(12.dp))
+
+            // ═══ Password Field ═══
+            OutlinedTextField(
+                value = uiState.password,
+                onValueChange = { viewModel.updatePassword(it) },
+                label = { Text(stringResource(R.string.password_label)) },
+                leadingIcon = {
+                    Icon(Icons.Filled.Lock, contentDescription = null)
+                },
+                trailingIcon = {
+                    IconButton(onClick = { passwordVisible = !passwordVisible }) {
+                        Icon(
+                            if (passwordVisible) Icons.Filled.Visibility
+                            else Icons.Filled.VisibilityOff,
+                            contentDescription = stringResource(R.string.password_label)
+                        )
+                    }
+                },
+                visualTransformation = if (passwordVisible) VisualTransformation.None
+                else PasswordVisualTransformation(),
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Password,
+                    imeAction = ImeAction.Done
+                ),
+                keyboardActions = KeyboardActions(
+                    onDone = {
+                        focusManager.clearFocus()
+                        if (viewModel.isFormValid()) viewModel.signInWithEmail()
+                    }
+                ),
+                shape = RoundedCornerShape(12.dp),
+                modifier = Modifier.fillMaxWidth(),
+                singleLine = true,
+                enabled = !uiState.isLoading
+            )
+            Spacer(modifier = Modifier.height(24.dp))
+
+            // ═══ Login Button ═══
+            Button(
+                onClick = { viewModel.signInWithEmail() },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(52.dp),
+                shape = RoundedCornerShape(12.dp),
+                enabled = !uiState.isLoading &amp;&amp; viewModel.isFormValid()
+            ) {
+                if (uiState.isLoading) {
+                    CircularProgressIndicator(
+                        modifier = Modifier.size(20.dp),
+                        color = MaterialTheme.colorScheme.onPrimary,
+                        strokeWidth = 2.dp
+                    )
+                } else {
+                    Text(stringResource(R.string.login_button), style = MaterialTheme.typography.labelLarge)
+                }
+            }
+            Spacer(modifier = Modifier.height(12.dp))
+
+            // ═══ Divider ═══
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                HorizontalDivider(modifier = Modifier.weight(1f))
+                Text(
+                    text = &quot;  &quot; + stringResource(R.string.or_divider) + &quot;  &quot;,
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+                HorizontalDivider(modifier = Modifier.weight(1f))
+            }
+            Spacer(modifier = Modifier.height(12.dp))
+
+            // ═══ Google Sign-In Button ═══
+            OutlinedButton(
+                onClick = {
+                    val activity = context.findActivity()
+                    if (activity != null) {
+                        viewModel.signInWithGoogle(activity)
+                    }
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(52.dp),
+                shape = RoundedCornerShape(12.dp),
+                enabled = !uiState.isLoading
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_google),
+                    contentDescription = &quot;Google Logo&quot;,
+                    modifier = Modifier.size(20.dp),
+                    tint = Color.Unspecified
+                )
+                Spacer(modifier = Modifier.width(12.dp))
+                Text(
+                    text = stringResource(R.string.google_signin),
+                    style = MaterialTheme.typography.labelLarge
+                )
+            }
+
+            Spacer(modifier = Modifier.weight(1f))
+
+            // ═══ Register Link ═══
+            TextButton(
+                onClick = { navController.navigate(Screen.Register.route) },
+                enabled = !uiState.isLoading
+            ) {
+                Text(
+                    stringResource(R.string.no_account),
+                    color = MaterialTheme.colorScheme.primary
+                )
+            }
+            Spacer(modifier = Modifier.height(16.dp))
+        }
+    }
+}
+</code></pre>
+</div>
+<div class=""code-file-section page-break"">
+    <div class=""code-file-header"">File: auth/ProfileSetupScreen.kt</div>
+    <pre class=""line-numbers""><code>package com.team.smartnutrition.auth
+
+import androidx.compose.animation.*
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowForward
+import androidx.compose.material.icons.filled.*
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.ImeAction
+import com.team.smartnutrition.R
+import com.team.smartnutrition.auth.viewmodel.*
+import com.team.smartnutrition.navigation.Screen
+import java.time.Year
+
+/**
+ * ═══════════════════════════════════════════
+ * MODULE 1 - TV1: THIẾT LẬP THỂ TRẠNG
+ * ═══════════════════════════════════════════
+ *
+ * Multi-step wizard 3 bước:
+ * Step 1: Giới tính + Năm sinh + Tên hiển thị
+ * Step 2: Chiều cao + Cân nặng (Slider + Input)
+ * Step 3: Mục tiêu + Mức vận động + Kết quả tính toán
+ */
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun ProfileSetupScreen(
+    navController: NavController,
+    viewModel: ProfileSetupViewModel = viewModel()
+) {
+    val uiState by viewModel.uiState.collectAsState()
+    val snackbarHostState = remember { SnackbarHostState() }
+
+    // Handle navigation after save
+    LaunchedEffect(uiState.isSaved) {
+        if (uiState.isSaved) {
+            navController.navigate(Screen.Home.route) {
+                popUpTo(Screen.Login.route) { inclusive = true }
+            }
+            viewModel.onNavigated()
+        }
+    }
+
+    // Handle error
+    LaunchedEffect(uiState.errorMessage) {
+        uiState.errorMessage?.let { snackbarHostState.showSnackbar(it) }
+    }
+
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = {
+                    Text(stringResource(R.string.profile_setup_step_title, uiState.currentStep, uiState.totalSteps))
+                },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.surface
+                )
+            )
+        },
+        snackbarHost = { SnackbarHost(snackbarHostState) }
+    ) { padding -&gt;
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(padding)
+        ) {
+            // ═══ Progress Bar ═══
+            LinearProgressIndicator(
+                progress = { uiState.currentStep.toFloat() / uiState.totalSteps },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(4.dp),
+                color = MaterialTheme.colorScheme.primary,
+                trackColor = MaterialTheme.colorScheme.surfaceVariant,
+            )
+
+            // ═══ Step Content ═══
+            Column(
+                modifier = Modifier
+                    .weight(1f)
+                    .verticalScroll(rememberScrollState())
+                    .padding(24.dp)
+            ) {
+                AnimatedContent(
+                    targetState = uiState.currentStep,
+                    transitionSpec = {
+                        if (targetState &gt; initialState) {
+                            slideInHorizontally { width -&gt; width } + fadeIn() togetherWith
+                                    slideOutHorizontally { width -&gt; -width } + fadeOut()
+                        } else {
+                            slideInHorizontally { width -&gt; -width } + fadeIn() togetherWith
+                                    slideOutHorizontally { width -&gt; width } + fadeOut()
+                        }
+                    },
+                    label = &quot;stepTransition&quot;
+                ) { step -&gt;
+                    when (step) {
+                        1 -&gt; Step1Content(uiState, viewModel)
+                        2 -&gt; Step2Content(uiState, viewModel)
+                        3 -&gt; Step3Content(uiState, viewModel)
+                    }
+                }
+            }
+
+            // ═══ Bottom Buttons ═══
+            Surface(
+                tonalElevation = 2.dp,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp),
+                    horizontalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    // Back button
+                    if (uiState.currentStep &gt; 1) {
+                        OutlinedButton(
+                            onClick = { viewModel.previousStep() },
+                            modifier = Modifier
+                                .weight(1f)
+                                .height(52.dp),
+                            shape = RoundedCornerShape(12.dp)
+                        ) {
+                            Icon(
+                                Icons.AutoMirrored.Filled.ArrowBack,
+                                contentDescription = null,
+                                modifier = Modifier.size(18.dp)
+                            )
+                            Spacer(modifier = Modifier.width(8.dp))
+                            Text(stringResource(R.string.back))
+                        }
+                    }
+
+                    // Next / Save button
+                    Button(
+                        onClick = {
+                            if (uiState.currentStep &lt; uiState.totalSteps) {
+                                viewModel.nextStep()
+                            } else {
+                                viewModel.saveProfile()
+                            }
+                        },
+                        modifier = Modifier
+                            .weight(1f)
+                            .height(52.dp),
+                        shape = RoundedCornerShape(12.dp),
+                        enabled = viewModel.isCurrentStepValid() &amp;&amp; !uiState.isSaving
+                    ) {
+                        if (uiState.isSaving) {
+                            CircularProgressIndicator(
+                                modifier = Modifier.size(20.dp),
+                                color = MaterialTheme.colorScheme.onPrimary,
+                                strokeWidth = 2.dp
+                            )
+                        } else if (uiState.currentStep &lt; uiState.totalSteps) {
+                            Text(stringResource(R.string.next))
+                            Spacer(modifier = Modifier.width(8.dp))
+                            Icon(
+                                Icons.AutoMirrored.Filled.ArrowForward,
+                                contentDescription = null,
+                                modifier = Modifier.size(18.dp)
+                            )
+                        } else {
+                            Icon(
+                                Icons.Filled.Check,
+                                contentDescription = null,
+                                modifier = Modifier.size(18.dp)
+                            )
+                            Spacer(modifier = Modifier.width(8.dp))
+                            Text(stringResource(R.string.finish))
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// ═══════════════════════════════════════════
+// STEP 1: Giới tính + Năm sinh + Tên
+// ═══════════════════════════════════════════
+@Composable
+private fun Step1Content(
+    uiState: ProfileSetupUiState,
+    viewModel: ProfileSetupViewModel
+) {
+    Column(verticalArrangement = Arrangement.spacedBy(24.dp)) {
+        // Title
+        Text(
+            text = stringResource(R.string.basic_info_title),
+            style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold)
+        )
+        Text(
+            text = stringResource(R.string.basic_info_subtitle),
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant
+        )
+
+        // ═══ Tên hiển thị ═══
+        OutlinedTextField(
+            value = uiState.displayName,
+            onValueChange = { viewModel.updateDisplayName(it) },
+            label = { Text(stringResource(R.string.display_name_label)) },
+            leadingIcon = { Icon(Icons.Filled.Person, contentDescription = null) },
+            shape = RoundedCornerShape(12.dp),
+            modifier = Modifier.fillMaxWidth(),
+            singleLine = true
+        )
+
+        // ═══ Giới tính ═══
+        Text(
+            text = stringResource(R.string.gender_label),
+            style = MaterialTheme.typography.titleMedium
+        )
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(12.dp)
+        ) {
+            GenderCard(
+                emoji = &quot;🚹&quot;,
+                label = stringResource(R.string.gender_male),
+                isSelected = uiState.gender == &quot;male&quot;,
+                onClick = { viewModel.updateGender(&quot;male&quot;) },
+                modifier = Modifier.weight(1f)
+            )
+            GenderCard(
+                emoji = &quot;🚺&quot;,
+                label = stringResource(R.string.gender_female),
+                isSelected = uiState.gender == &quot;female&quot;,
+                onClick = { viewModel.updateGender(&quot;female&quot;) },
+                modifier = Modifier.weight(1f)
+            )
+        }
+
+        // ═══ Năm sinh ═══
+        Text(
+            text = stringResource(R.string.birth_year_display, uiState.birthYear, Year.now().value - uiState.birthYear),
+            style = MaterialTheme.typography.titleMedium
+        )
+        Slider(
+            value = uiState.birthYear.toFloat(),
+            onValueChange = { viewModel.updateBirthYear(it.toInt()) },
+            valueRange = 1940f..2015f,
+            steps = 74,
+            modifier = Modifier.fillMaxWidth()
+        )
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Text(&quot;1940&quot;, style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant)
+            Text(&quot;2015&quot;, style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant)
+        }
+        
+        var birthYearInputText by remember { mutableStateOf(uiState.birthYear.toString()) }
+        LaunchedEffect(uiState.birthYear) {
+            if (birthYearInputText.toIntOrNull() != uiState.birthYear) {
+                birthYearInputText = uiState.birthYear.toString()
+            }
+        }
+        
+        OutlinedTextField(
+            value = birthYearInputText,
+            onValueChange = { newValue -&gt;
+                if (newValue.isEmpty() || newValue.all { it.isDigit() }) {
+                    birthYearInputText = newValue
+                    newValue.toIntOrNull()?.let { year -&gt;
+                        if (year in 1940..2015) {
+                            viewModel.updateBirthYear(year)
+                        }
+                    }
+                }
+            },
+            label = { Text(stringResource(R.string.birth_year_label, uiState.birthYear).substringBefore(&quot;:&quot;) + &quot; (1940 - 2015)&quot;) },
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Number,
+                imeAction = ImeAction.Next
+            ),
+            shape = RoundedCornerShape(12.dp),
+            modifier = Modifier.fillMaxWidth(),
+            singleLine = true
+        )
+    }
+}
+
+@Composable
+private fun GenderCard(
+    emoji: String,
+    label: String,
+    isSelected: Boolean,
+    onClick: () -&gt; Unit,
+    modifier: Modifier = Modifier
+) {
+    Card(
+        onClick = onClick,
+        modifier = modifier.height(100.dp),
+        shape = RoundedCornerShape(16.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = if (isSelected) MaterialTheme.colorScheme.primaryContainer
+            else MaterialTheme.colorScheme.surfaceVariant
+        ),
+        border = if (isSelected) BorderStroke(2.dp, MaterialTheme.colorScheme.primary)
+        else null
+    ) {
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            Text(text = emoji, style = MaterialTheme.typography.headlineMedium)
+            Spacer(modifier = Modifier.height(4.dp))
+            Text(
+                text = label,
+                style = MaterialTheme.typography.labelLarge,
+                color = if (isSelected) MaterialTheme.colorScheme.primary
+                else MaterialTheme.colorScheme.onSurfaceVariant
+            )
+        }
+    }
+}
+
+// ═══════════════════════════════════════════
+// STEP 2: Chiều cao + Cân nặng
+// ═══════════════════════════════════════════
+@Composable
+private fun Step2Content(
+    uiState: ProfileSetupUiState,
+    viewModel: ProfileSetupViewModel
+) {
+    var heightInputText by remember { mutableStateOf(uiState.heightCm.toString()) }
+    LaunchedEffect(uiState.heightCm) {
+        if (heightInputText.toIntOrNull() != uiState.heightCm) {
+            heightInputText = uiState.heightCm.toString()
+        }
+    }
+
+    var weightInputText by remember { mutableStateOf(&quot;%.1f&quot;.format(uiState.weightKg)) }
+    LaunchedEffect(uiState.weightKg) {
+        val currentFloat = weightInputText.toDoubleOrNull() ?: 0.0
+        if (Math.abs(currentFloat - uiState.weightKg) &gt; 0.05) {
+            weightInputText = &quot;%.1f&quot;.format(uiState.weightKg)
+        }
+    }
+
+    Column(verticalArrangement = Arrangement.spacedBy(24.dp)) {
+        Text(
+            text = stringResource(R.string.body_metrics_title),
+            style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold)
+        )
+        Text(
+            text = stringResource(R.string.body_metrics_subtitle),
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant
+        )
+
+        // ═══ Chiều cao ═══
+        Card(
+            modifier = Modifier.fillMaxWidth(),
+            shape = RoundedCornerShape(16.dp),
+            colors = CardDefaults.cardColors(
+                containerColor = MaterialTheme.colorScheme.surfaceVariant
+            )
+        ) {
+            Column(modifier = Modifier.padding(20.dp)) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(&quot;📏 &quot; + stringResource(R.string.height_label), style = MaterialTheme.typography.titleMedium)
+                    Text(
+                        text = &quot;${uiState.heightCm} cm&quot;,
+                        style = MaterialTheme.typography.headlineSmall.copy(
+                            fontWeight = FontWeight.Bold
+                        ),
+                        color = MaterialTheme.colorScheme.primary
+                    )
+                }
+                Spacer(modifier = Modifier.height(12.dp))
+                Slider(
+                    value = uiState.heightCm.toFloat(),
+                    onValueChange = { viewModel.updateHeightCm(it.toInt()) },
+                    valueRange = 100f..250f,
+                    modifier = Modifier.fillMaxWidth()
+                )
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Text(&quot;100 cm&quot;, style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    Text(&quot;250 cm&quot;, style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant)
+                }
+                Spacer(modifier = Modifier.height(12.dp))
+                OutlinedTextField(
+                    value = heightInputText,
+                    onValueChange = { newValue -&gt;
+                        if (newValue.isEmpty() || newValue.all { it.isDigit() }) {
+                            heightInputText = newValue
+                            newValue.toIntOrNull()?.let { height -&gt;
+                                if (height in 100..250) {
+                                    viewModel.updateHeightCm(height)
+                                }
+                            }
+                        }
+                    },
+                    label = { Text(&quot;Nhập chiều cao thủ công&quot;) },
+                    suffix = { Text(&quot;cm&quot;) },
+                    keyboardOptions = KeyboardOptions(
+                        keyboardType = KeyboardType.Number,
+                        imeAction = ImeAction.Next
+                    ),
+                    shape = RoundedCornerShape(12.dp),
+                    modifier = Modifier.fillMaxWidth(),
+                    singleLine = true,
+                    colors = OutlinedTextFieldDefaults.colors(
+                        unfocusedContainerColor = MaterialTheme.colorScheme.surface,
+                        focusedContainerColor = MaterialTheme.colorScheme.surface
+                    )
+                )
+            }
+        }
+
+        // ═══ Cân nặng ═══
+        Card(
+            modifier = Modifier.fillMaxWidth(),
+            shape = RoundedCornerShape(16.dp),
+            colors = CardDefaults.cardColors(
+                containerColor = MaterialTheme.colorScheme.surfaceVariant
+            )
+        ) {
+            Column(modifier = Modifier.padding(20.dp)) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(&quot;⚖️ &quot; + stringResource(R.string.weight_label), style = MaterialTheme.typography.titleMedium)
+                    Text(
+                        text = &quot;${&quot;%.1f&quot;.format(uiState.weightKg)} kg&quot;,
+                        style = MaterialTheme.typography.headlineSmall.copy(
+                            fontWeight = FontWeight.Bold
+                        ),
+                        color = MaterialTheme.colorScheme.primary
+                    )
+                }
+                Spacer(modifier = Modifier.height(12.dp))
+                Slider(
+                    value = uiState.weightKg.toFloat(),
+                    onValueChange = {
+                        viewModel.updateWeightKg(
+                            (it * 10).toInt() / 10.0  // Round to 0.1
+                        )
+                    },
+                    valueRange = 30f..200f,
+                    modifier = Modifier.fillMaxWidth()
+                )
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Text(&quot;30 kg&quot;, style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    Text(&quot;200 kg&quot;, style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant)
+                }
+                Spacer(modifier = Modifier.height(12.dp))
+                OutlinedTextField(
+                    value = weightInputText,
+                    onValueChange = { newValue -&gt;
+                        val normalized = newValue.replace(&apos;,&apos;, &apos;.&apos;)
+                        if (normalized.isEmpty() || normalized.toDoubleOrNull() != null || normalized == &quot;.&quot; || normalized.endsWith(&quot;.&quot;)) {
+                            weightInputText = newValue
+                            normalized.toDoubleOrNull()?.let { weight -&gt;
+                                if (weight &gt;= 30.0 &amp;&amp; weight &lt;= 200.0) {
+                                    viewModel.updateWeightKg(weight)
+                                }
+                            }
+                        }
+                    },
+                    label = { Text(&quot;Nhập cân nặng thủ công&quot;) },
+                    suffix = { Text(&quot;kg&quot;) },
+                    keyboardOptions = KeyboardOptions(
+                        keyboardType = KeyboardType.Decimal,
+                        imeAction = ImeAction.Done
+                    ),
+                    shape = RoundedCornerShape(12.dp),
+                    modifier = Modifier.fillMaxWidth(),
+                    singleLine = true,
+                    colors = OutlinedTextFieldDefaults.colors(
+                        unfocusedContainerColor = MaterialTheme.colorScheme.surface,
+                        focusedContainerColor = MaterialTheme.colorScheme.surface
+                    )
+                )
+            }
+        }
+
+        // ═══ Preview BMI ═══
+        val bmi = com.team.smartnutrition.auth.util.HealthCalculator.calculateBmi(
+            uiState.weightKg, uiState.heightCm
+        )
+        val bmiCategory = com.team.smartnutrition.auth.util.HealthCalculator.getBmiCategory(bmi)
+
+        Card(
+            modifier = Modifier.fillMaxWidth(),
+            shape = RoundedCornerShape(16.dp),
+            colors = CardDefaults.cardColors(
+                containerColor = MaterialTheme.colorScheme.primaryContainer
+            )
+        ) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Column {
+                    Text(
+                        stringResource(R.string.current_bmi),
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onPrimaryContainer
+                    )
+                    Text(
+                        bmiCategory,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onPrimaryContainer
+                    )
+                }
+                Text(
+                    &quot;${&quot;%.1f&quot;.format(bmi)}&quot;,
+                    style = MaterialTheme.typography.headlineMedium.copy(
+                        fontWeight = FontWeight.Bold
+                    ),
+                    color = MaterialTheme.colorScheme.primary
+                )
+            }
+        }
+    }
+}
+
+// ═══════════════════════════════════════════
+// STEP 3: Mục tiêu + Vận động + Kết quả
+// ═══════════════════════════════════════════
+@Composable
+private fun Step3Content(
+    uiState: ProfileSetupUiState,
+    viewModel: ProfileSetupViewModel
+) {
+    Column(verticalArrangement = Arrangement.spacedBy(20.dp)) {
+        Text(
+            text = stringResource(R.string.goal_activity_title),
+            style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold)
+        )
+
+        // ═══ Mục tiêu sức khỏe ═══
+        Text(stringResource(R.string.goal_label), style = MaterialTheme.typography.titleMedium)
+        goalOptions.forEach { option -&gt;
+            val labelText = when (option.value) {
+                &quot;lose_weight&quot; -&gt; stringResource(R.string.goal_lose)
+                &quot;gain_muscle&quot; -&gt; stringResource(R.string.goal_gain)
+                else -&gt; stringResource(R.string.goal_maintain)
+            }
+            val descText = when (option.value) {
+                &quot;lose_weight&quot; -&gt; stringResource(R.string.goal_lose_desc)
+                &quot;gain_muscle&quot; -&gt; stringResource(R.string.goal_gain_desc)
+                else -&gt; stringResource(R.string.goal_maintain_desc)
+            }
+            Card(
+                onClick = { viewModel.updateGoal(option.value) },
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(12.dp),
+                colors = CardDefaults.cardColors(
+                    containerColor = if (uiState.goal == option.value)
+                        MaterialTheme.colorScheme.primaryContainer
+                    else MaterialTheme.colorScheme.surfaceVariant
+                ),
+                border = if (uiState.goal == option.value)
+                    BorderStroke(2.dp, MaterialTheme.colorScheme.primary)
+                else null
+            ) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(option.emoji, style = MaterialTheme.typography.headlineSmall)
+                    Spacer(modifier = Modifier.width(12.dp))
+                    Column(modifier = Modifier.weight(1f)) {
+                        Text(
+                            labelText,
+                            style = MaterialTheme.typography.titleMedium,
+                            fontWeight = FontWeight.SemiBold
+                        )
+                        Text(
+                            descText,
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
+                    if (uiState.goal == option.value) {
+                        Icon(
+                            Icons.Filled.CheckCircle,
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.primary
+                        )
+                    }
+                }
+            }
+        }
+
+        Spacer(modifier = Modifier.height(4.dp))
+
+        // ═══ Mức độ vận động ═══
+        Text(stringResource(R.string.activity_label), style = MaterialTheme.typography.titleMedium)
+        activityLevelOptions.forEach { option -&gt;
+            val labelText = when (option.value) {
+                1.2 -&gt; stringResource(R.string.activity_sedentary)
+                1.375 -&gt; stringResource(R.string.activity_light)
+                1.55 -&gt; stringResource(R.string.activity_moderate)
+                1.725 -&gt; stringResource(R.string.activity_very)
+                else -&gt; stringResource(R.string.activity_extreme)
+            }
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                RadioButton(
+                    selected = uiState.activityLevel == option.value,
+                    onClick = { viewModel.updateActivityLevel(option.value) }
+                )
+                Text(
+                    text = &quot;${option.emoji} $labelText&quot;,
+                    style = MaterialTheme.typography.bodyLarge,
+                    modifier = Modifier.padding(start = 4.dp)
+                )
+            }
+        }
+
+        // ═══ Kết quả tính toán ═══
+        uiState.metrics?.let { metrics -&gt;
+            HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
+            Text(
+                text = stringResource(R.string.your_metrics_title),
+                style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold)
+            )
+
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(16.dp),
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.primaryContainer
+                )
+            ) {
+                Column(modifier = Modifier.padding(16.dp)) {
+                    // BMI &amp; BMR
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceEvenly
+                    ) {
+                        MetricItem(&quot;BMI&quot;, &quot;${&quot;%.1f&quot;.format(metrics.bmi)}&quot;, metrics.bmiCategory)
+                        MetricItem(&quot;BMR&quot;, &quot;${&quot;%.0f&quot;.format(metrics.bmr)}&quot;, stringResource(R.string.kcal))
+                    }
+                    Spacer(modifier = Modifier.height(12.dp))
+                    // TDEE &amp; Calorie Target
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceEvenly
+                    ) {
+                        MetricItem(&quot;TDEE&quot;, &quot;${&quot;%.0f&quot;.format(metrics.tdee)}&quot;, stringResource(R.string.kcal_per_day))
+                        MetricItem(stringResource(R.string.goal_label), &quot;${metrics.calorieTarget}&quot;, stringResource(R.string.kcal_per_day))
+                    }
+                    Spacer(modifier = Modifier.height(12.dp))
+                    HorizontalDivider(
+                        color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.2f)
+                    )
+                    Spacer(modifier = Modifier.height(12.dp))
+                    // Macros
+                    Text(
+                        stringResource(R.string.daily_macros),
+                        style = MaterialTheme.typography.labelMedium,
+                        color = MaterialTheme.colorScheme.onPrimaryContainer
+                    )
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceEvenly
+                    ) {
+                        MetricItem(&quot;Protein&quot;, &quot;${metrics.proteinTarget}g&quot;, &quot;&quot;)
+                        MetricItem(&quot;Carbs&quot;, &quot;${metrics.carbTarget}g&quot;, &quot;&quot;)
+                        MetricItem(&quot;Fat&quot;, &quot;${metrics.fatTarget}g&quot;, &quot;&quot;)
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun MetricItem(label: String, value: String, unit: String) {
+    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+        Text(
+            text = label,
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.7f)
+        )
+        Text(
+            text = value,
+            style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
+            color = MaterialTheme.colorScheme.primary
+        )
+        if (unit.isNotBlank()) {
+            Text(
+                text = unit,
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.5f)
+            )
+        }
+    }
+}
+</code></pre>
+</div>
+<div class=""code-file-section page-break"">
+    <div class=""code-file-header"">File: auth/ProfileViewScreen.kt</div>
+    <pre class=""line-numbers""><code>package com.team.smartnutrition.auth
+
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.*
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import com.team.smartnutrition.R
+import com.team.smartnutrition.auth.util.HealthCalculator
+import com.team.smartnutrition.auth.viewmodel.ProfileViewUiState
+import com.team.smartnutrition.auth.viewmodel.ProfileViewViewModel
+import com.team.smartnutrition.auth.viewmodel.activityLevelOptions
+import com.team.smartnutrition.auth.viewmodel.goalOptions
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.ui.text.input.KeyboardType
+import com.team.smartnutrition.common.components.ErrorCard
+import com.team.smartnutrition.common.components.LoadingScreen
+import com.team.smartnutrition.navigation.Screen
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun ProfileViewScreen(
+    navController: NavController,
+    viewModel: ProfileViewViewModel = viewModel()
+) {
+    val uiState by viewModel.uiState.collectAsState()
+
+    LaunchedEffect(uiState.isSignedOut) {
+        if (uiState.isSignedOut) {
+            navController.navigate(Screen.Login.route) {
+                popUpTo(0) { inclusive = true }
+            }
+            viewModel.onSignedOut()
+        }
+    }
+
+    when {
+        uiState.isLoading -&gt; LoadingScreen()
+        uiState.errorMessage != null &amp;&amp; uiState.user == null -&gt; {
+            ErrorCard(message = uiState.errorMessage ?: stringResource(R.string.error_generic), onRetry = { viewModel.loadProfile() })
+        }
+        uiState.isEditing -&gt; EditProfileContent(uiState, viewModel)
+        else -&gt; ViewProfileContent(uiState, viewModel, navController)
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun ViewProfileContent(
+    uiState: ProfileViewUiState,
+    viewModel: ProfileViewViewModel,
+    navController: NavController
+) {
+    val user = uiState.user ?: return
+
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text(stringResource(R.string.profile_title)) },
+                actions = {
+                    IconButton(onClick = { viewModel.startEditing() }) {
+                        Icon(Icons.Filled.Edit, contentDescription = stringResource(R.string.btn_edit))
+                    }
+                }
+            )
+        }
+    ) { padding -&gt;
+        Column(
+            modifier = Modifier.fillMaxSize().padding(padding)
+                .verticalScroll(rememberScrollState()).padding(horizontal = 20.dp, vertical = 8.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            // Avatar
+            Surface(modifier = Modifier.size(80.dp), shape = CircleShape, color = MaterialTheme.colorScheme.primaryContainer) {
+                Box(contentAlignment = Alignment.Center) {
+                    Text(user.displayName.firstOrNull()?.uppercase() ?: &quot;?&quot;,
+                        style = MaterialTheme.typography.headlineLarge, color = MaterialTheme.colorScheme.primary)
+                }
+            }
+            Spacer(Modifier.height(12.dp))
+            Text(user.displayName, style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold))
+            Text(user.email, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            Spacer(Modifier.height(20.dp))
+
+            // Info Card
+            Card(modifier = Modifier.fillMaxWidth(), shape = RoundedCornerShape(16.dp),
+                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)) {
+                Column(Modifier.padding(16.dp)) {
+                    Text(stringResource(R.string.info_title), style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold))
+                    Spacer(Modifier.height(12.dp))
+                    InfoRow(stringResource(R.string.gender_label), if (user.gender == &quot;male&quot;) &quot;🚹 &quot; + stringResource(R.string.gender_male) else &quot;🚺 &quot; + stringResource(R.string.gender_female))
+                    InfoRow(stringResource(R.string.age_label), &quot;${HealthCalculator.calculateAge(user.birthYear)} (${user.birthYear})&quot;)
+                    InfoRow(stringResource(R.string.height_label), &quot;${user.heightCm} cm&quot;)
+                    InfoRow(stringResource(R.string.weight_label), &quot;${&quot;%.1f&quot;.format(user.weightKg)} kg&quot;)
+                    
+                    val goalLabel = when(user.goal) {
+                        &quot;lose_weight&quot; -&gt; &quot;🔥 &quot; + stringResource(R.string.goal_lose)
+                        &quot;gain_muscle&quot; -&gt; &quot;💪 &quot; + stringResource(R.string.goal_gain)
+                        else -&gt; &quot;⚖️ &quot; + stringResource(R.string.goal_maintain)
+                    }
+                    InfoRow(stringResource(R.string.goal_label), goalLabel)
+                    
+                    val activityLabel = when(user.activityLevel) {
+                        1.2 -&gt; &quot;🚶 &quot; + stringResource(R.string.activity_sedentary)
+                        1.375 -&gt; &quot;🏃 &quot; + stringResource(R.string.activity_light)
+                        1.55 -&gt; &quot;🏋️ &quot; + stringResource(R.string.activity_moderate)
+                        1.725 -&gt; &quot;🏅 &quot; + stringResource(R.string.activity_very)
+                        else -&gt; &quot;🔥 &quot; + stringResource(R.string.activity_extreme)
+                    }
+                    InfoRow(stringResource(R.string.activity_label), activityLabel)
+                }
+            }
+            Spacer(Modifier.height(16.dp))
+
+            // Health Metrics
+            Text(&quot;📊 &quot; + stringResource(R.string.health_indices), style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold),
+                modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp))
+            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                MetricCard(&quot;BMI&quot;, &quot;${&quot;%.1f&quot;.format(user.bmi)}&quot;, HealthCalculator.getBmiCategory(user.bmi), Modifier.weight(1f))
+                MetricCard(&quot;BMR&quot;, &quot;${&quot;%.0f&quot;.format(user.bmr)}&quot;, &quot;kcal&quot;, Modifier.weight(1f))
+            }
+            Spacer(Modifier.height(8.dp))
+            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                MetricCard(&quot;TDEE&quot;, &quot;${&quot;%.0f&quot;.format(user.tdee)}&quot;, &quot;kcal/ngày&quot;, Modifier.weight(1f))
+                MetricCard(stringResource(R.string.goal_label), &quot;${user.calorieTarget}&quot;, &quot;kcal/ngày&quot;, Modifier.weight(1f))
+            }
+            Spacer(Modifier.height(16.dp))
+
+            // Macros
+            Card(Modifier.fillMaxWidth(), shape = RoundedCornerShape(16.dp),
+                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)) {
+                Column(Modifier.padding(16.dp)) {
+                    Text(stringResource(R.string.daily_macros), style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold))
+                    Spacer(Modifier.height(12.dp))
+                    MacroBar(&quot;Protein&quot;, user.proteinTarget, 200, MaterialTheme.colorScheme.primary)
+                    Spacer(Modifier.height(8.dp))
+                    MacroBar(&quot;Carbs&quot;, user.carbTarget, 400, MaterialTheme.colorScheme.secondary)
+                    Spacer(Modifier.height(8.dp))
+                    MacroBar(&quot;Fat&quot;, user.fatTarget, 120, MaterialTheme.colorScheme.tertiary)
+                }
+            }
+            Spacer(Modifier.height(20.dp))
+
+            // Actions
+            OutlinedButton(onClick = { navController.navigate(Screen.WeightLog.route) },
+                modifier = Modifier.fillMaxWidth().height(48.dp), shape = RoundedCornerShape(12.dp)) {
+                Icon(Icons.Filled.MonitorWeight, null, Modifier.size(18.dp))
+                Spacer(Modifier.width(8.dp)); Text(stringResource(R.string.weight_log_btn))
+            }
+            Spacer(Modifier.height(8.dp))
+            OutlinedButton(onClick = { navController.navigate(Screen.Settings.route) },
+                modifier = Modifier.fillMaxWidth().height(48.dp), shape = RoundedCornerShape(12.dp)) {
+                Icon(Icons.Filled.Settings, null, Modifier.size(18.dp))
+                Spacer(Modifier.width(8.dp)); Text(stringResource(R.string.settings_title))
+            }
+            Spacer(Modifier.height(8.dp))
+            TextButton(onClick = { viewModel.signOut() }, modifier = Modifier.fillMaxWidth()) {
+                Icon(Icons.Filled.Logout, null, tint = MaterialTheme.colorScheme.error, modifier = Modifier.size(18.dp))
+                Spacer(Modifier.width(8.dp)); Text(stringResource(R.string.logout), color = MaterialTheme.colorScheme.error)
+            }
+            Spacer(Modifier.height(16.dp))
+        }
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun EditProfileContent(uiState: ProfileViewUiState, viewModel: ProfileViewViewModel) {
+    val snackbarHostState = remember { SnackbarHostState() }
+    LaunchedEffect(uiState.errorMessage) { uiState.errorMessage?.let { snackbarHostState.showSnackbar(it) } }
+
+    var birthYearInputText by remember { mutableStateOf(uiState.editBirthYear.toString()) }
+    LaunchedEffect(uiState.editBirthYear) {
+        if (birthYearInputText.toIntOrNull() != uiState.editBirthYear) {
+            birthYearInputText = uiState.editBirthYear.toString()
+        }
+    }
+
+    var heightInputText by remember { mutableStateOf(uiState.editHeightCm.toString()) }
+    LaunchedEffect(uiState.editHeightCm) {
+        if (heightInputText.toIntOrNull() != uiState.editHeightCm) {
+            heightInputText = uiState.editHeightCm.toString()
+        }
+    }
+
+    var weightInputText by remember { mutableStateOf(&quot;%.1f&quot;.format(uiState.editWeightKg)) }
+    LaunchedEffect(uiState.editWeightKg) {
+        val currentFloat = weightInputText.toDoubleOrNull() ?: 0.0
+        if (Math.abs(currentFloat - uiState.editWeightKg) &gt; 0.05) {
+            weightInputText = &quot;%.1f&quot;.format(uiState.editWeightKg)
+        }
+    }
+
+    Scaffold(
+        topBar = {
+            TopAppBar(title = { Text(stringResource(R.string.edit_profile_title)) },
+                navigationIcon = { IconButton(onClick = { viewModel.cancelEditing() }) { Icon(Icons.Filled.Close, stringResource(R.string.cancel)) } },
+                actions = {
+                    TextButton(onClick = { viewModel.saveChanges() }, enabled = !uiState.isSaving) {
+                        if (uiState.isSaving) CircularProgressIndicator(Modifier.size(16.dp), strokeWidth = 2.dp)
+                        else Text(stringResource(R.string.save), fontWeight = FontWeight.Bold)
+                    }
+                })
+        },
+        snackbarHost = { SnackbarHost(snackbarHostState) }
+    ) { padding -&gt;
+        Column(Modifier.fillMaxSize().padding(padding).verticalScroll(rememberScrollState()).padding(24.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp)) {
+            OutlinedTextField(value = uiState.editDisplayName, onValueChange = { viewModel.updateEditDisplayName(it) },
+                label = { Text(stringResource(R.string.display_name_label)) }, leadingIcon = { Icon(Icons.Filled.Person, null) },
+                shape = RoundedCornerShape(12.dp), modifier = Modifier.fillMaxWidth(), singleLine = true)
+
+            Text(stringResource(R.string.gender_label), style = MaterialTheme.typography.titleMedium)
+            Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                FilterChip(selected = uiState.editGender == &quot;male&quot;, onClick = { viewModel.updateEditGender(&quot;male&quot;) }, label = { Text(&quot;🚹 &quot; + stringResource(R.string.gender_male)) })
+                FilterChip(selected = uiState.editGender == &quot;female&quot;, onClick = { viewModel.updateEditGender(&quot;female&quot;) }, label = { Text(&quot;🚺 &quot; + stringResource(R.string.gender_female)) })
+            }
+
+            Text(stringResource(R.string.birth_year_label, uiState.editBirthYear), style = MaterialTheme.typography.titleMedium)
+            Slider(value = uiState.editBirthYear.toFloat(), onValueChange = { viewModel.updateEditBirthYear(it.toInt()) }, valueRange = 1940f..2015f)
+            OutlinedTextField(
+                value = birthYearInputText,
+                onValueChange = { newValue -&gt;
+                    if (newValue.isEmpty() || newValue.all { it.isDigit() }) {
+                        birthYearInputText = newValue
+                        newValue.toIntOrNull()?.let { year -&gt;
+                            if (year in 1940..2015) {
+                                viewModel.updateEditBirthYear(year)
+                            }
+                        }
+                    }
+                },
+                label = { Text(stringResource(R.string.birth_year_label, uiState.editBirthYear).substringBefore(&quot;:&quot;) + &quot; (1940 - 2015)&quot;) },
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                shape = RoundedCornerShape(12.dp),
+                modifier = Modifier.fillMaxWidth(),
+                singleLine = true
+            )
+
+            Text(stringResource(R.string.height_slider_label, uiState.editHeightCm), style = MaterialTheme.typography.titleMedium)
+            Slider(value = uiState.editHeightCm.toFloat(), onValueChange = { viewModel.updateEditHeightCm(it.toInt()) }, valueRange = 100f..250f)
+            OutlinedTextField(
+                value = heightInputText,
+                onValueChange = { newValue -&gt;
+                    if (newValue.isEmpty() || newValue.all { it.isDigit() }) {
+                        heightInputText = newValue
+                        newValue.toIntOrNull()?.let { height -&gt;
+                            if (height in 100..250) {
+                                viewModel.updateEditHeightCm(height)
+                            }
+                        }
+                    }
+                },
+                label = { Text(&quot;Nhập chiều cao thủ công&quot;) },
+                suffix = { Text(&quot;cm&quot;) },
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                shape = RoundedCornerShape(12.dp),
+                modifier = Modifier.fillMaxWidth(),
+                singleLine = true
+            )
+
+            Text(stringResource(R.string.weight_slider_label, uiState.editWeightKg), style = MaterialTheme.typography.titleMedium)
+            Slider(value = uiState.editWeightKg.toFloat(), onValueChange = { viewModel.updateEditWeightKg((it * 10).toInt() / 10.0) }, valueRange = 30f..200f)
+            OutlinedTextField(
+                value = weightInputText,
+                onValueChange = { newValue -&gt;
+                    val normalized = newValue.replace(&apos;,&apos;, &apos;.&apos;)
+                    if (normalized.isEmpty() || normalized.toDoubleOrNull() != null || normalized == &quot;.&quot; || normalized.endsWith(&quot;.&quot;)) {
+                        weightInputText = newValue
+                        normalized.toDoubleOrNull()?.let { weight -&gt;
+                            if (weight &gt;= 30.0 &amp;&amp; weight &lt;= 200.0) {
+                                viewModel.updateEditWeightKg(weight)
+                            }
+                        }
+                    }
+                },
+                label = { Text(&quot;Nhập cân nặng thủ công&quot;) },
+                suffix = { Text(&quot;kg&quot;) },
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
+                shape = RoundedCornerShape(12.dp),
+                modifier = Modifier.fillMaxWidth(),
+                singleLine = true
+            )
+
+            Text(stringResource(R.string.goal_label), style = MaterialTheme.typography.titleMedium)
+            goalOptions.forEach { option -&gt;
+                FilterChip(selected = uiState.editGoal == option.value, onClick = { viewModel.updateEditGoal(option.value) },
+                    label = {
+                        val labelText = when (option.value) {
+                            &quot;lose_weight&quot; -&gt; &quot;🔥 &quot; + stringResource(R.string.goal_lose)
+                            &quot;gain_muscle&quot; -&gt; &quot;💪 &quot; + stringResource(R.string.goal_gain)
+                            else -&gt; &quot;⚖️ &quot; + stringResource(R.string.goal_maintain)
+                        }
+                        Text(labelText)
+                    })
+            }
+
+            Text(stringResource(R.string.activity_label), style = MaterialTheme.typography.titleMedium)
+            activityLevelOptions.forEach { option -&gt;
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    RadioButton(selected = uiState.editActivityLevel == option.value, onClick = { viewModel.updateEditActivityLevel(option.value) })
+                    val labelText = when (option.value) {
+                        1.2 -&gt; &quot;🚶 &quot; + stringResource(R.string.activity_sedentary)
+                        1.375 -&gt; &quot;🏃 &quot; + stringResource(R.string.activity_light)
+                        1.55 -&gt; &quot;🏋️ &quot; + stringResource(R.string.activity_moderate)
+                        1.725 -&gt; &quot;🏅 &quot; + stringResource(R.string.activity_very)
+                        else -&gt; &quot;🔥 &quot; + stringResource(R.string.activity_extreme)
+                    }
+                    Text(labelText)
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun InfoRow(label: String, value: String) {
+    Row(Modifier.fillMaxWidth().padding(vertical = 4.dp), horizontalArrangement = Arrangement.SpaceBetween) {
+        Text(label, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        Text(value, style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Medium))
+    }
+}
+
+@Composable
+private fun MetricCard(label: String, value: String, unit: String, modifier: Modifier = Modifier) {
+    Card(modifier = modifier, shape = RoundedCornerShape(12.dp),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer)) {
+        Column(Modifier.fillMaxWidth().padding(12.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+            Text(label, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.7f))
+            Spacer(Modifier.height(4.dp))
+            Text(value, style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold), color = MaterialTheme.colorScheme.primary)
+            if (unit.isNotBlank()) Text(unit, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.5f))
+        }
+    }
+}
+
+@Composable
+private fun MacroBar(label: String, value: Int, maxValue: Int, color: androidx.compose.ui.graphics.Color) {
+    Column {
+        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+            Text(label, style = MaterialTheme.typography.bodyMedium)
+            Text(&quot;${value}g&quot;, style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Medium))
+        }
+        Spacer(Modifier.height(4.dp))
+        LinearProgressIndicator(
+            progress = { if (maxValue &gt; 0) (value.toFloat() / maxValue).coerceIn(0f, 1f) else 0f },
+            modifier = Modifier.fillMaxWidth().height(8.dp).clip(RoundedCornerShape(4.dp)),
+            color = color, trackColor = color.copy(alpha = 0.2f))
+    }
+}
+</code></pre>
+</div>
+<div class=""code-file-section page-break"">
+    <div class=""code-file-header"">File: auth/RegisterScreen.kt</div>
+    <pre class=""line-numbers""><code>package com.team.smartnutrition.auth
+
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusDirection
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import com.team.smartnutrition.R
+import com.team.smartnutrition.auth.viewmodel.RegisterViewModel
+import com.team.smartnutrition.common.components.SmartTopBar
+import com.team.smartnutrition.navigation.Screen
+
+/**
+ * ═══════════════════════════════════════════
+ * MODULE 1 - TV1: MÀN HÌNH ĐĂNG KÝ
+ * ═══════════════════════════════════════════
+ *
+ * Tính năng:
+ * - Form đăng ký (Email, Password, Confirm Password)
+ * - Validation realtime từng field
+ * - Firebase createUserWithEmailAndPassword
+ * - Thành công → navigate ProfileSetup
+ */
+@Composable
+fun RegisterScreen(
+    navController: NavController,
+    viewModel: RegisterViewModel = viewModel()
+) {
+    val uiState by viewModel.uiState.collectAsState()
+    var passwordVisible by remember { mutableStateOf(false) }
+    var confirmPasswordVisible by remember { mutableStateOf(false) }
+    val focusManager = LocalFocusManager.current
+    val snackbarHostState = remember { SnackbarHostState() }
+
+    // Handle navigation after successful registration
+    LaunchedEffect(uiState.isRegistered) {
+        if (uiState.isRegistered) {
+            navController.navigate(Screen.ProfileSetup.route) {
+                popUpTo(Screen.Login.route) { inclusive = true }
+            }
+            viewModel.onNavigated()
+        }
+    }
+
+    // Handle error snackbar
+    LaunchedEffect(uiState.errorMessage) {
+        uiState.errorMessage?.let { message -&gt;
+            snackbarHostState.showSnackbar(message)
+        }
+    }
+
+    Scaffold(
+        topBar = {
+            SmartTopBar(
+                title = stringResource(R.string.register_title),
+                onBackClick = { navController.popBackStack() }
+            )
+        },
+        snackbarHost = { SnackbarHost(snackbarHostState) }
+    ) { padding -&gt;
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(padding)
+                .padding(24.dp)
+                .verticalScroll(rememberScrollState()),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            Spacer(modifier = Modifier.weight(1f))
+
+            Text(
+                text = stringResource(R.string.create_account_title),
+                style = MaterialTheme.typography.headlineMedium
+            )
+            Text(
+                text = stringResource(R.string.register_subtitle),
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                modifier = Modifier.padding(top = 4.dp, bottom = 32.dp)
+            )
+
+            // ═══ Email Field ═══
+            OutlinedTextField(
+                value = uiState.email,
+                onValueChange = { viewModel.updateEmail(it) },
+                label = { Text(stringResource(R.string.email_label)) },
+                leadingIcon = {
+                    Icon(Icons.Filled.Email, contentDescription = null)
+                },
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Email,
+                    imeAction = ImeAction.Next
+                ),
+                keyboardActions = KeyboardActions(
+                    onNext = { focusManager.moveFocus(FocusDirection.Down) }
+                ),
+                shape = RoundedCornerShape(12.dp),
+                modifier = Modifier.fillMaxWidth(),
+                singleLine = true,
+                isError = uiState.emailError != null,
+                supportingText = uiState.emailError?.let {
+                    { Text(it, color = MaterialTheme.colorScheme.error) }
+                },
+                enabled = !uiState.isLoading
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+
+            // ═══ Password Field ═══
+            OutlinedTextField(
+                value = uiState.password,
+                onValueChange = { viewModel.updatePassword(it) },
+                label = { Text(stringResource(R.string.password_label)) },
+                leadingIcon = {
+                    Icon(Icons.Filled.Lock, contentDescription = null)
+                },
+                trailingIcon = {
+                    IconButton(onClick = { passwordVisible = !passwordVisible }) {
+                        Icon(
+                            if (passwordVisible) Icons.Filled.Visibility
+                            else Icons.Filled.VisibilityOff,
+                            contentDescription = stringResource(R.string.password_label)
+                        )
+                    }
+                },
+                visualTransformation = if (passwordVisible) VisualTransformation.None
+                else PasswordVisualTransformation(),
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Password,
+                    imeAction = ImeAction.Next
+                ),
+                keyboardActions = KeyboardActions(
+                    onNext = { focusManager.moveFocus(FocusDirection.Down) }
+                ),
+                shape = RoundedCornerShape(12.dp),
+                modifier = Modifier.fillMaxWidth(),
+                singleLine = true,
+                isError = uiState.passwordError != null,
+                supportingText = {
+                    if (uiState.passwordError != null) {
+                        Text(uiState.passwordError!!, color = MaterialTheme.colorScheme.error)
+                    } else if (uiState.password.isNotBlank()) {
+                        Text(stringResource(R.string.password_valid), color = MaterialTheme.colorScheme.primary)
+                    } else {
+                        Text(
+                            stringResource(R.string.password_requirement),
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
+                },
+                enabled = !uiState.isLoading
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+
+            // ═══ Confirm Password Field ═══
+            OutlinedTextField(
+                value = uiState.confirmPassword,
+                onValueChange = { viewModel.updateConfirmPassword(it) },
+                label = { Text(stringResource(R.string.confirm_password_label)) },
+                leadingIcon = {
+                    Icon(Icons.Filled.Lock, contentDescription = null)
+                },
+                trailingIcon = {
+                    IconButton(onClick = { confirmPasswordVisible = !confirmPasswordVisible }) {
+                        Icon(
+                            if (confirmPasswordVisible) Icons.Filled.Visibility
+                            else Icons.Filled.VisibilityOff,
+                            contentDescription = stringResource(R.string.confirm_password_label)
+                        )
+                    }
+                },
+                visualTransformation = if (confirmPasswordVisible) VisualTransformation.None
+                else PasswordVisualTransformation(),
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Password,
+                    imeAction = ImeAction.Done
+                ),
+                keyboardActions = KeyboardActions(
+                    onDone = {
+                        focusManager.clearFocus()
+                        if (viewModel.isFormValid()) viewModel.register()
+                    }
+                ),
+                shape = RoundedCornerShape(12.dp),
+                modifier = Modifier.fillMaxWidth(),
+                singleLine = true,
+                isError = uiState.confirmPasswordError != null,
+                supportingText = uiState.confirmPasswordError?.let {
+                    { Text(it, color = MaterialTheme.colorScheme.error) }
+                },
+                enabled = !uiState.isLoading
+            )
+            Spacer(modifier = Modifier.height(24.dp))
+
+            // ═══ Register Button ═══
+            Button(
+                onClick = { viewModel.register() },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(52.dp),
+                shape = RoundedCornerShape(12.dp),
+                enabled = !uiState.isLoading &amp;&amp; viewModel.isFormValid()
+            ) {
+                if (uiState.isLoading) {
+                    CircularProgressIndicator(
+                        modifier = Modifier.size(20.dp),
+                        color = MaterialTheme.colorScheme.onPrimary,
+                        strokeWidth = 2.dp
+                    )
+                } else {
+                    Text(stringResource(R.string.register_button), style = MaterialTheme.typography.labelLarge)
+                }
+            }
+
+            Spacer(modifier = Modifier.weight(1f))
+        }
+    }
+}
+</code></pre>
+</div>
+<div class=""code-file-section page-break"">
+    <div class=""code-file-header"">File: auth/WeightLogScreen.kt</div>
+    <pre class=""line-numbers""><code>package com.team.smartnutrition.auth
+
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.MonitorWeight
+import androidx.compose.material.icons.filled.Save
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import com.team.smartnutrition.R
+import com.team.smartnutrition.auth.util.HealthCalculator
+import com.team.smartnutrition.auth.viewmodel.WeightLogViewModel
+import com.team.smartnutrition.common.components.SmartTopBar
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+
+/**
+ * ═══════════════════════════════════════════
+ * MODULE 1 - TV1: NHẬT KÝ CÂN NẶNG
+ * ═══════════════════════════════════════════
+ *
+ * Tính năng:
+ * - Nhập cân nặng hôm nay + tính BMI realtime
+ * - Lưu vào weightLog/{date} + update user profile
+ * - Hiển thị lịch sử cân nặng (LazyColumn DESC)
+ */
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun WeightLogScreen(
+    navController: NavController,
+    viewModel: WeightLogViewModel = viewModel()
+) {
+    val uiState by viewModel.uiState.collectAsState()
+    val focusManager = LocalFocusManager.current
+    val snackbarHostState = remember { SnackbarHostState() }
+    val displayFormatter = DateTimeFormatter.ofPattern(&quot;dd/MM/yyyy&quot;)
+
+    // Handle messages
+    val successMsg = stringResource(R.string.weight_logged_success)
+    LaunchedEffect(uiState.errorMessage) {
+        uiState.errorMessage?.let {
+            snackbarHostState.showSnackbar(it)
+            viewModel.clearError()
+        }
+    }
+    LaunchedEffect(uiState.saveSuccess) {
+        if (uiState.saveSuccess) {
+            snackbarHostState.showSnackbar(successMsg)
+            viewModel.clearSaveSuccess()
+        }
+    }
+
+    Scaffold(
+        topBar = {
+            SmartTopBar(
+                title = stringResource(R.string.weight_log_btn),
+                onBackClick = { navController.popBackStack() }
+            )
+        },
+        snackbarHost = { SnackbarHost(snackbarHostState) }
+    ) { padding -&gt;
+        if (uiState.isLoading) {
+            Box(Modifier.fillMaxSize().padding(padding), contentAlignment = Alignment.Center) {
+                CircularProgressIndicator()
+            }
+        } else {
+            LazyColumn(
+                modifier = Modifier.fillMaxSize().padding(padding),
+                contentPadding = PaddingValues(20.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                // ═══ Input Card ═══
+                item {
+                    Card(
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = RoundedCornerShape(16.dp),
+                        colors = CardDefaults.cardColors(
+                            containerColor = MaterialTheme.colorScheme.primaryContainer
+                        )
+                    ) {
+                        Column(Modifier.padding(20.dp)) {
+                            Text(stringResource(R.string.today_weight_title),
+                                style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
+                                color = MaterialTheme.colorScheme.onPrimaryContainer)
+                            Spacer(Modifier.height(12.dp))
+
+                            OutlinedTextField(
+                                value = uiState.currentWeight,
+                                onValueChange = { viewModel.updateWeight(it) },
+                                label = { Text(stringResource(R.string.weight_label)) },
+                                leadingIcon = { Icon(Icons.Filled.MonitorWeight, null) },
+                                suffix = { Text(&quot;kg&quot;) },
+                                keyboardOptions = KeyboardOptions(
+                                    keyboardType = KeyboardType.Decimal,
+                                    imeAction = ImeAction.Done
+                                ),
+                                keyboardActions = KeyboardActions(onDone = {
+                                    focusManager.clearFocus()
+                                    viewModel.saveWeight()
+                                }),
+                                shape = RoundedCornerShape(12.dp),
+                                modifier = Modifier.fillMaxWidth(),
+                                singleLine = true,
+                                colors = OutlinedTextFieldDefaults.colors(
+                                    unfocusedContainerColor = MaterialTheme.colorScheme.surface,
+                                    focusedContainerColor = MaterialTheme.colorScheme.surface
+                                )
+                            )
+
+                            // BMI Preview
+                            uiState.calculatedBmi?.let { bmi -&gt;
+                                Spacer(Modifier.height(8.dp))
+                                Text(stringResource(R.string.new_bmi, bmi, HealthCalculator.getBmiCategory(bmi)),
+                                    style = MaterialTheme.typography.bodyMedium,
+                                    color = MaterialTheme.colorScheme.onPrimaryContainer)
+                            }
+
+                            Spacer(Modifier.height(16.dp))
+                            Button(
+                                onClick = { focusManager.clearFocus(); viewModel.saveWeight() },
+                                modifier = Modifier.fillMaxWidth().height(48.dp),
+                                shape = RoundedCornerShape(12.dp),
+                                enabled = !uiState.isSaving &amp;&amp; uiState.currentWeight.toDoubleOrNull() != null
+                            ) {
+                                if (uiState.isSaving) {
+                                    CircularProgressIndicator(Modifier.size(20.dp),
+                                        color = MaterialTheme.colorScheme.onPrimary, strokeWidth = 2.dp)
+                                } else {
+                                    Icon(Icons.Filled.Save, null, Modifier.size(18.dp))
+                                    Spacer(Modifier.width(8.dp))
+                                    Text(stringResource(R.string.save_today))
+                                }
+                            }
+                        }
+                    }
+                }
+
+                // ═══ History Header ═══
+                if (uiState.history.isNotEmpty()) {
+                    item {
+                        Text(&quot;📅 &quot; + stringResource(R.string.weight_history),
+                            style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold),
+                            modifier = Modifier.padding(top = 8.dp))
+                    }
+                }
+
+                // ═══ History Items ═══
+                items(uiState.history) { entry -&gt;
+                    Card(
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = RoundedCornerShape(12.dp),
+                        colors = CardDefaults.cardColors(
+                            containerColor = MaterialTheme.colorScheme.surfaceVariant
+                        )
+                    ) {
+                        Row(
+                            modifier = Modifier.fillMaxWidth().padding(16.dp),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Column {
+                                val formattedDate = try {
+                                    LocalDate.parse(entry.date).format(displayFormatter)
+                                } catch (e: Exception) { entry.date }
+
+                                Text(formattedDate, style = MaterialTheme.typography.bodyMedium,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant)
+                                Text(&quot;BMI: ${&quot;%.2f&quot;.format(entry.bmi)}&quot;,
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant)
+                            }
+                            Text(&quot;${&quot;%.1f&quot;.format(entry.weightKg)} kg&quot;,
+                                style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
+                                color = MaterialTheme.colorScheme.primary)
+                        }
+                    }
+                }
+
+                // ═══ Empty State ═══
+                if (uiState.history.isEmpty()) {
+                    item {
+                        Card(Modifier.fillMaxWidth(), shape = RoundedCornerShape(12.dp),
+                            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)) {
+                            Column(Modifier.fillMaxWidth().padding(32.dp),
+                                horizontalAlignment = Alignment.CenterHorizontally) {
+                                Text(&quot;📊&quot;, style = MaterialTheme.typography.displaySmall)
+                                Spacer(Modifier.height(8.dp))
+                                Text(stringResource(R.string.no_weight_data), style = MaterialTheme.typography.bodyMedium,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant)
+                                Text(stringResource(R.string.start_weight_log_hint),
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+</code></pre>
+</div>
+<div class=""code-file-section page-break"">
+    <div class=""code-file-header"">File: auth/data/UserRepository.kt</div>
+    <pre class=""line-numbers""><code>package com.team.smartnutrition.auth.data
+
+import com.google.firebase.Timestamp
+import com.google.firebase.auth.AuthCredential
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
+import com.team.smartnutrition.auth.model.User
+import com.team.smartnutrition.auth.model.WeightEntry
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.tasks.await
+
+/**
+ * ═══════════════════════════════════════════
+ * USER REPOSITORY - Lớp dữ liệu duy nhất
+ * ═══════════════════════════════════════════
+ *
+ * Đóng gói toàn bộ Firebase Auth + Firestore operations.
+ * Tất cả ViewModel dùng chung repository này.
+ */
+class UserRepository {
+
+    private val auth = FirebaseAuth.getInstance()
+    private val firestore = FirebaseFirestore.getInstance()
+
+    // ═══ FIREBASE AUTH ═══
+
+    /** User hiện tại (null nếu chưa login) */
+    val currentUser: FirebaseUser?
+        get() = auth.currentUser
+
+    /** UID của user hiện tại */
+    val currentUid: String?
+        get() = auth.currentUser?.uid
+
+    /**
+     * Đăng nhập bằng Email/Password.
+     * @throws Exception nếu thất bại
+     */
+    suspend fun signInWithEmail(email: String, password: String): FirebaseUser {
+        val result = kotlinx.coroutines.withTimeoutOrNull(15000) {
+            auth.signInWithEmailAndPassword(email, password).await()
+        } ?: throw Exception(&quot;timeout&quot;)
+        return result.user ?: throw Exception(&quot;Đăng nhập thất bại&quot;)
+    }
+
+    /**
+     * Đăng nhập bằng Google Credential.
+     * @param credential AuthCredential từ Google Sign-In flow
+     */
+    suspend fun signInWithCredential(credential: AuthCredential): FirebaseUser {
+        val result = kotlinx.coroutines.withTimeoutOrNull(15000) {
+            auth.signInWithCredential(credential).await()
+        } ?: throw Exception(&quot;timeout&quot;)
+        return result.user ?: throw Exception(&quot;Đăng nhập Google thất bại&quot;)
+    }
+
+    /**
+     * Đăng ký tài khoản mới bằng Email/Password.
+     * @throws Exception nếu email đã tồn tại, password yếu, v.v.
+     */
+    suspend fun registerWithEmail(email: String, password: String): FirebaseUser {
+        val result = kotlinx.coroutines.withTimeoutOrNull(15000) {
+            auth.createUserWithEmailAndPassword(email, password).await()
+        } ?: throw Exception(&quot;timeout&quot;)
+        return result.user ?: throw Exception(&quot;Đăng ký thất bại&quot;)
+    }
+
+    /** Đăng xuất */
+    fun signOut() {
+        auth.signOut()
+    }
+
+    // ═══ FIRESTORE: USER PROFILE ═══
+
+    /**
+     * Kiểm tra user đã có profile trên Firestore chưa.
+     * Dùng khi login để quyết định navigate ProfileSetup hay Home.
+     */
+    suspend fun hasProfile(uid: String): Boolean {
+        return try {
+            val doc = kotlinx.coroutines.withTimeout(3000) {
+                firestore.collection(&quot;users&quot;).document(uid).get().await()
+            }
+            doc.exists()
+        } catch (e: Exception) {
+            // Fallback đọc từ cache local
+            val doc = firestore.collection(&quot;users&quot;).document(uid)
+                .get(com.google.firebase.firestore.Source.CACHE).await()
+            doc.exists()
+        }
+    }
+
+    /**
+     * Lấy profile user từ Firestore.
+     * @return User hoặc null nếu chưa có
+     */
+    suspend fun getUser(uid: String): User? {
+        val doc = try {
+            kotlinx.coroutines.withTimeout(3000) {
+                firestore.collection(&quot;users&quot;).document(uid).get().await()
+            }
+        } catch (e: Exception) {
+            // Fallback đọc từ cache local
+            firestore.collection(&quot;users&quot;).document(uid)
+                .get(com.google.firebase.firestore.Source.CACHE).await()
+        }
+        return doc.toObject(User::class.java)?.copy(uid = uid)
+    }
+
+    /**
+     * Lưu/cập nhật profile user lên Firestore.
+     * Dùng cho cả ProfileSetup (lần đầu) và Profile Edit.
+     */
+    suspend fun saveUser(user: User) {
+        val data = hashMapOf(
+            &quot;email&quot; to user.email,
+            &quot;displayName&quot; to user.displayName,
+            &quot;gender&quot; to user.gender,
+            &quot;birthYear&quot; to user.birthYear,
+            &quot;heightCm&quot; to user.heightCm,
+            &quot;weightKg&quot; to user.weightKg,
+            &quot;activityLevel&quot; to user.activityLevel,
+            &quot;goal&quot; to user.goal,
+            &quot;bmi&quot; to user.bmi,
+            &quot;bmr&quot; to user.bmr,
+            &quot;tdee&quot; to user.tdee,
+            &quot;proteinTarget&quot; to user.proteinTarget,
+            &quot;carbTarget&quot; to user.carbTarget,
+            &quot;fatTarget&quot; to user.fatTarget,
+            &quot;calorieTarget&quot; to user.calorieTarget,
+            &quot;updatedAt&quot; to Timestamp.now()
+        )
+        // Chỉ set createdAt khi tạo mới
+        if (user.createdAt == null) {
+            data[&quot;createdAt&quot;] = Timestamp.now()
+        }
+
+        // Ghi bất đồng bộ (offline-first) - ghi lập tức vào SQLite cache
+        firestore.collection(&quot;users&quot;).document(user.uid)
+            .set(data, com.google.firebase.firestore.SetOptions.merge())
+    }
+
+    // ═══ FIRESTORE: WEIGHT LOG ═══
+
+    /**
+     * Lưu entry cân nặng ngày hôm nay.
+     * Document ID = date → mỗi ngày chỉ 1 record (upsert).
+     * Đồng thời cập nhật weightKg + bmi trong user profile.
+     */
+    suspend fun logWeight(uid: String, date: String, weightKg: Double, bmi: Double) {
+        val entry = hashMapOf(
+            &quot;weightKg&quot; to weightKg,
+            &quot;bmi&quot; to bmi,
+            &quot;loggedAt&quot; to Timestamp.now()
+        )
+
+        // Batch write: cập nhật cả weightLog và user profile cùng lúc bất đồng bộ
+        val batch = firestore.batch()
+
+        // 1. Upsert weightLog/{date}
+        val weightRef = firestore.collection(&quot;users&quot;).document(uid)
+            .collection(&quot;weightLog&quot;).document(date)
+        batch.set(weightRef, entry)
+
+        // 2. Update user profile weightKg + bmi
+        val userRef = firestore.collection(&quot;users&quot;).document(uid)
+        batch.update(userRef, mapOf(
+            &quot;weightKg&quot; to weightKg,
+            &quot;bmi&quot; to bmi,
+            &quot;updatedAt&quot; to Timestamp.now()
+        ))
+
+        // Ghi bất đồng bộ (offline-first)
+        batch.commit()
+    }
+
+    /**
+     * Lấy lịch sử cân nặng, sắp xếp mới nhất trước.
+     * @param limit số lượng tối đa entries trả về
+     */
+    suspend fun getWeightHistory(uid: String, limit: Long = 30): List&lt;WeightEntry&gt; {
+        val snapshot = try {
+            kotlinx.coroutines.withTimeout(3000) {
+                firestore.collection(&quot;users&quot;).document(uid)
+                    .collection(&quot;weightLog&quot;)
+                    .orderBy(&quot;loggedAt&quot;, Query.Direction.DESCENDING)
+                    .limit(limit)
+                    .get()
+                    .await()
+            }
+        } catch (e: Exception) {
+            // Fallback đọc từ cache local
+            firestore.collection(&quot;users&quot;).document(uid)
+                .collection(&quot;weightLog&quot;)
+                .orderBy(&quot;loggedAt&quot;, Query.Direction.DESCENDING)
+                .limit(limit)
+                .get(com.google.firebase.firestore.Source.CACHE)
+                .await()
+        }
+
+        return snapshot.documents.map { doc -&gt;
+            doc.toObject(WeightEntry::class.java)?.copy(date = doc.id)
+                ?: WeightEntry(date = doc.id)
+        }
+    }
+}
+</code></pre>
+</div>
+<div class=""code-file-section page-break"">
+    <div class=""code-file-header"">File: auth/model/User.kt</div>
+    <pre class=""line-numbers""><code>package com.team.smartnutrition.auth.model
+
+import com.google.firebase.Timestamp
+
+/**
+ * ═══════════════════════════════════════════
+ * DATA MODELS cho Module 1 - Auth &amp; Profile
+ * ═══════════════════════════════════════════
+ *
+ * Ánh xạ trực tiếp tới Firestore document:
+ * - User → users/{uid}
+ * - WeightEntry → users/{uid}/weightLog/{date}
+ */
+
+/**
+ * User profile data, khớp 1:1 với Firestore schema.
+ * Dùng default values để Firestore.toObject() hoạt động.
+ */
+data class User(
+    val uid: String = &quot;&quot;,
+    val email: String = &quot;&quot;,
+    val displayName: String = &quot;&quot;,
+    val gender: String = &quot;male&quot;,            // &quot;male&quot; | &quot;female&quot;
+    val birthYear: Int = 2000,
+    val heightCm: Int = 170,
+    val weightKg: Double = 65.0,
+    val activityLevel: Double = 1.55,       // 1.2 → 1.9
+    val goal: String = &quot;maintain&quot;,          // &quot;lose_weight&quot; | &quot;maintain&quot; | &quot;gain_muscle&quot;
+    val bmi: Double = 0.0,
+    val bmr: Double = 0.0,
+    val tdee: Double = 0.0,
+    val proteinTarget: Int = 0,             // gram/ngày
+    val carbTarget: Int = 0,                // gram/ngày
+    val fatTarget: Int = 0,                 // gram/ngày
+    val calorieTarget: Int = 0,             // kcal/ngày
+    val createdAt: Timestamp? = null,
+    val updatedAt: Timestamp? = null
+)
+
+/**
+ * Một entry cân nặng trong sub-collection weightLog.
+ * Document ID = &quot;yyyy-MM-dd&quot; (mỗi ngày 1 record duy nhất).
+ */
+data class WeightEntry(
+    val weightKg: Double = 0.0,
+    val bmi: Double = 0.0,
+    val loggedAt: Timestamp? = null,
+    val date: String = &quot;&quot;                   // Document ID, format &quot;yyyy-MM-dd&quot;
+)
+</code></pre>
+</div>
+<div class=""code-file-section page-break"">
+    <div class=""code-file-header"">File: auth/util/HealthCalculator.kt</div>
+    <pre class=""line-numbers""><code>package com.team.smartnutrition.auth.util
+
+import java.time.Year
+import kotlin.math.pow
+import kotlin.math.roundToInt
+
+/**
+ * ═══════════════════════════════════════════
+ * HEALTH CALCULATOR - Tính chỉ số sức khỏe
+ * ═══════════════════════════════════════════
+ *
+ * Pure functions, chạy LOCAL trên app.
+ * Công thức Harris-Benedict cho BMR.
+ */
+object HealthCalculator {
+
+    /**
+     * Tính BMI = cân nặng (kg) / chiều cao (m)²
+     */
+    fun calculateBmi(weightKg: Double, heightCm: Int): Double {
+        if (heightCm &lt;= 0) return 0.0
+        val heightM = heightCm / 100.0
+        return (weightKg / heightM.pow(2)).roundTo(2)
+    }
+
+    /**
+     * Phân loại BMI theo chuẩn WHO.
+     */
+    fun getBmiCategory(bmi: Double): String = when {
+        bmi &lt; 18.5 -&gt; &quot;Thiếu cân&quot;
+        bmi &lt; 25.0 -&gt; &quot;Bình thường&quot;
+        bmi &lt; 30.0 -&gt; &quot;Thừa cân&quot;
+        else -&gt; &quot;Béo phì&quot;
+    }
+
+    /**
+     * Tính BMR bằng công thức Harris-Benedict.
+     * @param gender &quot;male&quot; hoặc &quot;female&quot;
+     * @param age tuổi (năm)
+     */
+    fun calculateBmr(
+        weightKg: Double,
+        heightCm: Int,
+        age: Int,
+        gender: String
+    ): Double {
+        return if (gender == &quot;male&quot;) {
+            88.362 + (13.397 * weightKg) + (4.799 * heightCm) - (5.677 * age)
+        } else {
+            447.593 + (9.247 * weightKg) + (3.098 * heightCm) - (4.330 * age)
+        }.roundTo(1)
+    }
+
+    /**
+     * Tính TDEE = BMR × hệ số vận động.
+     * @param activityLevel 1.2 (ít) → 1.9 (rất nhiều)
+     */
+    fun calculateTdee(bmr: Double, activityLevel: Double): Double {
+        return (bmr * activityLevel).roundTo(1)
+    }
+
+    /**
+     * Calorie mục tiêu, điều chỉnh theo goal.
+     * - lose_weight: TDEE - 500
+     * - gain_muscle: TDEE + 300
+     * - maintain: TDEE giữ nguyên
+     */
+    fun calculateCalorieTarget(tdee: Double, goal: String): Int {
+        return when (goal) {
+            &quot;lose_weight&quot; -&gt; (tdee - 500).roundToInt()
+            &quot;gain_muscle&quot; -&gt; (tdee + 300).roundToInt()
+            else -&gt; tdee.roundToInt()
+        }
+    }
+
+    /**
+     * Tính Macros mục tiêu (Protein, Carb, Fat) theo gram/ngày.
+     * @return Triple(proteinGrams, carbGrams, fatGrams)
+     */
+    fun calculateMacros(calorieTarget: Int, goal: String): Triple&lt;Int, Int, Int&gt; {
+        val cal = calorieTarget.toDouble()
+        return when (goal) {
+            &quot;gain_muscle&quot; -&gt; Triple(
+                (cal * 0.30 / 4).roundToInt(),  // 30% Protein (1g = 4 kcal)
+                (cal * 0.45 / 4).roundToInt(),  // 45% Carb
+                (cal * 0.25 / 9).roundToInt()   // 25% Fat (1g = 9 kcal)
+            )
+            &quot;lose_weight&quot; -&gt; Triple(
+                (cal * 0.35 / 4).roundToInt(),  // 35% Protein
+                (cal * 0.35 / 4).roundToInt(),  // 35% Carb
+                (cal * 0.30 / 9).roundToInt()   // 30% Fat
+            )
+            else -&gt; Triple(
+                (cal * 0.25 / 4).roundToInt(),  // 25% Protein
+                (cal * 0.50 / 4).roundToInt(),  // 50% Carb
+                (cal * 0.25 / 9).roundToInt()   // 25% Fat
+            )
+        }
+    }
+
+    /**
+     * Tính tuổi từ năm sinh.
+     */
+    fun calculateAge(birthYear: Int): Int {
+        return Year.now().value - birthYear
+    }
+
+    /**
+     * Tính tất cả chỉ số cùng lúc.
+     * Tiện cho ProfileSetup khi cần hiện toàn bộ kết quả.
+     */
+    fun calculateAllMetrics(
+        weightKg: Double,
+        heightCm: Int,
+        birthYear: Int,
+        gender: String,
+        activityLevel: Double,
+        goal: String
+    ): HealthMetrics {
+        val age = calculateAge(birthYear)
+        val bmi = calculateBmi(weightKg, heightCm)
+        val bmr = calculateBmr(weightKg, heightCm, age, gender)
+        val tdee = calculateTdee(bmr, activityLevel)
+        val calorieTarget = calculateCalorieTarget(tdee, goal)
+        val (protein, carb, fat) = calculateMacros(calorieTarget, goal)
+
+        return HealthMetrics(
+            bmi = bmi,
+            bmiCategory = getBmiCategory(bmi),
+            bmr = bmr,
+            tdee = tdee,
+            calorieTarget = calorieTarget,
+            proteinTarget = protein,
+            carbTarget = carb,
+            fatTarget = fat
+        )
+    }
+
+    /** Round Double tới N chữ số thập phân */
+    private fun Double.roundTo(decimals: Int): Double {
+        val factor = 10.0.pow(decimals)
+        return (this * factor).roundToInt() / factor
+    }
+}
+
+/**
+ * Kết quả tính toán tất cả chỉ số sức khỏe.
+ */
+data class HealthMetrics(
+    val bmi: Double = 0.0,
+    val bmiCategory: String = &quot;&quot;,
+    val bmr: Double = 0.0,
+    val tdee: Double = 0.0,
+    val calorieTarget: Int = 0,
+    val proteinTarget: Int = 0,
+    val carbTarget: Int = 0,
+    val fatTarget: Int = 0
+)
+</code></pre>
+</div>
+<div class=""code-file-section page-break"">
+    <div class=""code-file-header"">File: auth/util/Validators.kt</div>
+    <pre class=""line-numbers""><code>package com.team.smartnutrition.auth.util
+
+import android.util.Patterns
+
+/**
+ * ═══════════════════════════════════════════
+ * VALIDATION UTILS - Module 1
+ * ═══════════════════════════════════════════
+ *
+ * Quy tắc:
+ * - Email: Patterns.EMAIL_ADDRESS regex chuẩn Android
+ * - Password: ≥6 ký tự + 1 chữ hoa + 1 chữ số
+ * - Confirm: phải trùng khớp hoàn toàn
+ */
+object Validators {
+
+    /**
+     * Validate email theo format chuẩn Android.
+     */
+    fun isValidEmail(email: String): Boolean {
+        return email.isNotBlank() &amp;&amp; Patterns.EMAIL_ADDRESS.matcher(email).matches()
+    }
+
+    /**
+     * Validate password theo quy tắc bảo mật.
+     * ≥6 ký tự, ít nhất 1 chữ hoa, ít nhất 1 chữ số.
+     */
+    fun isValidPassword(password: String): Boolean {
+        return password.length &gt;= 6 &amp;&amp;
+                password.any { it.isUpperCase() } &amp;&amp;
+                password.any { it.isDigit() }
+    }
+
+    /**
+     * Kiểm tra confirm password trùng khớp.
+     */
+    fun doPasswordsMatch(password: String, confirmPassword: String): Boolean {
+        return password.isNotEmpty() &amp;&amp; password == confirmPassword
+    }
+
+    /**
+     * Lấy thông báo lỗi email (null = hợp lệ).
+     */
+    fun getEmailError(email: String): String? {
+        return when {
+            email.isBlank() -&gt; null  // Chưa nhập, không hiện lỗi
+            !Patterns.EMAIL_ADDRESS.matcher(email).matches() -&gt; &quot;Email không hợp lệ&quot;
+            else -&gt; null
+        }
+    }
+
+    /**
+     * Lấy thông báo lỗi password (null = hợp lệ).
+     * Trả về lỗi cụ thể nhất cho UX tốt.
+     */
+    fun getPasswordError(password: String): String? {
+        return when {
+            password.isBlank() -&gt; null  // Chưa nhập
+            password.length &lt; 6 -&gt; &quot;Mật khẩu phải có ít nhất 6 ký tự&quot;
+            !password.any { it.isUpperCase() } -&gt; &quot;Cần ít nhất 1 chữ cái viết hoa&quot;
+            !password.any { it.isDigit() } -&gt; &quot;Cần ít nhất 1 chữ số&quot;
+            else -&gt; null
+        }
+    }
+
+    /**
+     * Lấy thông báo lỗi confirm password (null = hợp lệ).
+     */
+    fun getConfirmPasswordError(password: String, confirmPassword: String): String? {
+        return when {
+            confirmPassword.isBlank() -&gt; null  // Chưa nhập
+            confirmPassword != password -&gt; &quot;Mật khẩu không khớp&quot;
+            else -&gt; null
+        }
+    }
+}
+</code></pre>
+</div>
+<div class=""code-file-section page-break"">
+    <div class=""code-file-header"">File: auth/viewmodel/LoginViewModel.kt</div>
+    <pre class=""line-numbers""><code>package com.team.smartnutrition.auth.viewmodel
+
+import android.app.Activity
+import androidx.credentials.CredentialManager
+import androidx.credentials.GetCredentialRequest
+import androidx.credentials.GetCredentialResponse
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.google.android.libraries.identity.googleid.GetGoogleIdOption
+import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
+import com.google.firebase.auth.GoogleAuthProvider
+import com.team.smartnutrition.auth.data.UserRepository
+import com.team.smartnutrition.auth.util.Validators
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+
+/**
+ * ═══════════════════════════════════════════
+ * LOGIN VIEW MODEL
+ * ═══════════════════════════════════════════
+ *
+ * Xử lý:
+ * - Đăng nhập Email/Password
+ * - Đăng nhập Google (Credential Manager)
+ * - Kiểm tra user đã có profile chưa → navigate phù hợp
+ */
+
+data class LoginUiState(
+    val email: String = &quot;&quot;,
+    val password: String = &quot;&quot;,
+    val isLoading: Boolean = false,
+    val errorMessage: String? = null,
+    val navigateTo: LoginDestination? = null
+)
+
+enum class LoginDestination {
+    HOME,           // Đã có profile → vào Home
+    PROFILE_SETUP   // Chưa có profile → setup lần đầu
+}
+
+class LoginViewModel : ViewModel() {
+
+    private val repository = UserRepository()
+
+    private val _uiState = MutableStateFlow(LoginUiState())
+    val uiState: StateFlow&lt;LoginUiState&gt; = _uiState.asStateFlow()
+
+    fun updateEmail(email: String) {
+        _uiState.update { it.copy(email = email, errorMessage = null) }
+    }
+
+    fun updatePassword(password: String) {
+        _uiState.update { it.copy(password = password, errorMessage = null) }
+    }
+
+    /** Kiểm tra form hợp lệ (dùng cho enable/disable button) */
+    fun isFormValid(): Boolean {
+        val state = _uiState.value
+        return Validators.isValidEmail(state.email) &amp;&amp; state.password.isNotBlank()
+    }
+
+    /**
+     * Đăng nhập bằng Email/Password.
+     */
+    fun signInWithEmail() {
+        val state = _uiState.value
+        if (!Validators.isValidEmail(state.email)) {
+            _uiState.update { it.copy(errorMessage = &quot;Email không hợp lệ&quot;) }
+            return
+        }
+
+        viewModelScope.launch {
+            _uiState.update { it.copy(isLoading = true, errorMessage = null) }
+            try {
+                val user = repository.signInWithEmail(state.email, state.password)
+                checkProfileAndNavigate(user.uid)
+            } catch (e: Exception) {
+                _uiState.update {
+                    it.copy(
+                        isLoading = false,
+                        errorMessage = mapFirebaseError(e.message)
+                    )
+                }
+            }
+        }
+    }
+
+    /**
+     * Đăng nhập bằng Google Credential Manager.
+     * Cần Activity context để hiện dialog chọn tài khoản.
+     */
+    fun signInWithGoogle(activity: Activity) {
+        viewModelScope.launch {
+            _uiState.update { it.copy(isLoading = true, errorMessage = null) }
+            try {
+                // 1. Tạo Google ID option
+                val googleIdOption = GetGoogleIdOption.Builder()
+                    .setFilterByAuthorizedAccounts(false)
+                    .setServerClientId(getWebClientId(activity))
+                    .build()
+
+                // 2. Tạo credential request
+                val request = GetCredentialRequest.Builder()
+                    .addCredentialOption(googleIdOption)
+                    .build()
+
+                // 3. Gọi Credential Manager
+                val credentialManager = CredentialManager.create(activity)
+                val result: GetCredentialResponse =
+                    credentialManager.getCredential(activity, request)
+
+                // 4. Lấy Google ID Token
+                val googleIdTokenCredential =
+                    GoogleIdTokenCredential.createFrom(result.credential.data)
+                val idToken = googleIdTokenCredential.idToken
+
+                // 5. Đăng nhập Firebase bằng credential
+                val firebaseCredential = GoogleAuthProvider.getCredential(idToken, null)
+                val user = repository.signInWithCredential(firebaseCredential)
+
+                checkProfileAndNavigate(user.uid)
+            } catch (e: Exception) {
+                _uiState.update {
+                    it.copy(
+                        isLoading = false,
+                        errorMessage = &quot;Đăng nhập Google thất bại: ${e.localizedMessage}&quot;
+                    )
+                }
+            }
+        }
+    }
+
+    /**
+     * Kiểm tra user đã có profile trên Firestore chưa.
+     * - Có → navigate HOME
+     * - Chưa → navigate PROFILE_SETUP
+     */
+    private suspend fun checkProfileAndNavigate(uid: String) {
+        try {
+            val hasProfile = repository.hasProfile(uid)
+            _uiState.update {
+                it.copy(
+                    isLoading = false,
+                    navigateTo = if (hasProfile) LoginDestination.HOME
+                    else LoginDestination.PROFILE_SETUP
+                )
+            }
+        } catch (e: Exception) {
+            // Firestore offline → default navigate to HOME
+            _uiState.update {
+                it.copy(isLoading = false, navigateTo = LoginDestination.HOME)
+            }
+        }
+    }
+
+    /** Reset navigation state sau khi đã navigate */
+    fun onNavigated() {
+        _uiState.update { it.copy(navigateTo = null) }
+    }
+
+    /** Clear error message */
+    fun clearError() {
+        _uiState.update { it.copy(errorMessage = null) }
+    }
+
+    /**
+     * Lấy Web Client ID từ google-services.json (qua strings.xml).
+     * Firebase tự generate string resource &quot;default_web_client_id&quot;.
+     */
+    private fun getWebClientId(activity: Activity): String {
+        // 1. Thử lấy trực tiếp thông qua R class của package chính (com.team.smartnutrition)
+        // Cách này an toàn nhất vì tránh được lỗi khi chạy debug build có applicationIdSuffix
+        try {
+            val resId = com.team.smartnutrition.R.string.default_web_client_id
+            val clientId = activity.getString(resId)
+            if (clientId.isNotEmpty()) {
+                return clientId
+            }
+        } catch (e: Throwable) {
+            // Bỏ qua nếu có lỗi biên dịch hoặc runtime
+        }
+
+        // 2. Thử tìm qua Identifier với package name cứng của ứng dụng
+        val hardcodedPackageResId = activity.resources.getIdentifier(
+            &quot;default_web_client_id&quot;, &quot;string&quot;, &quot;com.team.smartnutrition&quot;
+        )
+        if (hardcodedPackageResId != 0) {
+            return activity.getString(hardcodedPackageResId)
+        }
+
+        // 3. Thử tìm qua Identifier với activity.packageName (cách cũ)
+        val activityPackageResId = activity.resources.getIdentifier(
+            &quot;default_web_client_id&quot;, &quot;string&quot;, activity.packageName
+        )
+        if (activityPackageResId != 0) {
+            return activity.getString(activityPackageResId)
+        }
+
+        // 4. Nếu tất cả đều thất bại, fallback về Web Client ID lấy từ google-services.json hiện tại
+        return &quot;403911937731-p004v6umhf2fgertf1mscq325cdprsg9.apps.googleusercontent.com&quot;
+    }
+
+    /** Map Firebase error codes sang tiếng Việt */
+    private fun mapFirebaseError(message: String?): String {
+        return when {
+            message == null -&gt; &quot;Đã xảy ra lỗi&quot;
+            message.contains(&quot;timeout&quot;) || message.contains(&quot;timed out&quot;) || message.contains(&quot;Timed out&quot;) -&gt;
+                &quot;Quá thời gian kết nối. Vui lòng kiểm tra mạng hoặc đảm bảo bạn đã cấu hình vân tay SHA-1/SHA-256 trong Firebase Console.&quot;
+            message.contains(&quot;Configuration not found&quot;) || message.contains(&quot;CONFIGURATION_NOT_FOUND&quot;) || message.contains(&quot;configuration not found&quot;) -&gt;
+                &quot;Lỗi cấu hình Firebase: Bạn chưa bật phương thức đăng nhập Email/Password trong Firebase Console (Authentication &gt; Sign-in method).&quot;
+            message.contains(&quot;INVALID_LOGIN_CREDENTIALS&quot;) ||
+            message.contains(&quot;invalid-credential&quot;) -&gt; &quot;Email hoặc mật khẩu không đúng&quot;
+            message.contains(&quot;user-not-found&quot;) -&gt; &quot;Tài khoản không tồn tại&quot;
+            message.contains(&quot;wrong-password&quot;) -&gt; &quot;Mật khẩu không đúng&quot;
+            message.contains(&quot;too-many-requests&quot;) -&gt; &quot;Quá nhiều lần thử. Vui lòng thử lại sau&quot;
+            message.contains(&quot;network&quot;) -&gt; &quot;Lỗi mạng. Kiểm tra kết nối Internet&quot;
+            message.contains(&quot;user-disabled&quot;) -&gt; &quot;Tài khoản đã bị vô hiệu hóa&quot;
+            else -&gt; &quot;Đăng nhập thất bại: $message&quot;
+        }
+    }
+}
+</code></pre>
+</div>
+<div class=""code-file-section page-break"">
+    <div class=""code-file-header"">File: auth/viewmodel/ProfileSetupViewModel.kt</div>
+    <pre class=""line-numbers""><code>package com.team.smartnutrition.auth.viewmodel
+
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.google.firebase.auth.FirebaseAuth
+import com.team.smartnutrition.auth.data.UserRepository
+import com.team.smartnutrition.auth.model.User
+import com.team.smartnutrition.auth.util.HealthCalculator
+import com.team.smartnutrition.auth.util.HealthMetrics
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+
+/**
+ * ═══════════════════════════════════════════
+ * PROFILE SETUP VIEW MODEL
+ * ═══════════════════════════════════════════
+ *
+ * Quản lý multi-step wizard 3 bước:
+ * Step 1: Giới tính + Năm sinh + Tên hiển thị
+ * Step 2: Chiều cao + Cân nặng
+ * Step 3: Mục tiêu + Mức độ vận động → tính toán → lưu
+ */
+
+data class ProfileSetupUiState(
+    val currentStep: Int = 1,           // 1, 2, 3
+    val totalSteps: Int = 3,
+    // Step 1
+    val displayName: String = &quot;&quot;,
+    val gender: String = &quot;male&quot;,        // &quot;male&quot; | &quot;female&quot;
+    val birthYear: Int = 2003,
+    // Step 2
+    val heightCm: Int = 170,
+    val weightKg: Double = 65.0,
+    // Step 3
+    val goal: String = &quot;maintain&quot;,      // &quot;lose_weight&quot; | &quot;maintain&quot; | &quot;gain_muscle&quot;
+    val activityLevel: Double = 1.55,
+    // Calculated metrics (tính khi chuyển sang step 3)
+    val metrics: HealthMetrics? = null,
+    // UI state
+    val isSaving: Boolean = false,
+    val isSaved: Boolean = false,       // true → navigate Home
+    val errorMessage: String? = null
+)
+
+/**
+ * Mức độ vận động với label tiếng Việt.
+ */
+data class ActivityLevelOption(
+    val value: Double,
+    val label: String,
+    val emoji: String
+)
+
+val activityLevelOptions = listOf(
+    ActivityLevelOption(1.2, &quot;Ít vận động&quot;, &quot;🚶&quot;),
+    ActivityLevelOption(1.375, &quot;Vận động nhẹ&quot;, &quot;🏃&quot;),
+    ActivityLevelOption(1.55, &quot;Vận động vừa&quot;, &quot;🏋️&quot;),
+    ActivityLevelOption(1.725, &quot;Vận động nhiều&quot;, &quot;🏅&quot;),
+    ActivityLevelOption(1.9, &quot;Rất nhiều&quot;, &quot;🔥&quot;)
+)
+
+/**
+ * Mục tiêu sức khỏe với label.
+ */
+data class GoalOption(
+    val value: String,
+    val label: String,
+    val emoji: String,
+    val description: String
+)
+
+val goalOptions = listOf(
+    GoalOption(&quot;lose_weight&quot;, &quot;Giảm mỡ&quot;, &quot;🔥&quot;, &quot;TDEE - 500 kcal/ngày&quot;),
+    GoalOption(&quot;gain_muscle&quot;, &quot;Tăng cơ&quot;, &quot;💪&quot;, &quot;TDEE + 300 kcal/ngày&quot;),
+    GoalOption(&quot;maintain&quot;, &quot;Duy trì&quot;, &quot;⚖️&quot;, &quot;Giữ nguyên TDEE&quot;)
+)
+
+class ProfileSetupViewModel : ViewModel() {
+
+    private val repository = UserRepository()
+
+    private val _uiState = MutableStateFlow(ProfileSetupUiState())
+    val uiState: StateFlow&lt;ProfileSetupUiState&gt; = _uiState.asStateFlow()
+
+    // ═══ Step 1 updates ═══
+
+    fun updateDisplayName(name: String) {
+        _uiState.update { it.copy(displayName = name) }
+    }
+
+    fun updateGender(gender: String) {
+        _uiState.update { it.copy(gender = gender) }
+    }
+
+    fun updateBirthYear(year: Int) {
+        _uiState.update { it.copy(birthYear = year) }
+    }
+
+    // ═══ Step 2 updates ═══
+
+    fun updateHeightCm(height: Int) {
+        _uiState.update { it.copy(heightCm = height) }
+    }
+
+    fun updateWeightKg(weight: Double) {
+        _uiState.update { it.copy(weightKg = weight) }
+    }
+
+    // ═══ Step 3 updates ═══
+
+    fun updateGoal(goal: String) {
+        _uiState.update { it.copy(goal = goal) }
+        recalculateMetrics()
+    }
+
+    fun updateActivityLevel(level: Double) {
+        _uiState.update { it.copy(activityLevel = level) }
+        recalculateMetrics()
+    }
+
+    // ═══ Navigation ═══
+
+    fun nextStep() {
+        val state = _uiState.value
+        if (state.currentStep &lt; state.totalSteps) {
+            val nextStep = state.currentStep + 1
+            _uiState.update { it.copy(currentStep = nextStep) }
+            // Tính metrics khi chuyển sang step 3
+            if (nextStep == 3) {
+                recalculateMetrics()
+            }
+        }
+    }
+
+    fun previousStep() {
+        val state = _uiState.value
+        if (state.currentStep &gt; 1) {
+            _uiState.update { it.copy(currentStep = state.currentStep - 1) }
+        }
+    }
+
+    /** Kiểm tra step hiện tại đã điền đủ chưa */
+    fun isCurrentStepValid(): Boolean {
+        val state = _uiState.value
+        return when (state.currentStep) {
+            1 -&gt; state.displayName.isNotBlank() &amp;&amp; state.birthYear in 1940..2015
+            2 -&gt; state.heightCm in 100..250 &amp;&amp; state.weightKg in 30.0..300.0
+            3 -&gt; state.goal.isNotBlank() &amp;&amp; state.activityLevel &gt; 0
+            else -&gt; false
+        }
+    }
+
+    // ═══ Calculate ═══
+
+    private fun recalculateMetrics() {
+        val state = _uiState.value
+        val metrics = HealthCalculator.calculateAllMetrics(
+            weightKg = state.weightKg,
+            heightCm = state.heightCm,
+            birthYear = state.birthYear,
+            gender = state.gender,
+            activityLevel = state.activityLevel,
+            goal = state.goal
+        )
+        _uiState.update { it.copy(metrics = metrics) }
+    }
+
+    // ═══ Save ═══
+
+    /**
+     * Lưu profile lên Firestore.
+     * Gọi khi user bấm &quot;Hoàn tất&quot; ở step 3.
+     */
+    fun saveProfile() {
+        val currentUser = FirebaseAuth.getInstance().currentUser ?: return
+        val state = _uiState.value
+        val metrics = state.metrics ?: return
+
+        viewModelScope.launch {
+            _uiState.update { it.copy(isSaving = true, errorMessage = null) }
+            try {
+                val user = User(
+                    uid = currentUser.uid,
+                    email = currentUser.email ?: &quot;&quot;,
+                    displayName = state.displayName,
+                    gender = state.gender,
+                    birthYear = state.birthYear,
+                    heightCm = state.heightCm,
+                    weightKg = state.weightKg,
+                    activityLevel = state.activityLevel,
+                    goal = state.goal,
+                    bmi = metrics.bmi,
+                    bmr = metrics.bmr,
+                    tdee = metrics.tdee,
+                    proteinTarget = metrics.proteinTarget,
+                    carbTarget = metrics.carbTarget,
+                    fatTarget = metrics.fatTarget,
+                    calorieTarget = metrics.calorieTarget
+                )
+                repository.saveUser(user)
+                _uiState.update { it.copy(isSaving = false, isSaved = true) }
+            } catch (e: Exception) {
+                _uiState.update {
+                    it.copy(
+                        isSaving = false,
+                        errorMessage = &quot;Lưu thất bại: ${e.localizedMessage}&quot;
+                    )
+                }
+            }
+        }
+    }
+
+    fun onNavigated() {
+        _uiState.update { it.copy(isSaved = false) }
+    }
+}
+</code></pre>
+</div>
+<div class=""code-file-section page-break"">
+    <div class=""code-file-header"">File: auth/viewmodel/ProfileViewViewModel.kt</div>
+    <pre class=""line-numbers""><code>package com.team.smartnutrition.auth.viewmodel
+
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.google.firebase.auth.FirebaseAuth
+import com.team.smartnutrition.auth.data.UserRepository
+import com.team.smartnutrition.auth.model.User
+import com.team.smartnutrition.auth.util.HealthCalculator
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+
+/**
+ * ═══════════════════════════════════════════
+ * PROFILE VIEW VIEW MODEL
+ * ═══════════════════════════════════════════
+ *
+ * Xử lý:
+ * - Load user profile từ Firestore
+ * - Chế độ Edit (cập nhật + recalculate metrics)
+ * - Sign Out
+ */
+
+data class ProfileViewUiState(
+    val user: User? = null,
+    val isLoading: Boolean = true,
+    val isEditing: Boolean = false,
+    val isSaving: Boolean = false,
+    val errorMessage: String? = null,
+    val isSignedOut: Boolean = false,
+    // Edit fields (chỉ dùng khi isEditing = true)
+    val editDisplayName: String = &quot;&quot;,
+    val editHeightCm: Int = 170,
+    val editWeightKg: Double = 65.0,
+    val editGender: String = &quot;male&quot;,
+    val editBirthYear: Int = 2000,
+    val editGoal: String = &quot;maintain&quot;,
+    val editActivityLevel: Double = 1.55
+)
+
+class ProfileViewViewModel : ViewModel() {
+
+    private val repository = UserRepository()
+
+    private val _uiState = MutableStateFlow(ProfileViewUiState())
+    val uiState: StateFlow&lt;ProfileViewUiState&gt; = _uiState.asStateFlow()
+
+    init {
+        loadProfile()
+    }
+
+    /**
+     * Load user profile từ Firestore.
+     */
+    fun loadProfile() {
+        val uid = FirebaseAuth.getInstance().currentUser?.uid ?: return
+
+        viewModelScope.launch {
+            _uiState.update { it.copy(isLoading = true, errorMessage = null) }
+            try {
+                val user = repository.getUser(uid)
+                _uiState.update {
+                    it.copy(
+                        user = user,
+                        isLoading = false,
+                        errorMessage = if (user == null) &quot;Không tìm thấy hồ sơ&quot; else null
+                    )
+                }
+            } catch (e: Exception) {
+                _uiState.update {
+                    it.copy(
+                        isLoading = false,
+                        errorMessage = &quot;Lỗi tải hồ sơ: ${e.localizedMessage}&quot;
+                    )
+                }
+            }
+        }
+    }
+
+    /**
+     * Bắt đầu chế độ chỉnh sửa.
+     * Copy dữ liệu hiện tại vào edit fields.
+     */
+    fun startEditing() {
+        val user = _uiState.value.user ?: return
+        _uiState.update {
+            it.copy(
+                isEditing = true,
+                editDisplayName = user.displayName,
+                editHeightCm = user.heightCm,
+                editWeightKg = user.weightKg,
+                editGender = user.gender,
+                editBirthYear = user.birthYear,
+                editGoal = user.goal,
+                editActivityLevel = user.activityLevel
+            )
+        }
+    }
+
+    /** Hủy chỉnh sửa */
+    fun cancelEditing() {
+        _uiState.update { it.copy(isEditing = false) }
+    }
+
+    // ═══ Edit field updates ═══
+
+    fun updateEditDisplayName(name: String) {
+        _uiState.update { it.copy(editDisplayName = name) }
+    }
+
+    fun updateEditHeightCm(height: Int) {
+        _uiState.update { it.copy(editHeightCm = height) }
+    }
+
+    fun updateEditWeightKg(weight: Double) {
+        _uiState.update { it.copy(editWeightKg = weight) }
+    }
+
+    fun updateEditGender(gender: String) {
+        _uiState.update { it.copy(editGender = gender) }
+    }
+
+    fun updateEditBirthYear(year: Int) {
+        _uiState.update { it.copy(editBirthYear = year) }
+    }
+
+    fun updateEditGoal(goal: String) {
+        _uiState.update { it.copy(editGoal = goal) }
+    }
+
+    fun updateEditActivityLevel(level: Double) {
+        _uiState.update { it.copy(editActivityLevel = level) }
+    }
+
+    /**
+     * Lưu thay đổi: recalculate metrics + update Firestore.
+     */
+    fun saveChanges() {
+        val uid = FirebaseAuth.getInstance().currentUser?.uid ?: return
+        val state = _uiState.value
+        val currentUser = state.user ?: return
+
+        viewModelScope.launch {
+            _uiState.update { it.copy(isSaving = true, errorMessage = null) }
+            try {
+                // Tính lại tất cả metrics
+                val metrics = HealthCalculator.calculateAllMetrics(
+                    weightKg = state.editWeightKg,
+                    heightCm = state.editHeightCm,
+                    birthYear = state.editBirthYear,
+                    gender = state.editGender,
+                    activityLevel = state.editActivityLevel,
+                    goal = state.editGoal
+                )
+
+                val updatedUser = currentUser.copy(
+                    displayName = state.editDisplayName,
+                    heightCm = state.editHeightCm,
+                    weightKg = state.editWeightKg,
+                    gender = state.editGender,
+                    birthYear = state.editBirthYear,
+                    goal = state.editGoal,
+                    activityLevel = state.editActivityLevel,
+                    bmi = metrics.bmi,
+                    bmr = metrics.bmr,
+                    tdee = metrics.tdee,
+                    proteinTarget = metrics.proteinTarget,
+                    carbTarget = metrics.carbTarget,
+                    fatTarget = metrics.fatTarget,
+                    calorieTarget = metrics.calorieTarget
+                )
+
+                repository.saveUser(updatedUser)
+                _uiState.update {
+                    it.copy(
+                        user = updatedUser,
+                        isEditing = false,
+                        isSaving = false
+                    )
+                }
+            } catch (e: Exception) {
+                _uiState.update {
+                    it.copy(
+                        isSaving = false,
+                        errorMessage = &quot;Lưu thất bại: ${e.localizedMessage}&quot;
+                    )
+                }
+            }
+        }
+    }
+
+    /**
+     * Đăng xuất.
+     */
+    fun signOut() {
+        repository.signOut()
+        _uiState.update { it.copy(isSignedOut = true) }
+    }
+
+    fun onSignedOut() {
+        _uiState.update { it.copy(isSignedOut = false) }
+    }
+}
+</code></pre>
+</div>
+<div class=""code-file-section page-break"">
+    <div class=""code-file-header"">File: auth/viewmodel/RegisterViewModel.kt</div>
+    <pre class=""line-numbers""><code>package com.team.smartnutrition.auth.viewmodel
+
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.team.smartnutrition.auth.data.UserRepository
+import com.team.smartnutrition.auth.util.Validators
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+
+/**
+ * ═══════════════════════════════════════════
+ * REGISTER VIEW MODEL
+ * ═══════════════════════════════════════════
+ *
+ * Xử lý đăng ký tài khoản mới.
+ * Validation realtime + Firebase createUserWithEmailAndPassword.
+ */
+
+data class RegisterUiState(
+    val email: String = &quot;&quot;,
+    val password: String = &quot;&quot;,
+    val confirmPassword: String = &quot;&quot;,
+    val isLoading: Boolean = false,
+    val errorMessage: String? = null,
+    val isRegistered: Boolean = false,  // true → navigate ProfileSetup
+    // Validation errors (null = hợp lệ hoặc chưa nhập)
+    val emailError: String? = null,
+    val passwordError: String? = null,
+    val confirmPasswordError: String? = null
+)
+
+class RegisterViewModel : ViewModel() {
+
+    private val repository = UserRepository()
+
+    private val _uiState = MutableStateFlow(RegisterUiState())
+    val uiState: StateFlow&lt;RegisterUiState&gt; = _uiState.asStateFlow()
+
+    fun updateEmail(email: String) {
+        _uiState.update {
+            it.copy(
+                email = email,
+                emailError = Validators.getEmailError(email),
+                errorMessage = null
+            )
+        }
+    }
+
+    fun updatePassword(password: String) {
+        _uiState.update {
+            it.copy(
+                password = password,
+                passwordError = Validators.getPasswordError(password),
+                // Re-validate confirm nếu đã nhập
+                confirmPasswordError = if (it.confirmPassword.isNotBlank())
+                    Validators.getConfirmPasswordError(password, it.confirmPassword)
+                else null,
+                errorMessage = null
+            )
+        }
+    }
+
+    fun updateConfirmPassword(confirmPassword: String) {
+        _uiState.update {
+            it.copy(
+                confirmPassword = confirmPassword,
+                confirmPasswordError = Validators.getConfirmPasswordError(
+                    it.password, confirmPassword
+                ),
+                errorMessage = null
+            )
+        }
+    }
+
+    /** Kiểm tra form hợp lệ hoàn toàn */
+    fun isFormValid(): Boolean {
+        val state = _uiState.value
+        return Validators.isValidEmail(state.email) &amp;&amp;
+                Validators.isValidPassword(state.password) &amp;&amp;
+                Validators.doPasswordsMatch(state.password, state.confirmPassword)
+    }
+
+    /**
+     * Đăng ký tài khoản mới.
+     */
+    fun register() {
+        val state = _uiState.value
+
+        // Validate lần cuối trước khi gửi
+        if (!isFormValid()) {
+            _uiState.update {
+                it.copy(
+                    emailError = Validators.getEmailError(state.email),
+                    passwordError = Validators.getPasswordError(state.password),
+                    confirmPasswordError = Validators.getConfirmPasswordError(
+                        state.password, state.confirmPassword
+                    )
+                )
+            }
+            return
+        }
+
+        viewModelScope.launch {
+            _uiState.update { it.copy(isLoading = true, errorMessage = null) }
+            try {
+                repository.registerWithEmail(state.email, state.password)
+                _uiState.update { it.copy(isLoading = false, isRegistered = true) }
+            } catch (e: Exception) {
+                _uiState.update {
+                    it.copy(
+                        isLoading = false,
+                        errorMessage = mapRegisterError(e.message)
+                    )
+                }
+            }
+        }
+    }
+
+    /** Reset navigation state */
+    fun onNavigated() {
+        _uiState.update { it.copy(isRegistered = false) }
+    }
+
+    /** Map Firebase register errors sang tiếng Việt */
+    private fun mapRegisterError(message: String?): String {
+        return when {
+            message == null -&gt; &quot;Đã xảy ra lỗi&quot;
+            message.contains(&quot;timeout&quot;) || message.contains(&quot;timed out&quot;) || message.contains(&quot;Timed out&quot;) -&gt;
+                &quot;Quá thời gian kết nối. Vui lòng kiểm tra mạng hoặc đảm bảo bạn đã cấu hình vân tay SHA-1/SHA-256 trong Firebase Console.&quot;
+            message.contains(&quot;Configuration not found&quot;) || message.contains(&quot;CONFIGURATION_NOT_FOUND&quot;) || message.contains(&quot;configuration not found&quot;) -&gt;
+                &quot;Lỗi cấu hình Firebase: Bạn chưa bật phương thức đăng nhập Email/Password trong Firebase Console (Authentication &gt; Sign-in method).&quot;
+            message.contains(&quot;email-already-in-use&quot;) -&gt; &quot;Email đã được sử dụng&quot;
+            message.contains(&quot;weak-password&quot;) -&gt; &quot;Mật khẩu quá yếu&quot;
+            message.contains(&quot;invalid-email&quot;) -&gt; &quot;Email không hợp lệ&quot;
+            message.contains(&quot;network&quot;) -&gt; &quot;Lỗi mạng. Kiểm tra kết nối Internet&quot;
+            else -&gt; &quot;Đăng ký thất bại: $message&quot;
+        }
+    }
+}
+</code></pre>
+</div>
+<div class=""code-file-section page-break"">
+    <div class=""code-file-header"">File: auth/viewmodel/WeightLogViewModel.kt</div>
+    <pre class=""line-numbers""><code>package com.team.smartnutrition.auth.viewmodel
+
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.google.firebase.auth.FirebaseAuth
+import com.team.smartnutrition.auth.data.UserRepository
+import com.team.smartnutrition.auth.model.WeightEntry
+import com.team.smartnutrition.auth.util.HealthCalculator
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+
+/**
+ * ═══════════════════════════════════════════
+ * WEIGHT LOG VIEW MODEL
+ * ═══════════════════════════════════════════
+ *
+ * Xử lý:
+ * - Nhập cân nặng hôm nay
+ * - Tính lại BMI realtime
+ * - Lưu vào weightLog/{date} + update user profile
+ * - Load lịch sử cân nặng
+ */
+
+data class WeightLogUiState(
+    val currentWeight: String = &quot;&quot;,     // String để user nhập linh hoạt
+    val heightCm: Int = 170,            // Lấy từ user profile để tính BMI
+    val calculatedBmi: Double? = null,  // BMI mới (tính realtime khi nhập)
+    val history: List&lt;WeightEntry&gt; = emptyList(),
+    val isLoading: Boolean = true,
+    val isSaving: Boolean = false,
+    val saveSuccess: Boolean = false,
+    val errorMessage: String? = null
+)
+
+class WeightLogViewModel : ViewModel() {
+
+    private val repository = UserRepository()
+    private val dateFormatter = DateTimeFormatter.ofPattern(&quot;yyyy-MM-dd&quot;)
+
+    private val _uiState = MutableStateFlow(WeightLogUiState())
+    val uiState: StateFlow&lt;WeightLogUiState&gt; = _uiState.asStateFlow()
+
+    init {
+        loadData()
+    }
+
+    /**
+     * Load user height (để tính BMI) + lịch sử cân nặng.
+     */
+    fun loadData() {
+        val uid = FirebaseAuth.getInstance().currentUser?.uid ?: return
+
+        viewModelScope.launch {
+            _uiState.update { it.copy(isLoading = true, errorMessage = null) }
+            try {
+                // Load user profile để lấy heightCm
+                val user = repository.getUser(uid)
+                val heightCm = user?.heightCm ?: 170
+
+                // Load lịch sử
+                val history = repository.getWeightHistory(uid)
+
+                _uiState.update {
+                    it.copy(
+                        heightCm = heightCm,
+                        history = history,
+                        isLoading = false,
+                        // Pre-fill cân nặng hiện tại nếu có
+                        currentWeight = user?.weightKg?.toString() ?: &quot;&quot;
+                    )
+                }
+            } catch (e: Exception) {
+                _uiState.update {
+                    it.copy(
+                        isLoading = false,
+                        errorMessage = &quot;Lỗi tải dữ liệu: ${e.localizedMessage}&quot;
+                    )
+                }
+            }
+        }
+    }
+
+    /**
+     * Cập nhật cân nặng nhập vào.
+     * Tính BMI mới realtime.
+     */
+    fun updateWeight(weight: String) {
+        val weightKg = weight.toDoubleOrNull()
+        val bmi = if (weightKg != null &amp;&amp; weightKg &gt; 0) {
+            HealthCalculator.calculateBmi(weightKg, _uiState.value.heightCm)
+        } else null
+
+        _uiState.update {
+            it.copy(
+                currentWeight = weight,
+                calculatedBmi = bmi,
+                saveSuccess = false
+            )
+        }
+    }
+
+    /**
+     * Lưu cân nặng hôm nay.
+     * - Upsert vào weightLog/{today}
+     * - Update user profile weightKg + bmi
+     */
+    fun saveWeight() {
+        val uid = FirebaseAuth.getInstance().currentUser?.uid ?: return
+        val state = _uiState.value
+        val weightKg = state.currentWeight.toDoubleOrNull() ?: return
+        val bmi = state.calculatedBmi ?: return
+
+        if (weightKg &lt; 30 || weightKg &gt; 300) {
+            _uiState.update { it.copy(errorMessage = &quot;Cân nặng phải từ 30 đến 300 kg&quot;) }
+            return
+        }
+
+        val today = LocalDate.now().format(dateFormatter)
+
+        viewModelScope.launch {
+            _uiState.update { it.copy(isSaving = true, errorMessage = null) }
+            try {
+                repository.logWeight(uid, today, weightKg, bmi)
+                // Reload lịch sử
+                val history = repository.getWeightHistory(uid)
+                _uiState.update {
+                    it.copy(
+                        isSaving = false,
+                        saveSuccess = true,
+                        history = history
+                    )
+                }
+            } catch (e: Exception) {
+                _uiState.update {
+                    it.copy(
+                        isSaving = false,
+                        errorMessage = &quot;Lưu thất bại: ${e.localizedMessage}&quot;
+                    )
+                }
+            }
+        }
+    }
+
+    fun clearError() {
+        _uiState.update { it.copy(errorMessage = null) }
+    }
+
+    fun clearSaveSuccess() {
+        _uiState.update { it.copy(saveSuccess = false) }
+    }
+}
+</code></pre>
+</div>
+
+
+</body>
+</html>
