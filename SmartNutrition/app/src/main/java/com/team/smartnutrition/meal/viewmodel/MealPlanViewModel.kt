@@ -18,6 +18,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import com.team.smartnutrition.R
 
 /**
  * ═══════════════════════════════════════════
@@ -29,7 +30,8 @@ data class MealPlanUiState(
     val selectedDayIndex: Int = 0,            // Tab đang chọn (0-6)
     val isLoading: Boolean = true,            // Loading ban đầu (đọc Firestore)
     val isGenerating: Boolean = false,        // Đang gọi Gemini AI
-    val loadingMessage: String = "",          // Câu chữ vui cho loading dialog
+    val loadingMessageResId: Int = R.string.loading, // ID câu chữ vui cho loading dialog
+    val loadingMessageArgs: List<String> = emptyList(), // Tham số định dạng cho câu chữ loading
     val errorMessage: String? = null,         // Lỗi hiển thị cho user
     val isGeneratingDetail: Boolean = false,  // Đang gọi AI tải chi tiết nguyên liệu + cách nấu cho 1 món
     val detailErrorMessage: String? = null    // Lỗi khi tải chi tiết
@@ -63,13 +65,13 @@ class MealPlanViewModel : ViewModel() {
     val uiState: StateFlow<MealPlanUiState> = _uiState.asStateFlow()
 
     companion object {
-        /** Danh sách câu loading vui vẻ, xoay vòng mỗi 2.5s */
-        private val loadingMessages = listOf(
-            "🤖 AI đang nghiên cứu dinh dưỡng cho bạn...",
-            "🥗 Đang chọn nguyên liệu tươi nhất...",
-            "👨‍🍳 Đang phối hợp thực đơn 7 ngày...",
-            "📊 Đang cân đối calo và protein...",
-            "🍲 Sắp xong rồi, chờ chút nhé..."
+        /** Danh sách ID câu loading vui vẻ, xoay vòng mỗi 2.5s */
+        private val loadingMessageResIds = listOf(
+            R.string.loading_msg_nutrition,
+            R.string.loading_msg_ingredients,
+            R.string.loading_msg_plan_7days,
+            R.string.loading_msg_balance,
+            R.string.loading_msg_almost_done
         )
     }
 
@@ -150,24 +152,30 @@ class MealPlanViewModel : ViewModel() {
             _uiState.update {
                 it.copy(
                     isGenerating = true,
-                    loadingMessage = "🤖 AI đang thiết lập thực đơn cho $dayLabel...",
+                    loadingMessageResId = R.string.loading_msg_setup_day,
+                    loadingMessageArgs = listOf(dayLabel),
                     errorMessage = null
                 )
             }
 
             // Xoay vòng loading messages mỗi 2.5s để UX sinh động
             val messageJob = launch {
-                val dailyLoadingMessages = listOf(
-                    "🤖 AI đang phân tích thể trạng của bạn...",
-                    "🥗 Đang tìm món ăn phù hợp cho $dayLabel...",
-                    "📊 Đang cân đối calo và protein...",
-                    "🍲 Sắp xong rồi, chờ chút nhé..."
+                val dailyLoadingMessageResIds = listOf(
+                    R.string.loading_msg_profile,
+                    R.string.loading_msg_day_food,
+                    R.string.loading_msg_balance,
+                    R.string.loading_msg_almost_done
                 )
                 var msgIdx = 1
                 while (true) {
                     delay(2500)
+                    val resId = dailyLoadingMessageResIds[msgIdx % dailyLoadingMessageResIds.size]
+                    val args = if (resId == R.string.loading_msg_day_food) listOf(dayLabel) else emptyList()
                     _uiState.update {
-                        it.copy(loadingMessage = dailyLoadingMessages[msgIdx % dailyLoadingMessages.size])
+                        it.copy(
+                            loadingMessageResId = resId,
+                            loadingMessageArgs = args
+                        )
                     }
                     msgIdx++
                 }
@@ -257,7 +265,8 @@ class MealPlanViewModel : ViewModel() {
             _uiState.update {
                 it.copy(
                     isGenerating = true,
-                    loadingMessage = "🔄 AI đang đổi món ăn khác cho bạn...",
+                    loadingMessageResId = R.string.loading_msg_swap,
+                    loadingMessageArgs = emptyList(),
                     errorMessage = null
                 )
             }

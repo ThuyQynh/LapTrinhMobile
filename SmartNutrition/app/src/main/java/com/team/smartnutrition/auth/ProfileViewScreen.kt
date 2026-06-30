@@ -263,7 +263,7 @@ private fun EditProfileContent(uiState: ProfileViewUiState, viewModel: ProfileVi
                         }
                     }
                 },
-                label = { Text("Nhập chiều cao thủ công") },
+                label = { Text(stringResource(R.string.enter_height_manual)) },
                 suffix = { Text("cm") },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                 shape = RoundedCornerShape(12.dp),
@@ -286,7 +286,7 @@ private fun EditProfileContent(uiState: ProfileViewUiState, viewModel: ProfileVi
                         }
                     }
                 },
-                label = { Text("Nhập cân nặng thủ công") },
+                label = { Text(stringResource(R.string.enter_weight_manual)) },
                 suffix = { Text("kg") },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
                 shape = RoundedCornerShape(12.dp),

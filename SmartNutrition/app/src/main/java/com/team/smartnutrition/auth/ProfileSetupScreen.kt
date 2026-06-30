@@ -424,7 +424,7 @@ private fun Step2Content(
                             }
                         }
                     },
-                    label = { Text("Nhập chiều cao thủ công") },
+                    label = { Text(stringResource(R.string.enter_height_manual)) },
                     suffix = { Text("cm") },
                     keyboardOptions = KeyboardOptions(
                         keyboardType = KeyboardType.Number,
@@ -498,7 +498,7 @@ private fun Step2Content(
                             }
                         }
                     },
-                    label = { Text("Nhập cân nặng thủ công") },
+                    label = { Text(stringResource(R.string.enter_weight_manual)) },
                     suffix = { Text("kg") },
                     keyboardOptions = KeyboardOptions(
                         keyboardType = KeyboardType.Decimal,

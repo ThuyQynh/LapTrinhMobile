@@ -15,6 +15,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.res.stringResource
+import com.team.smartnutrition.R
 import androidx.compose.ui.unit.dp
 
 /**
@@ -48,7 +50,7 @@ fun SmartTopBar(
             IconButton(onClick = onBackClick) {
                 Icon(
                     imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                    contentDescription = "Quay lại"
+                    contentDescription = stringResource(R.string.back)
                 )
             }
         },
@@ -67,9 +69,10 @@ fun SmartTopBar(
  */
 @Composable
 fun LoadingScreen(
-    message: String = "Đang tải...",
+    message: String? = null,
     modifier: Modifier = Modifier
 ) {
+    val displayMessage = message ?: stringResource(R.string.loading)
     Box(
         modifier = modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
@@ -81,7 +84,7 @@ fun LoadingScreen(
             )
             Spacer(modifier = Modifier.height(16.dp))
             Text(
-                text = message,
+                text = displayMessage,
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
@@ -112,7 +115,7 @@ fun ErrorCard(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = "⚠️ Lỗi",
+                text = stringResource(R.string.error_title),
                 style = MaterialTheme.typography.titleMedium,
                 color = MaterialTheme.colorScheme.onErrorContainer
             )
@@ -125,7 +128,7 @@ fun ErrorCard(
             )
             Spacer(modifier = Modifier.height(16.dp))
             Button(onClick = onRetry) {
-                Text("Thử lại")
+                Text(stringResource(R.string.retry))
             }
         }
     }

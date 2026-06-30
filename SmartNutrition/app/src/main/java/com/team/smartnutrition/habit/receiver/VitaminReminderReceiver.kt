@@ -43,8 +43,8 @@ class VitaminReminderReceiver : BroadcastReceiver() {
         // 3. Build notification
         val notification = NotificationCompat.Builder(context, VITAMIN_CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_launcher_foreground)
-            .setContentTitle("💊 Nhớ uống vitamin nhé!")
-            .setContentText("Uống vitamin mỗi ngày giúp tăng cường sức khỏe")
+            .setContentTitle(context.getString(R.string.vitamin_reminder_title))
+            .setContentText(context.getString(R.string.vitamin_reminder_body))
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setAutoCancel(true)
             .setContentIntent(openAppPendingIntent)
@@ -70,10 +70,10 @@ class VitaminReminderReceiver : BroadcastReceiver() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
                 VITAMIN_CHANNEL_ID,
-                "Nhắc uống vitamin",
+                context.getString(R.string.vitamin_channel_name),
                 NotificationManager.IMPORTANCE_HIGH
             ).apply {
-                description = "Nhắc nhở uống vitamin hàng ngày"
+                description = context.getString(R.string.vitamin_channel_desc)
             }
             context.getSystemService(NotificationManager::class.java)
                 .createNotificationChannel(channel)

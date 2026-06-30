@@ -21,7 +21,7 @@ class CustomReminderReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
         val reminderId = intent.getStringExtra("reminder_id") ?: return
-        val reminderName = intent.getStringExtra("reminder_name") ?: "Nhắc nhở"
+        val reminderName = intent.getStringExtra("reminder_name") ?: context.getString(R.string.reminder_default_title)
 
         Log.d("CustomReminderReceiver", "Triggered: $reminderName (ID: $reminderId)")
 
@@ -40,8 +40,8 @@ class CustomReminderReceiver : BroadcastReceiver() {
         // 3. Build Notification
         val notification = NotificationCompat.Builder(context, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_launcher_foreground)
-            .setContentTitle("🔔 Nhắc nhở: $reminderName")
-            .setContentText("Đã đến giờ thực hiện: $reminderName. Bấm để xem chi tiết.")
+            .setContentTitle(context.getString(R.string.custom_reminder_title_pattern, reminderName))
+            .setContentText(context.getString(R.string.custom_reminder_body_template, reminderName))
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setAutoCancel(true)
             .setContentIntent(openAppPendingIntent)
@@ -68,10 +68,10 @@ class CustomReminderReceiver : BroadcastReceiver() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
                 CHANNEL_ID,
-                "Nhắc nhở thói quen tùy chỉnh",
+                context.getString(R.string.custom_reminders_channel_name),
                 NotificationManager.IMPORTANCE_HIGH
             ).apply {
-                description = "Nhận thông báo cho các nhắc nhở sức khỏe tự thiết lập"
+                description = context.getString(R.string.custom_reminders_channel_desc)
             }
             context.getSystemService(NotificationManager::class.java)
                 .createNotificationChannel(channel)

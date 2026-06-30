@@ -320,7 +320,7 @@ private fun SleepAlarmSection(
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Text("🌙 ", style = MaterialTheme.typography.titleMedium)
                     Text(
-                        text = "Nhắc nhở đi ngủ",
+                        text = stringResource(R.string.sleep_reminder_label),
                         style = MaterialTheme.typography.titleMedium,
                         fontWeight = FontWeight.SemiBold
                     )
@@ -344,7 +344,7 @@ private fun SleepAlarmSection(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
-                        text = "Thời gian nhắc đi ngủ hằng ngày",
+                        text = stringResource(R.string.daily_sleep_reminder_time),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -366,7 +366,7 @@ private fun SleepAlarmSection(
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(12.dp)
             ) {
-                Text("⚙️ Thiết lập giờ nhắc ngủ")
+                Text(stringResource(R.string.setup_sleep_reminder_btn))
             }
         }
     }
@@ -402,7 +402,7 @@ private fun SleepSetupDialog(
 
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text("Thiết lập giờ nhắc đi ngủ") },
+        title = { Text(stringResource(R.string.setup_sleep_reminder_title)) },
         text = {
             Column(
                 modifier = Modifier
@@ -412,7 +412,7 @@ private fun SleepSetupDialog(
             ) {
                 // Bedtime picker trigger
                 Column {
-                    Text("🌙 Giờ đi ngủ:", style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.Medium)
+                    Text(stringResource(R.string.bedtime_label), style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.Medium)
                     Spacer(Modifier.height(8.dp))
                     OutlinedButton(
                         onClick = { showBedtimePicker = true },
@@ -428,12 +428,12 @@ private fun SleepSetupDialog(
             TextButton(
                 onClick = { onConfirm(bedtimeHour, bedtimeMinute) }
             ) {
-                Text("Lưu")
+                Text(stringResource(R.string.save))
             }
         },
         dismissButton = {
             TextButton(onClick = onDismiss) {
-                Text("Hủy")
+                Text(stringResource(R.string.cancel))
             }
         }
     )
@@ -472,7 +472,7 @@ private fun TimePickerDialogHelper(
 
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text("Chọn thời gian") },
+        title = { Text(stringResource(R.string.select_time_title)) },
         text = {
             Box(
                 modifier = Modifier.fillMaxWidth(),
@@ -485,12 +485,12 @@ private fun TimePickerDialogHelper(
             TextButton(
                 onClick = { onConfirm(timePickerState.hour, timePickerState.minute) }
             ) {
-                Text("Đồng ý")
+                Text(stringResource(R.string.ok_btn))
             }
         },
         dismissButton = {
             TextButton(onClick = onDismiss) {
-                Text("Hủy")
+                Text(stringResource(R.string.cancel))
             }
         }
     )
@@ -529,14 +529,14 @@ private fun CustomRemindersDashboardSection(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "🔔 Thói quen hôm nay",
+                    text = stringResource(R.string.today_habits),
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.SemiBold
                 )
 
                 if (totalCount > 0) {
                     Text(
-                        text = "Đã xong $completedCount/$totalCount",
+                        text = stringResource(R.string.completed_habits_count, completedCount, totalCount),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.primary,
                         fontWeight = FontWeight.Bold
@@ -554,14 +554,14 @@ private fun CustomRemindersDashboardSection(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
-                        text = "Chưa có nhắc nhở thói quen nào được kích hoạt.",
+                        text = stringResource(R.string.no_habits_active),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         textAlign = TextAlign.Center
                     )
                     Spacer(Modifier.height(8.dp))
                     TextButton(onClick = onSettingsClick) {
-                        Text("⚙️ Quản lý nhắc nhở")
+                        Text(stringResource(R.string.manage_reminders_btn))
                     }
                 }
             } else {
@@ -598,7 +598,7 @@ private fun CustomRemindersDashboardSection(
                                     color = if (isCompleted) MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f) else MaterialTheme.colorScheme.onSurface
                                 )
                                 Text(
-                                    text = String.format("⏰ Hẹn giờ lúc %02d:%02d", reminder.hour, reminder.minute),
+                                    text = stringResource(R.string.reminder_time_format, reminder.hour, reminder.minute),
                                     style = MaterialTheme.typography.bodySmall,
                                     color = MaterialTheme.colorScheme.onSurfaceVariant
                                 )

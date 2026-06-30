@@ -53,12 +53,12 @@ class WaterReminderReceiver : BroadcastReceiver() {
         // 4. Build notification
         val notification = NotificationCompat.Builder(context, WATER_CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_launcher_foreground)
-            .setContentTitle("💧 Đã đến giờ uống nước!")
-            .setContentText("Uống 1 cốc nước (250ml) để giữ sức khỏe nhé!")
+            .setContentTitle(context.getString(R.string.water_reminder_title))
+            .setContentText(context.getString(R.string.water_reminder_body))
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setAutoCancel(true)
             .setContentIntent(openAppPendingIntent)
-            .addAction(0, "💧 Đã uống ✓", actionPendingIntent)
+            .addAction(0, context.getString(R.string.water_action_done), actionPendingIntent)
             .build()
 
         // 5. Hiển thị notification (check permission Android 13+)
@@ -80,10 +80,10 @@ class WaterReminderReceiver : BroadcastReceiver() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
                 WATER_CHANNEL_ID,
-                "Nhắc uống nước",
+                context.getString(R.string.water_channel_name),
                 NotificationManager.IMPORTANCE_HIGH
             ).apply {
-                description = "Nhắc nhở uống nước định kỳ"
+                description = context.getString(R.string.water_channel_desc)
             }
             context.getSystemService(NotificationManager::class.java)
                 .createNotificationChannel(channel)

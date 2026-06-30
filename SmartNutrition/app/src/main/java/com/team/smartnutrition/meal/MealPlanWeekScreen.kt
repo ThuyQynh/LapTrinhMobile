@@ -87,7 +87,12 @@ fun MealPlanWeekScreen(
 
         // Full-screen loading dialog overlay khi đang gọi Gemini AI
         if (uiState.isGenerating) {
-            GeneratingDialog(message = uiState.loadingMessage)
+            GeneratingDialog(
+                message = stringResource(
+                    uiState.loadingMessageResId,
+                    *uiState.loadingMessageArgs.toTypedArray()
+                )
+            )
         }
     }
 }

@@ -111,7 +111,7 @@ fun MealDetailScreen(
                             IconButton(onClick = { showEditDialog = true }) {
                                 Icon(
                                     imageVector = Icons.Filled.Edit,
-                                    contentDescription = "Chỉnh sửa món ăn"
+                                    contentDescription = stringResource(R.string.edit)
                                 )
                             }
                             IconButton(onClick = { viewModel.changeSpecificMeal(dayIndex, mealType) }) {
@@ -197,7 +197,12 @@ fun MealDetailScreen(
         }
 
         if (uiState.isGenerating) {
-            GeneratingDialog(message = uiState.loadingMessage)
+            GeneratingDialog(
+                message = stringResource(
+                    uiState.loadingMessageResId,
+                    *uiState.loadingMessageArgs.toTypedArray()
+                )
+            )
         }
 
         if (showEditDialog && meal != null) {
@@ -410,7 +415,7 @@ fun EditMealDialog(
 
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text("Chỉnh sửa bữa ăn") },
+        title = { Text(stringResource(R.string.edit_meal_title)) },
         text = {
             Column(
                 modifier = Modifier
@@ -421,7 +426,7 @@ fun EditMealDialog(
                 OutlinedTextField(
                     value = name,
                     onValueChange = { name = it },
-                    label = { Text("Tên món ăn") },
+                    label = { Text(stringResource(R.string.meal_name_label)) },
                     modifier = Modifier.fillMaxWidth()
                 )
                 Row(
@@ -431,21 +436,21 @@ fun EditMealDialog(
                     OutlinedTextField(
                         value = caloriesStr,
                         onValueChange = { caloriesStr = it.filter { c -> c.isDigit() } },
-                        label = { Text("Calo (kcal)") },
+                        label = { Text(stringResource(R.string.calories_kcal)) },
                         modifier = Modifier.weight(1f)
                     )
                     OutlinedTextField(
                         value = proteinStr,
                         onValueChange = { proteinStr = it.filter { c -> c.isDigit() } },
-                        label = { Text("Protein (g)") },
+                        label = { Text(stringResource(R.string.protein_g)) },
                         modifier = Modifier.weight(1f)
                     )
                 }
                 OutlinedTextField(
                     value = ingredientsText,
                     onValueChange = { ingredientsText = it },
-                    label = { Text("Nguyên liệu (Mỗi dòng một nguyên liệu, định dạng 'Tên: Số lượng')") },
-                    placeholder = { Text("Ví dụ:\nỨc gà: 150g\nTrứng: 2 quả") },
+                    label = { Text(stringResource(R.string.ingredients_edit_label)) },
+                    placeholder = { Text(stringResource(R.string.ingredients_edit_placeholder)) },
                     modifier = Modifier.fillMaxWidth(),
                     maxLines = 5,
                     minLines = 3
@@ -453,7 +458,7 @@ fun EditMealDialog(
                 OutlinedTextField(
                     value = recipe,
                     onValueChange = { recipe = it },
-                    label = { Text("Cách thực hiện") },
+                    label = { Text(stringResource(R.string.recipe_edit_label)) },
                     modifier = Modifier.fillMaxWidth(),
                     maxLines = 5,
                     minLines = 3
@@ -468,12 +473,12 @@ fun EditMealDialog(
                     onSave(name, calories, protein, ingredientsText, recipe)
                 }
             ) {
-                Text("Lưu")
+                Text(stringResource(R.string.save))
             }
         },
         dismissButton = {
             TextButton(onClick = onDismiss) {
-                Text("Hủy")
+                Text(stringResource(R.string.cancel))
             }
         }
     )

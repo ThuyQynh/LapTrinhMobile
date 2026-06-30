@@ -43,8 +43,8 @@ class SleepReminderReceiver : BroadcastReceiver() {
             .setAutoCancel(true)
             .setContentIntent(openAppPendingIntent)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
-            .setContentTitle("🌙 Đến giờ đi ngủ rồi!")
-            .setContentText("Hãy chuẩn bị nghỉ ngơi để bảo vệ sức khỏe và phục hồi năng lượng nhé.")
+            .setContentTitle(context.getString(R.string.sleep_reminder_title))
+            .setContentText(context.getString(R.string.sleep_reminder_body))
             .build()
 
         // 4. Hiển thị Notification
@@ -67,10 +67,10 @@ class SleepReminderReceiver : BroadcastReceiver() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
                 CHANNEL_ID,
-                "Nhắc nhở đi ngủ",
+                context.getString(R.string.sleep_channel_name),
                 NotificationManager.IMPORTANCE_HIGH
             ).apply {
-                description = "Nhận thông báo nhắc nhở đi ngủ hàng ngày"
+                description = context.getString(R.string.sleep_channel_desc)
             }
             context.getSystemService(NotificationManager::class.java)
                 .createNotificationChannel(channel)

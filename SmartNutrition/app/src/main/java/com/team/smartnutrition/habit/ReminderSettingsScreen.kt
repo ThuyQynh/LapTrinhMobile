@@ -406,7 +406,7 @@ private fun CustomRemindersSettingsSection(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "🔔 Nhắc nhở thói quen tùy chỉnh",
+                    text = stringResource(R.string.custom_reminders_title),
                     style = MaterialTheme.typography.titleSmall,
                     fontWeight = FontWeight.SemiBold
                 )
@@ -420,7 +420,7 @@ private fun CustomRemindersSettingsSection(
                 ) {
                     Icon(
                         imageVector = Icons.Default.Add,
-                        contentDescription = "Thêm nhắc nhở",
+                        contentDescription = stringResource(R.string.add_reminder_desc),
                         tint = MaterialTheme.colorScheme.primary
                     )
                 }
@@ -430,7 +430,7 @@ private fun CustomRemindersSettingsSection(
 
             if (uiState.customReminders.isEmpty()) {
                 Text(
-                    text = "Chưa có nhắc nhở nào được thiết lập. Hãy nhấn nút '+' để thêm (ví dụ: uống thuốc, uống sữa, ...)",
+                    text = stringResource(R.string.no_reminders_set),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.padding(vertical = 8.dp)
@@ -456,7 +456,7 @@ private fun CustomRemindersSettingsSection(
                                 fontWeight = FontWeight.Medium
                             )
                             Text(
-                                text = String.format("⏰ Hằng ngày lúc %02d:%02d", reminder.hour, reminder.minute),
+                                text = stringResource(R.string.daily_at, reminder.hour, reminder.minute),
                                 style = MaterialTheme.typography.bodySmall,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant
                             )
@@ -472,7 +472,7 @@ private fun CustomRemindersSettingsSection(
                             ) {
                                 Icon(
                                     imageVector = Icons.Default.Edit,
-                                    contentDescription = "Chỉnh sửa",
+                                    contentDescription = stringResource(R.string.edit),
                                     tint = MaterialTheme.colorScheme.onSurfaceVariant
                                 )
                             }
@@ -480,7 +480,7 @@ private fun CustomRemindersSettingsSection(
                             IconButton(onClick = { onDeleteReminder(reminder.id) }) {
                                 Icon(
                                     imageVector = Icons.Default.Delete,
-                                    contentDescription = "Xóa",
+                                    contentDescription = stringResource(R.string.delete),
                                     tint = MaterialTheme.colorScheme.error
                                 )
                             }
@@ -545,7 +545,7 @@ private fun AddEditReminderDialog(
 
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text(if (reminder == null) "Thêm nhắc nhở mới" else "Chỉnh sửa nhắc nhở") },
+        title = { Text(if (reminder == null) stringResource(R.string.add_reminder_title) else stringResource(R.string.edit_reminder_title)) },
         text = {
             Column(
                 modifier = Modifier
@@ -557,7 +557,7 @@ private fun AddEditReminderDialog(
                 OutlinedTextField(
                     value = name,
                     onValueChange = { name = it },
-                    label = { Text("Tên nhắc nhở (ví dụ: Uống thuốc A)") },
+                    label = { Text(stringResource(R.string.reminder_name_label)) },
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(12.dp),
                     singleLine = true
@@ -565,7 +565,7 @@ private fun AddEditReminderDialog(
 
                 // Trigger chọn giờ
                 Column {
-                    Text("⏰ Giờ nhắc nhở:", style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.Medium)
+                    Text(stringResource(R.string.reminder_time_label), style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.Medium)
                     Spacer(Modifier.height(8.dp))
                     OutlinedButton(
                         onClick = { showTimePicker = true },
@@ -586,12 +586,12 @@ private fun AddEditReminderDialog(
                 },
                 enabled = name.isNotBlank()
             ) {
-                Text("Lưu")
+                Text(stringResource(R.string.save))
             }
         },
         dismissButton = {
             TextButton(onClick = onDismiss) {
-                Text("Hủy")
+                Text(stringResource(R.string.cancel))
             }
         }
     )
