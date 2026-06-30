@@ -126,11 +126,16 @@ class MealPlanViewModel : ViewModel() {
             )
         }
 
-        // Lưu skeleton vào local cache & Firestore
-        mealRepository.saveMealPlan(uid, newPlan)
-
-        // Gọi AI sinh thực đơn cho ngày hôm nay
-        generateMealPlanForDay(todayIndex)
+        viewModelScope.launch {
+            try {
+                // Lưu skeleton vào local cache & Firestore
+                mealRepository.saveMealPlan(uid, newPlan)
+            } catch (e: Exception) {
+                android.util.Log.e("MealPlanViewModel", "Lỗi lưu skeleton: ${e.message}", e)
+            }
+            // Gọi AI sinh thực đơn cho ngày hôm nay
+            generateMealPlanForDay(todayIndex)
+        }
     }
 
     /**

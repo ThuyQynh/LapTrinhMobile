@@ -208,13 +208,12 @@ private fun MealPlanContent(
                         textAlign = TextAlign.Center
                     )
                     Spacer(Modifier.height(24.dp))
-                    Button(
-                        onClick = { onGenerateDayClick(uiState.selectedDayIndex) }
-                    ) {
-                        Icon(Icons.Filled.AutoAwesome, contentDescription = null)
-                        Spacer(Modifier.width(8.dp))
-                        Text(stringResource(R.string.generate_daily_plan_btn))
-                    }
+                    GradientButton(
+                        text = stringResource(R.string.generate_daily_plan_btn),
+                        onClick = { onGenerateDayClick(uiState.selectedDayIndex) },
+                        icon = Icons.Filled.AutoAwesome,
+                        modifier = Modifier.padding(horizontal = 24.dp)
+                    )
                 }
             }
         } else {
@@ -277,14 +276,14 @@ private fun DayTabRow(
                         }
                     } else {
                         when {
-                            day.dayLabel.startsWith("Chủ") || day.dayLabel.contains("Sunday", ignoreCase = true) -> "CN"
-                            day.dayLabel.endsWith("2") || day.dayLabel.contains("Monday", ignoreCase = true) -> "T2"
-                            day.dayLabel.endsWith("3") || day.dayLabel.contains("Tuesday", ignoreCase = true) -> "T3"
-                            day.dayLabel.endsWith("4") || day.dayLabel.contains("Wednesday", ignoreCase = true) -> "T4"
-                            day.dayLabel.endsWith("5") || day.dayLabel.contains("T5") -> "T5"
-                            day.dayLabel.endsWith("6") -> "T6"
-                            day.dayLabel.endsWith("7") -> "T7"
-                            else -> "T${day.dayLabel.lastOrNull() ?: ""}"
+                            day.dayLabel.startsWith("Chủ") || day.dayLabel.contains("Sunday", ignoreCase = true) || day.dayLabel.contains("CN", ignoreCase = true) -> "CN"
+                            day.dayLabel.endsWith("2") || day.dayLabel.contains("Hai", ignoreCase = true) || day.dayLabel.contains("Monday", ignoreCase = true) -> "T2"
+                            day.dayLabel.endsWith("3") || day.dayLabel.contains("Ba", ignoreCase = true) || day.dayLabel.contains("Tuesday", ignoreCase = true) -> "T3"
+                            day.dayLabel.endsWith("4") || day.dayLabel.contains("Tư", ignoreCase = true) || day.dayLabel.contains("Wednesday", ignoreCase = true) -> "T4"
+                            day.dayLabel.endsWith("5") || day.dayLabel.contains("Năm", ignoreCase = true) || day.dayLabel.contains("Thursday", ignoreCase = true) || day.dayLabel.contains("T5") -> "T5"
+                            day.dayLabel.endsWith("6") || day.dayLabel.contains("Sáu", ignoreCase = true) || day.dayLabel.contains("Friday", ignoreCase = true) -> "T6"
+                            day.dayLabel.endsWith("7") || day.dayLabel.contains("Bảy", ignoreCase = true) || day.dayLabel.contains("Saturday", ignoreCase = true) -> "T7"
+                            else -> "T${day.dayLabel.filter { it.isDigit() }.ifEmpty { day.dayLabel.lastOrNull()?.toString() ?: "" }}"
                         }
                     }
                     Text(shortLabel)

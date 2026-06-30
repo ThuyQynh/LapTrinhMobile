@@ -11,11 +11,30 @@ object MockDataSeeder {
     private val firestore = FirebaseFirestore.getInstance()
 
     /**
-     * Hàm chính để nạp dữ liệu ảo
+     * Hàm chính để nạp dữ liệu ảo - Chỉ nạp nếu database trống
      */
     fun seedMockData(uid: String) {
-        seedWeightLog(uid)
-        seedMealPlans(uid)
+        // Kiểm tra và nạp lịch sử cân nặng nếu trống
+        firestore.collection("users").document(uid)
+            .collection("weightLog")
+            .limit(1)
+            .get()
+            .addOnSuccessListener { snapshot ->
+                if (snapshot.isEmpty) {
+                    seedWeightLog(uid)
+                }
+            }
+
+        // Kiểm tra và nạp thực đơn nếu trống
+        firestore.collection("users").document(uid)
+            .collection("mealPlans")
+            .limit(1)
+            .get()
+            .addOnSuccessListener { snapshot ->
+                if (snapshot.isEmpty) {
+                    seedMealPlans(uid)
+                }
+            }
     }
 
     // 1. Tạo lịch sử cân nặng ảo trong 30 ngày qua
@@ -53,7 +72,7 @@ object MockDataSeeder {
     // 2. Tạo thực đơn & lượng Calories tiêu thụ ảo cho tuần hiện tại
     private fun seedMealPlans(uid: String) {
         val weekId = WeekUtils.getCurrentWeekId()
-        val dayLabels = listOf("Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu", "Thứ Bảy", "Chủ Nhật")
+        val dayLabels = listOf("Thứ 2", "Thứ 3", "Thứ 4", "Thứ 5", "Thứ 6", "Thứ 7", "Chủ Nhật")
         val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
 
         val days = dayLabels.mapIndexed { index, label ->
@@ -73,7 +92,7 @@ object MockDataSeeder {
                 "totalCalories" to totalCalories,
                 "totalProtein" to totalProtein,
                 "meals" to hashMapOf(
-                    "Sáng" to hashMapOf(
+                    "breakfast" to hashMapOf(
                         "name" to "Bữa sáng giả lập",
                         "totalCalories" to (totalCalories * 0.25).toInt(),
                         "totalProtein" to (totalProtein * 0.25).toInt(),
@@ -83,7 +102,7 @@ object MockDataSeeder {
                         ),
                         "recipe" to "Ăn sáng đơn giản."
                     ),
-                    "Trưa" to hashMapOf(
+                    "lunch" to hashMapOf(
                         "name" to "Bữa trưa giả lập",
                         "totalCalories" to (totalCalories * 0.45).toInt(),
                         "totalProtein" to (totalProtein * 0.45).toInt(),
@@ -93,7 +112,7 @@ object MockDataSeeder {
                         ),
                         "recipe" to "Ức gà áp chảo dùng kèm cơm gạo lứt."
                     ),
-                    "Tối" to hashMapOf(
+                    "dinner" to hashMapOf(
                         "name" to "Bữa tối giả lập",
                         "totalCalories" to (totalCalories * 0.3).toInt(),
                         "totalProtein" to (totalProtein * 0.3).toInt(),

@@ -37,14 +37,9 @@ class MealRepository {
 
     // ═══ CREATE / UPDATE ═══
 
-    /**
-     * Lưu meal plan vào Firestore.
-     * Document ID = weekId (VD: "2026-W25").
-     * Fire-and-forget: ghi vào cache local trước, sync sau (offline-first).
-     */
-    fun saveMealPlan(uid: String, mealPlan: MealPlan) {
+    suspend fun saveMealPlan(uid: String, mealPlan: MealPlan) {
         val data = mealPlanToMap(mealPlan)
-        mealPlansRef(uid).document(mealPlan.weekId).set(data)
+        mealPlansRef(uid).document(mealPlan.weekId).set(data).await()
     }
 
     // ═══ READ ═══
