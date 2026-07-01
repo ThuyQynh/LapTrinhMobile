@@ -235,7 +235,7 @@ fun CameraCaptureScreen(
                 }
             }
 
-            // Error snackbar
+            // Màu báo lỗi (Error) snackbar
             if (uiState.errorMessage != null) {
                 Snackbar(
                     modifier = Modifier

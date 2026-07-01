@@ -1,4 +1,4 @@
-package com.team.smartnutrition.analytics.data
+﻿package com.team.smartnutrition.analytics.data
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -16,7 +16,7 @@ class AnalyticsRepository {
     val currentUid: String?
         get() = FirebaseAuth.getInstance().currentUser?.uid
 
-    // ═══ WEIGHT LOG (Module 1) ═══
+    // WEIGHT LOG (Module 1)
     
     /**
      * Đọc lịch sử cân nặng, sắp xếp theo ngày tăng dần (cũ → mới)
@@ -49,7 +49,7 @@ class AnalyticsRepository {
         return entries.reversed()
     }
 
-    // ═══ MEAL PLANS (Module 3) ═══
+    // MEAL PLANS (Module 3)
     
     /**
      * Đọc mealPlan theo weekId → extract daily calories.
@@ -83,7 +83,7 @@ class AnalyticsRepository {
         }
     }
 
-    // ═══ USER PROFILE (Module 1) ═══
+    // USER PROFILE (Module 1)
     
     suspend fun getUserProfile(uid: String): User? {
         val doc = try {
@@ -97,7 +97,7 @@ class AnalyticsRepository {
         return doc.toObject(User::class.java)?.copy(uid = uid)
     }
 
-    // ═══ HELPERS ═══
+    // HELPERS
     
     /** "Thứ Hai" → "T2", "Chủ Nhật" → "CN" */
     private fun shortenDayLabel(label: String): String {

@@ -1,4 +1,4 @@
-package com.team.smartnutrition.navigation
+﻿package com.team.smartnutrition.navigation
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.BarChart
@@ -15,32 +15,30 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import com.team.smartnutrition.R
 
 /**
- * ═══════════════════════════════════════════
  * ĐỊNH NGHĨA TẤT CẢ ROUTES (đường dẫn màn hình)
- * ═══════════════════════════════════════════
  *
  * Khi cần navigate đến màn hình nào, dùng:
  *   navController.navigate(Screen.Login.route)
  *   navController.navigate(Screen.FoodDetail.createRoute("abc123"))
  */
 sealed class Screen(val route: String) {
-    // ═══ AUTH (Module 1 - TV1) ═══
+    // Xác thực (Module 1 - TV1)
     data object Login : Screen("login")
     data object Register : Screen("register")
     data object ProfileSetup : Screen("profile_setup")
 
-    // ═══ BOTTOM NAV TABS (5 tab chính) ═══
+    // Các tab điều hướng dưới (5 tab chính)
     data object Home : Screen("home")             // Tab 1 - Profile/Dashboard
     data object Pantry : Screen("pantry")          // Tab 2 - Kho thực phẩm
     data object MealPlan : Screen("meal_plan")     // Tab 3 - Thực đơn AI
     data object Habit : Screen("habit")            // Tab 4 - Thói quen
     data object Analytics : Screen("analytics")    // Tab 5 - Thống kê
 
-    // ═══ DETAIL SCREENS (Module 1 - TV1) ═══
+    // Các màn hình chi tiết (Module 1 - TV1)
     data object WeightLog : Screen("weight_log")
     data object ProfileView : Screen("profile_view")
 
-    // ═══ DETAIL SCREENS (Module 2 - TV2) ═══
+    // Các màn hình chi tiết (Module 2 - TV2)
     data object CameraCapture : Screen("camera_capture")
     data object FoodResult : Screen("food_result")
     data object BarcodeScan : Screen("barcode_scan")
@@ -48,15 +46,15 @@ sealed class Screen(val route: String) {
         fun createRoute(itemId: String) = "food_detail/$itemId"
     }
 
-    // ═══ DETAIL SCREENS (Module 3 - TV3) ═══
+    // Các màn hình chi tiết (Module 3 - TV3)
     data object MealDetail : Screen("meal_detail/{dayIndex}/{mealType}") {
         fun createRoute(dayIndex: Int, mealType: String) = "meal_detail/$dayIndex/$mealType"
     }
 
-    // ═══ DETAIL SCREENS (Module 4 - TV4) ═══
+    // Các màn hình chi tiết (Module 4 - TV4)
     data object ReminderSettings : Screen("reminder_settings")
 
-    // ═══ DETAIL SCREENS (Module 5 - TV5) ═══
+    // Các màn hình chi tiết (Module 5 - TV5)
     data object Settings : Screen("settings")
 }
 

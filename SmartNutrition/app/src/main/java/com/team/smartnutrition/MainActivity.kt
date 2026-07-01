@@ -1,4 +1,4 @@
-package com.team.smartnutrition
+﻿package com.team.smartnutrition
 
 import android.content.Context
 import android.content.SharedPreferences

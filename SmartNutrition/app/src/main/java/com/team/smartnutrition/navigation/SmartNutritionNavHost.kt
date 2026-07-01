@@ -1,4 +1,4 @@
-package com.team.smartnutrition.navigation
+﻿package com.team.smartnutrition.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -28,9 +28,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.team.smartnutrition.meal.viewmodel.MealPlanViewModel
 
 /**
- * ═══════════════════════════════════════════
  * NAVIGATION GRAPH - Bản đồ điều hướng toàn app
- * ═══════════════════════════════════════════
  *
  * startDestination = "login" → Mở app → Màn hình Login
  * Sau khi login thành công → navigate("home")
@@ -51,10 +49,8 @@ fun SmartNutritionNavHost(
         startDestination = startDestination,
         modifier = modifier
     ) {
-        // ═══════════════════════════════════════
         // AUTH FLOW (Module 1 - TV1)
         // Không có Bottom Nav
-        // ═══════════════════════════════════════
         composable(Screen.Login.route) {
             LoginScreen(navController = navController)
         }
@@ -64,10 +60,7 @@ fun SmartNutritionNavHost(
         composable(Screen.ProfileSetup.route) {
             ProfileSetupScreen(navController = navController)
         }
-
-        // ═══════════════════════════════════════
         // TAB 1: TRANG CHỦ (Module 1 - TV1)
-        // ═══════════════════════════════════════
         composable(Screen.Home.route) {
             ProfileViewScreen(navController = navController)
         }
@@ -77,10 +70,7 @@ fun SmartNutritionNavHost(
         composable(Screen.ProfileView.route) {
             ProfileViewScreen(navController = navController)
         }
-
-        // ═══════════════════════════════════════
         // TAB 2: KHO THỰC PHẨM (Module 2 - TV2)
-        // ═══════════════════════════════════════
         composable(Screen.Pantry.route) {
             PantryListScreen(navController = navController)
         }
@@ -100,10 +90,7 @@ fun SmartNutritionNavHost(
             val itemId = backStackEntry.arguments?.getString("itemId") ?: ""
             FoodDetailScreen(navController = navController, itemId = itemId)
         }
-
-        // ═══════════════════════════════════════
         // TAB 3: THỰC ĐƠN AI (Module 3 - TV3)
-        // ═══════════════════════════════════════
         composable(Screen.MealPlan.route) { backStackEntry ->
             val mealViewModel: MealPlanViewModel = viewModel(backStackEntry)
             MealPlanWeekScreen(navController = navController, viewModel = mealViewModel)
@@ -131,20 +118,14 @@ fun SmartNutritionNavHost(
                 viewModel = mealViewModel
             )
         }
-
-        // ═══════════════════════════════════════
         // TAB 4: THÓI QUEN (Module 4 - TV4)
-        // ═══════════════════════════════════════
         composable(Screen.Habit.route) {
             HabitDashboardScreen(navController = navController)
         }
         composable(Screen.ReminderSettings.route) {
             ReminderSettingsScreen(navController = navController)
         }
-
-        // ═══════════════════════════════════════
         // TAB 5: THỐNG KÊ & CÀI ĐẶT (Module 5 - TV5)
-        // ═══════════════════════════════════════
         composable(Screen.Analytics.route) {
             AnalyticsScreen(navController = navController)
         }

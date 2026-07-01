@@ -1,4 +1,4 @@
-package com.team.smartnutrition.auth
+﻿package com.team.smartnutrition.auth
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -31,9 +31,7 @@ import com.team.smartnutrition.common.components.SmartTopBar
 import com.team.smartnutrition.navigation.Screen
 
 /**
- * ═══════════════════════════════════════════
  * MODULE 1 - TV1: MÀN HÌNH ĐĂNG KÝ
- * ═══════════════════════════════════════════
  *
  * Tính năng:
  * - Form đăng ký (Email, Password, Confirm Password)
@@ -100,7 +98,7 @@ fun RegisterScreen(
                 modifier = Modifier.padding(top = 4.dp, bottom = 32.dp)
             )
 
-            // ═══ Email Field ═══
+            // Email Field
             OutlinedTextField(
                 value = uiState.email,
                 onValueChange = { viewModel.updateEmail(it) },
@@ -126,7 +124,7 @@ fun RegisterScreen(
             )
             Spacer(modifier = Modifier.height(8.dp))
 
-            // ═══ Password Field ═══
+            // Password Field
             OutlinedTextField(
                 value = uiState.password,
                 onValueChange = { viewModel.updatePassword(it) },
@@ -172,7 +170,7 @@ fun RegisterScreen(
             )
             Spacer(modifier = Modifier.height(8.dp))
 
-            // ═══ Confirm Password Field ═══
+            // Confirm Password Field
             OutlinedTextField(
                 value = uiState.confirmPassword,
                 onValueChange = { viewModel.updateConfirmPassword(it) },
@@ -212,7 +210,7 @@ fun RegisterScreen(
             )
             Spacer(modifier = Modifier.height(24.dp))
 
-            // ═══ Register Button ═══
+            // Register Button
             Button(
                 onClick = { viewModel.register() },
                 modifier = Modifier

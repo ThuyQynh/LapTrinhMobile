@@ -1,4 +1,4 @@
-package com.team.smartnutrition.meal.data
+﻿package com.team.smartnutrition.meal.data
 
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
@@ -11,9 +11,7 @@ import com.team.smartnutrition.meal.model.MealPlan
 import kotlinx.coroutines.tasks.await
 
 /**
- * ═══════════════════════════════════════════
  * MEAL REPOSITORY - Lớp dữ liệu cho thực đơn AI
- * ═══════════════════════════════════════════
  *
  * Đóng gói toàn bộ Firestore operations cho collection:
  *   users/{uid}/mealPlans/{weekId}
@@ -35,14 +33,14 @@ class MealRepository {
     private fun mealPlansRef(uid: String) =
         firestore.collection("users").document(uid).collection("mealPlans")
 
-    // ═══ CREATE / UPDATE ═══
+    // Thêm mới / Cập nhật
 
     suspend fun saveMealPlan(uid: String, mealPlan: MealPlan) {
         val data = mealPlanToMap(mealPlan)
         mealPlansRef(uid).document(mealPlan.weekId).set(data).await()
     }
 
-    // ═══ READ ═══
+    // Đọc dữ liệu
 
     /**
      * Đọc meal plan theo weekId.
@@ -100,7 +98,7 @@ class MealRepository {
         return docToMealPlan(doc)
     }
 
-    // ═══ DELETE ═══
+    // Xóa dữ liệu
 
     /**
      * Xóa meal plan cũ trước khi regenerate.
@@ -110,7 +108,7 @@ class MealRepository {
         mealPlansRef(uid).document(weekId).delete()
     }
 
-    // ═══ HELPER: Convert MealPlan → Map ═══
+    // HELPER: Convert MealPlan → Map
 
     /**
      * Convert MealPlan → Map cho Firestore.
@@ -143,7 +141,7 @@ class MealRepository {
         )
     }
 
-    // ═══ HELPER: Convert Firestore Document → MealPlan ═══
+    // HELPER: Convert Firestore Document → MealPlan
 
     /**
      * Convert Firestore DocumentSnapshot → MealPlan.

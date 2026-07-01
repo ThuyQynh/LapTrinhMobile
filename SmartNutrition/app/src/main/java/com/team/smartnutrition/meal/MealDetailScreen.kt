@@ -1,4 +1,4 @@
-package com.team.smartnutrition.meal
+﻿package com.team.smartnutrition.meal
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -35,9 +35,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 
 /**
- * ═══════════════════════════════════════════
  * MODULE 3 - Chi tiết bữa ăn
- * ═══════════════════════════════════════════
  *
  * Nhận dayIndex + mealType từ nav args.
  * Đọc Meal từ shared ViewModel (data load từ Firestore cache → gần instant).
@@ -234,11 +232,7 @@ fun MealDetailScreen(
         }
     }
 }
-
-// ═══════════════════════════════════════════════════════════
 // DETAIL CONTENT
-// ═══════════════════════════════════════════════════════════
-
 @Composable
 private fun MealDetailContent(meal: Meal, modifier: Modifier = Modifier) {
     LazyColumn(
@@ -312,11 +306,7 @@ private fun MealDetailContent(meal: Meal, modifier: Modifier = Modifier) {
         item { Spacer(Modifier.height(24.dp)) }
     }
 }
-
-// ═══════════════════════════════════════════════════════════
 // SUB-COMPONENTS
-// ═══════════════════════════════════════════════════════════
-
 @Composable
 private fun NutritionChip(label: String, containerColor: Color) {
     Surface(

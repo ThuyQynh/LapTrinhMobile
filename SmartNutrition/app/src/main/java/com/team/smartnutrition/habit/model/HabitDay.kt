@@ -1,11 +1,9 @@
-package com.team.smartnutrition.habit.model
+﻿package com.team.smartnutrition.habit.model
 
 import com.google.firebase.Timestamp
 
 /**
- * ═══════════════════════════════════════════
  * DATA MODEL cho Module 4 - Habit Tracker
- * ═══════════════════════════════════════════
  *
  * Ánh xạ trực tiếp tới Firestore document:
  *   users/{uid}/habits/{date}

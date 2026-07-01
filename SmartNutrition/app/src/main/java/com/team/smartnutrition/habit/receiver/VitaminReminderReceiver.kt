@@ -1,4 +1,4 @@
-package com.team.smartnutrition.habit.receiver
+﻿package com.team.smartnutrition.habit.receiver
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -17,9 +17,7 @@ import com.team.smartnutrition.habit.data.ReminderPrefs
 import com.team.smartnutrition.habit.util.AlarmScheduler
 
 /**
- * ═══════════════════════════════════════════
  * VITAMIN REMINDER RECEIVER
- * ═══════════════════════════════════════════
  *
  * Được kích hoạt bởi AlarmManager mỗi ngày 1 lần theo giờ cố định.
  * Hiển thị notification đơn giản (không có action button).

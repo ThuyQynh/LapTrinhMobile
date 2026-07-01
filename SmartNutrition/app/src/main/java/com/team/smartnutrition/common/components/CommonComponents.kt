@@ -1,4 +1,4 @@
-package com.team.smartnutrition.common.components
+﻿package com.team.smartnutrition.common.components
 
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
@@ -20,9 +20,7 @@ import com.team.smartnutrition.R
 import androidx.compose.ui.unit.dp
 
 /**
- * ═══════════════════════════════════════════
  * SHARED COMPONENTS - Dùng chung cho TẤT CẢ module
- * ═══════════════════════════════════════════
  *
  * Import: import com.team.smartnutrition.common.components.*
  */

@@ -1,4 +1,4 @@
-package com.team.smartnutrition.habit.receiver
+﻿package com.team.smartnutrition.habit.receiver
 
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -11,9 +11,7 @@ import java.util.Date
 import java.util.Locale
 
 /**
- * ═══════════════════════════════════════════
  * WATER ACTION RECEIVER
- * ═══════════════════════════════════════════
  *
  * Xử lý khi user nhấn nút "💧 Đã uống ✓" trên notification.
  *

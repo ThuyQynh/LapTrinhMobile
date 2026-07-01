@@ -1,4 +1,4 @@
-package com.team.smartnutrition.habit.model
+﻿package com.team.smartnutrition.habit.model
 
 /**
  * Model cho nhắc nhở tùy chỉnh (ví dụ: uống thuốc, vitamin, v.v.)

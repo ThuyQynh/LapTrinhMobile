@@ -1,4 +1,4 @@
-package com.team.smartnutrition.habit.data
+﻿package com.team.smartnutrition.habit.data
 
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
@@ -12,9 +12,7 @@ import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withTimeout
 
 /**
- * ═══════════════════════════════════════════
  * HABIT REPOSITORY - Lớp dữ liệu cho thói quen
- * ═══════════════════════════════════════════
  *
  * Đóng gói toàn bộ Firestore operations cho collection:
  *   users/{uid}/habits/{date}
@@ -36,7 +34,7 @@ class HabitRepository {
     private fun habitsRef(uid: String) =
         firestore.collection("users").document(uid).collection("habits")
 
-    // ═══ READ ═══
+    // Đọc dữ liệu
 
     /**
      * Đọc habit data của 1 ngày.
@@ -59,7 +57,7 @@ class HabitRepository {
         return docToHabitDay(doc)
     }
 
-    // ═══ CREATE / UPDATE ═══
+    // Thêm mới / Cập nhật
 
     /**
      * Lưu/cập nhật toàn bộ habit day.
@@ -89,7 +87,7 @@ class HabitRepository {
         )
     }
 
-    // ═══ HELPER: Convert HabitDay ↔ Map ═══
+    // HELPER: Convert HabitDay ↔ Map
 
     private fun habitDayToMap(h: HabitDay): Map<String, Any?> = mapOf(
         "waterCups" to h.waterCups,
@@ -115,7 +113,7 @@ class HabitRepository {
         )
     }
 
-    // ═══ SETTINGS PERSISTENCE ═══
+    // SETTINGS PERSISTENCE
 
     /**
      * Lưu cài đặt nhắc nhở thói quen lên Firestore.

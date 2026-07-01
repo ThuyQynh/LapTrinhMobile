@@ -1,11 +1,9 @@
-package com.team.smartnutrition.auth.util
+﻿package com.team.smartnutrition.auth.util
 
 import android.util.Patterns
 
 /**
- * ═══════════════════════════════════════════
  * VALIDATION UTILS - Module 1
- * ═══════════════════════════════════════════
  *
  * Quy tắc:
  * - Email: Patterns.EMAIL_ADDRESS regex chuẩn Android

@@ -1,4 +1,4 @@
-package com.team.smartnutrition.meal
+﻿package com.team.smartnutrition.meal
 
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
@@ -34,9 +34,7 @@ import com.team.smartnutrition.meal.viewmodel.MealPlanViewModel
 import com.team.smartnutrition.navigation.Screen
 
 /**
- * ═══════════════════════════════════════════
- * MODULE 3 - THỰC ĐƠN AI - Màn hình tổng quan tuần
- * ═══════════════════════════════════════════
+ * Module 3 - Thực đơn AI - Màn hình tổng quan tuần
  *
  * States:
  *   isLoading → LoadingScreen
@@ -73,7 +71,7 @@ fun MealPlanWeekScreen(
             )
         }
 
-        // Error snackbar / card (bottom)
+        // Màu báo lỗi (Error) snackbar / card (bottom)
         uiState.errorMessage?.let { error ->
             ErrorCard(
                 message = error,
@@ -96,11 +94,7 @@ fun MealPlanWeekScreen(
         }
     }
 }
-
-// ═══════════════════════════════════════════════════════════
-// EMPTY STATE - Chưa có plan
-// ═══════════════════════════════════════════════════════════
-
+// Trạng thái trống - Chưa có thực đơn
 @Composable
 private fun EmptyMealPlanContent(onGenerateClick: () -> Unit) {
     Column(
@@ -138,11 +132,7 @@ private fun EmptyMealPlanContent(onGenerateClick: () -> Unit) {
         )
     }
 }
-
-// ═══════════════════════════════════════════════════════════
-// MAIN CONTENT - Có plan
-// ═══════════════════════════════════════════════════════════
-
+// Nội dung chính - Đã có thực đơn
 @Composable
 private fun MealPlanContent(
     uiState: MealPlanUiState,
@@ -245,11 +235,7 @@ private fun MealPlanContent(
         }
     }
 }
-
-// ═══════════════════════════════════════════════════════════
-// DAY TAB ROW
-// ═══════════════════════════════════════════════════════════
-
+// Thanh chọn ngày trong tuần
 @Composable
 private fun DayTabRow(
     days: List<DayPlan>,
@@ -297,11 +283,7 @@ private fun DayTabRow(
         }
     }
 }
-
-// ═══════════════════════════════════════════════════════════
-// CALORIE SUMMARY BAR
-// ═══════════════════════════════════════════════════════════
-
+// Thanh tóm tắt lượng Calo
 @Composable
 private fun CalorieSummaryBar(consumed: Int, target: Int, protein: Int) {
     val rawProgress = if (target > 0) consumed.toFloat() / target else 0f
@@ -349,11 +331,7 @@ private fun CalorieSummaryBar(consumed: Int, target: Int, protein: Int) {
         }
     }
 }
-
-// ═══════════════════════════════════════════════════════════
-// MEAL CARD
-// ═══════════════════════════════════════════════════════════
-
+// Thẻ thông tin bữa ăn
 @Composable
 private fun MealCard(
     mealType: String,
@@ -420,11 +398,7 @@ private fun MealCard(
         }
     }
 }
-
-// ═══════════════════════════════════════════════════════════
-// GENERATING DIALOG - Overlay khi đang gọi AI
-// ═══════════════════════════════════════════════════════════
-
+// Hộp thoại đang tạo thực đơn bằng AI
 @Composable
 private fun GeneratingDialog(message: String) {
     Box(

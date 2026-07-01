@@ -1,4 +1,4 @@
-package com.team.smartnutrition.navigation
+﻿package com.team.smartnutrition.navigation
 
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme

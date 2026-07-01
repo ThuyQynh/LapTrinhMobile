@@ -1,4 +1,4 @@
-package com.team.smartnutrition
+﻿package com.team.smartnutrition
 
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
@@ -13,7 +13,7 @@ class SmartNutritionApp : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        // ═══ Firestore Offline Persistence ═══
+        // Cấu hình lưu trữ ngoại tuyến Firestore (Offline Persistence)
         // Cho phép app hoạt động khi mất mạng
         val settings = FirebaseFirestoreSettings.Builder()
             .setPersistenceEnabled(true)
@@ -21,7 +21,7 @@ class SmartNutritionApp : Application() {
             .build()
         FirebaseFirestore.getInstance().firestoreSettings = settings
 
-        // ═══ Khôi phục Dark/Light Mode từ SharedPreferences ═══
+        // Khôi phục chế độ sáng/tối từ SharedPreferences
         val prefs = getSharedPreferences("app_settings", MODE_PRIVATE)
         val isDark = prefs.getBoolean("dark_mode", false)
         AppCompatDelegate.setDefaultNightMode(
@@ -29,7 +29,7 @@ class SmartNutritionApp : Application() {
             else AppCompatDelegate.MODE_NIGHT_NO
         )
 
-        // ═══ Khôi phục Ngôn ngữ từ SharedPreferences ═══
+        // Khôi phục ngôn ngữ từ SharedPreferences
         val langCode = prefs.getString("language", "vi") ?: "vi"
         val locale = java.util.Locale(langCode)
         java.util.Locale.setDefault(locale)

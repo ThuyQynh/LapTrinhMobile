@@ -1,4 +1,4 @@
-package com.team.smartnutrition.habit
+﻿package com.team.smartnutrition.habit
 
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
@@ -29,9 +29,7 @@ import com.team.smartnutrition.navigation.Screen
 import com.team.smartnutrition.habit.model.CustomReminder
 
 /**
- * ═══════════════════════════════════════════
  * MODULE 4 - HABIT DASHBOARD SCREEN
- * ═══════════════════════════════════════════
  *
  * Màn hình chính theo dõi thói quen hàng ngày:
  * - CircularProgress: số cốc nước / mục tiêu
@@ -67,7 +65,7 @@ fun HabitDashboardScreen(
             )
         }
 
-        // Error card
+        // Màu báo lỗi (Error) card
         uiState.errorMessage?.let { error ->
             Card(
                 modifier = Modifier
@@ -98,11 +96,7 @@ fun HabitDashboardScreen(
         }
     }
 }
-
-// ═══════════════════════════════════════════════════════════
-// MAIN CONTENT
-// ═══════════════════════════════════════════════════════════
-
+// Nội dung chính
 @Composable
 private fun HabitDashboardContent(
     uiState: HabitUiState,
@@ -170,11 +164,7 @@ private fun HabitDashboardContent(
         Spacer(Modifier.height(24.dp))
     }
 }
-
-// ═══════════════════════════════════════════════════════════
-// WATER PROGRESS - Vòng tròn tiến trình
-// ═══════════════════════════════════════════════════════════
-
+// Tiến trình uống nước - Vòng tròn tiến trình
 @Composable
 private fun WaterProgressSection(
     waterCups: Int,
@@ -286,11 +276,7 @@ private fun WaterProgressSection(
         }
     }
 }
-
-// ═══════════════════════════════════════════════════════════
-// SLEEP SECTION - Hẹn giờ ngủ & Báo thức dậy
-// ═══════════════════════════════════════════════════════════
-
+// Nhắc nhở giấc ngủ - Hẹn giờ ngủ & Báo thức dậy
 @Composable
 private fun SleepAlarmSection(
     enabled: Boolean,
@@ -383,11 +369,7 @@ private fun SleepAlarmSection(
         )
     }
 }
-
-// ═══════════════════════════════════════════════════════════
-// DIALOG: SLEEP SETUP HELPERS
-// ═══════════════════════════════════════════════════════════
-
+// Hộp thoại: Hỗ trợ cài đặt giờ ngủ
 @Composable
 private fun SleepSetupDialog(
     currentBedtimeHour: Int,
@@ -451,11 +433,7 @@ private fun SleepSetupDialog(
         )
     }
 }
-
-// ═══════════════════════════════════════════════════════════
-// TIMEPICKER DIALOG HELPER
-// ═══════════════════════════════════════════════════════════
-
+// Hộp thoại chọn giờ
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun TimePickerDialogHelper(
@@ -495,11 +473,7 @@ private fun TimePickerDialogHelper(
         }
     )
 }
-
-// ═══════════════════════════════════════════════════════════
-// CUSTOM REMINDERS SECTION - Danh sách thói quen hôm nay
-// ═══════════════════════════════════════════════════════════
-
+// Danh sách thói quen hôm nay
 @Composable
 private fun CustomRemindersDashboardSection(
     customReminders: List<CustomReminder>,

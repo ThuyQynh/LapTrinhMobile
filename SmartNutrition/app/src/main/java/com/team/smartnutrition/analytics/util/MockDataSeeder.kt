@@ -1,4 +1,4 @@
-package com.team.smartnutrition.analytics.util
+﻿package com.team.smartnutrition.analytics.util
 
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.FirebaseFirestore

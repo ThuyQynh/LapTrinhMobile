@@ -1,4 +1,4 @@
-package com.team.smartnutrition.habit.receiver
+﻿package com.team.smartnutrition.habit.receiver
 
 import android.app.NotificationChannel
 import android.app.NotificationManager

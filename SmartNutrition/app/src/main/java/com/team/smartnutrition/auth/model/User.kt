@@ -1,11 +1,9 @@
-package com.team.smartnutrition.auth.model
+﻿package com.team.smartnutrition.auth.model
 
 import com.google.firebase.Timestamp
 
 /**
- * ═══════════════════════════════════════════
  * DATA MODELS cho Module 1 - Auth & Profile
- * ═══════════════════════════════════════════
  *
  * Ánh xạ trực tiếp tới Firestore document:
  * - User → users/{uid}

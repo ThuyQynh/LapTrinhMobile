@@ -1,4 +1,4 @@
-package com.team.smartnutrition.auth
+﻿package com.team.smartnutrition.auth
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState

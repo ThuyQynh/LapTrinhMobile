@@ -1,4 +1,4 @@
-package com.team.smartnutrition.auth.viewmodel
+﻿package com.team.smartnutrition.auth.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -11,9 +11,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 /**
- * ═══════════════════════════════════════════
  * REGISTER VIEW MODEL
- * ═══════════════════════════════════════════
  *
  * Xử lý đăng ký tài khoản mới.
  * Validation realtime + Firebase createUserWithEmailAndPassword.

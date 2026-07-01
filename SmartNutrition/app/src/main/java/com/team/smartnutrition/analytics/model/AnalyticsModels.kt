@@ -1,4 +1,4 @@
-package com.team.smartnutrition.analytics.model
+﻿package com.team.smartnutrition.analytics.model
 
 /**
  * Entry cho biểu đồ cân nặng (LineChart).

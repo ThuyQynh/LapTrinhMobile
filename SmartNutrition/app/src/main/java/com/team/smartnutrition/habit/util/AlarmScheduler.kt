@@ -1,4 +1,4 @@
-package com.team.smartnutrition.habit.util
+﻿package com.team.smartnutrition.habit.util
 
 import android.app.AlarmManager
 import android.app.PendingIntent
@@ -12,9 +12,7 @@ import com.team.smartnutrition.habit.receiver.WaterReminderReceiver
 import java.util.Calendar
 
 /**
- * ═══════════════════════════════════════════
  * ALARM SCHEDULER - Utility quản lý alarm
- * ═══════════════════════════════════════════
  *
  * Stateless object — nhận Context để schedule/cancel alarms.
  * Dùng setExactAndAllowWhileIdle() để hoạt động trong Doze mode.
@@ -36,11 +34,7 @@ object AlarmScheduler {
     private const val WATER_BASE_CODE = 1000
     private const val WATER_MAX_SLOTS = 20
     private const val VITAMIN_CODE = 2000
-
-    // ═══════════════════════════════════════════════════
     // WATER REMINDERS (Interval-based)
-    // ═══════════════════════════════════════════════════
-
     /**
      * Lên toàn bộ water alarm trong ngày.
      * Cancel cũ → tạo mới theo interval + start/end hour.
@@ -164,11 +158,7 @@ object AlarmScheduler {
 
         Log.d(TAG, "Next water alarm scheduled: tomorrow $alarmHour:00")
     }
-
-    // ═══════════════════════════════════════════════════
     // VITAMIN REMINDER (Fixed daily)
-    // ═══════════════════════════════════════════════════
-
     /**
      * Đặt 1 alarm vitamin theo giờ cố định.
      * Cancel cũ trước → đặt mới.
@@ -258,11 +248,7 @@ object AlarmScheduler {
 
         Log.d(TAG, "Next vitamin alarm scheduled: tomorrow $hour:${String.format("%02d", minute)}")
     }
-
-    // ═══════════════════════════════════════════════════
     // CUSTOM REMINDERS (Dynamic)
-    // ═══════════════════════════════════════════════════
-
     fun scheduleCustomReminderAlarm(context: Context, reminder: com.team.smartnutrition.habit.model.CustomReminder) {
         cancelCustomReminderAlarm(context, reminder.id)
 
@@ -349,11 +335,7 @@ object AlarmScheduler {
 
         Log.d(TAG, "Next custom alarm scheduled: tomorrow ${reminder.name} at ${reminder.hour}:${String.format("%02d", reminder.minute)}")
     }
-
-    // ═══════════════════════════════════════════════════
     // SLEEP REMINDER (Bedtime only)
-    // ═══════════════════════════════════════════════════
-
     fun scheduleSleepAlarm(context: Context, bedtimeHour: Int, bedtimeMinute: Int) {
         cancelSleepAlarm(context)
 

@@ -1,4 +1,4 @@
-package com.team.smartnutrition.auth.viewmodel
+﻿package com.team.smartnutrition.auth.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -14,9 +14,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 /**
- * ═══════════════════════════════════════════
  * PROFILE SETUP VIEW MODEL
- * ═══════════════════════════════════════════
  *
  * Quản lý multi-step wizard 3 bước:
  * Step 1: Giới tính + Năm sinh + Tên hiển thị
@@ -85,7 +83,7 @@ class ProfileSetupViewModel : ViewModel() {
     private val _uiState = MutableStateFlow(ProfileSetupUiState())
     val uiState: StateFlow<ProfileSetupUiState> = _uiState.asStateFlow()
 
-    // ═══ Step 1 updates ═══
+    // Step 1 updates
 
     fun updateDisplayName(name: String) {
         _uiState.update { it.copy(displayName = name) }
@@ -99,7 +97,7 @@ class ProfileSetupViewModel : ViewModel() {
         _uiState.update { it.copy(birthYear = year) }
     }
 
-    // ═══ Step 2 updates ═══
+    // Step 2 updates
 
     fun updateHeightCm(height: Int) {
         _uiState.update { it.copy(heightCm = height) }
@@ -109,7 +107,7 @@ class ProfileSetupViewModel : ViewModel() {
         _uiState.update { it.copy(weightKg = weight) }
     }
 
-    // ═══ Step 3 updates ═══
+    // Step 3 updates
 
     fun updateGoal(goal: String) {
         _uiState.update { it.copy(goal = goal) }
@@ -121,7 +119,7 @@ class ProfileSetupViewModel : ViewModel() {
         recalculateMetrics()
     }
 
-    // ═══ Navigation ═══
+    // Navigation
 
     fun nextStep() {
         val state = _uiState.value
@@ -153,7 +151,7 @@ class ProfileSetupViewModel : ViewModel() {
         }
     }
 
-    // ═══ Calculate ═══
+    // Calculate
 
     private fun recalculateMetrics() {
         val state = _uiState.value
@@ -168,7 +166,7 @@ class ProfileSetupViewModel : ViewModel() {
         _uiState.update { it.copy(metrics = metrics) }
     }
 
-    // ═══ Save ═══
+    // Save
 
     /**
      * Lưu profile lên Firestore.

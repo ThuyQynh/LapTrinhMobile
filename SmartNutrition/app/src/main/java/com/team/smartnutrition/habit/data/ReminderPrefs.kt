@@ -1,4 +1,4 @@
-package com.team.smartnutrition.habit.data
+﻿package com.team.smartnutrition.habit.data
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -7,9 +7,7 @@ import com.google.gson.reflect.TypeToken
 import com.team.smartnutrition.habit.model.CustomReminder
 
 /**
- * ═══════════════════════════════════════════
  * REMINDER PREFS - SharedPreferences wrapper
- * ═══════════════════════════════════════════
  *
  * Lưu cài đặt nhắc nhở LOCAL (không lên Firestore).
  */
@@ -17,11 +15,7 @@ class ReminderPrefs(context: Context) {
 
     private val prefs: SharedPreferences =
         context.getSharedPreferences("habit_reminder_prefs", Context.MODE_PRIVATE)
-
-    // ═══════════════════════════════════════════
     // WATER REMINDER SETTINGS
-    // ═══════════════════════════════════════════
-
     /** Bật/tắt nhắc nhở uống nước */
     var waterReminderEnabled: Boolean
         get() = prefs.getBoolean("water_reminder_enabled", false)
@@ -46,11 +40,7 @@ class ReminderPrefs(context: Context) {
     var waterGoal: Int
         get() = prefs.getInt("water_goal", 8)
         set(v) = prefs.edit().putInt("water_goal", v).apply()
-
-    // ═══════════════════════════════════════════
     // VITAMIN REMINDER SETTINGS (Backward compatibility)
-    // ═══════════════════════════════════════════
-
     /** Bật/tắt nhắc nhở uống vitamin */
     var vitaminReminderEnabled: Boolean
         get() = prefs.getBoolean("vitamin_reminder_enabled", false)
@@ -65,11 +55,7 @@ class ReminderPrefs(context: Context) {
     var vitaminMinute: Int
         get() = prefs.getInt("vitamin_minute", 0)
         set(v) = prefs.edit().putInt("vitamin_minute", v).apply()
-
-    // ═══════════════════════════════════════════
     // CUSTOM REMINDERS SETTINGS
-    // ═══════════════════════════════════════════
-
     /** Lấy danh sách nhắc nhở tùy chỉnh */
     var customReminders: List<CustomReminder>
         get() {
@@ -98,11 +84,7 @@ class ReminderPrefs(context: Context) {
             )
         )
     }
-
-    // ═══════════════════════════════════════════
     // SLEEP REMINDER SETTINGS
-    // ═══════════════════════════════════════════
-
     /** Bật/tắt nhắc nhở đi ngủ & thức dậy */
     var sleepReminderEnabled: Boolean
         get() = prefs.getBoolean("sleep_reminder_enabled", false)

@@ -1,4 +1,4 @@
-package com.team.smartnutrition.habit.receiver
+﻿package com.team.smartnutrition.habit.receiver
 
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -8,9 +8,7 @@ import com.team.smartnutrition.habit.data.ReminderPrefs
 import com.team.smartnutrition.habit.util.AlarmScheduler
 
 /**
- * ═══════════════════════════════════════════
  * BOOT RECEIVER
- * ═══════════════════════════════════════════
  *
  * Được kích hoạt khi thiết bị khởi động lại (BOOT_COMPLETED).
  * Mọi alarm bị hủy khi restart → BootReceiver đọc SharedPreferences

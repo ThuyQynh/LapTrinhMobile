@@ -1,4 +1,4 @@
-package com.team.smartnutrition.analytics.util
+﻿package com.team.smartnutrition.analytics.util
 
 import android.content.Context
 import android.content.Intent

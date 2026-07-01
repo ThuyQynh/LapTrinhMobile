@@ -1,4 +1,4 @@
-package com.team.smartnutrition.auth
+﻿package com.team.smartnutrition.auth
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -29,9 +29,7 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 /**
- * ═══════════════════════════════════════════
  * MODULE 1 - TV1: NHẬT KÝ CÂN NẶNG
- * ═══════════════════════════════════════════
  *
  * Tính năng:
  * - Nhập cân nặng hôm nay + tính BMI realtime
@@ -83,7 +81,7 @@ fun WeightLogScreen(
                 contentPadding = PaddingValues(20.dp),
                 verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
-                // ═══ Input Card ═══
+                // Input Card
                 item {
                     Card(
                         modifier = Modifier.fillMaxWidth(),
@@ -149,7 +147,7 @@ fun WeightLogScreen(
                     }
                 }
 
-                // ═══ History Header ═══
+                // History Header
                 if (uiState.history.isNotEmpty()) {
                     item {
                         Text("📅 " + stringResource(R.string.weight_history),
@@ -158,7 +156,7 @@ fun WeightLogScreen(
                     }
                 }
 
-                // ═══ History Items ═══
+                // History Items
                 items(uiState.history) { entry ->
                     Card(
                         modifier = Modifier.fillMaxWidth(),
@@ -190,7 +188,7 @@ fun WeightLogScreen(
                     }
                 }
 
-                // ═══ Empty State ═══
+                // Empty State
                 if (uiState.history.isEmpty()) {
                     item {
                         Card(Modifier.fillMaxWidth(), shape = RoundedCornerShape(12.dp),

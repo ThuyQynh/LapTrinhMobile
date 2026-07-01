@@ -1,4 +1,4 @@
-package com.team.smartnutrition.auth.viewmodel
+﻿package com.team.smartnutrition.auth.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -13,9 +13,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 /**
- * ═══════════════════════════════════════════
  * PROFILE VIEW VIEW MODEL
- * ═══════════════════════════════════════════
  *
  * Xử lý:
  * - Load user profile từ Firestore
@@ -104,7 +102,7 @@ class ProfileViewViewModel : ViewModel() {
         _uiState.update { it.copy(isEditing = false) }
     }
 
-    // ═══ Edit field updates ═══
+    // Edit field updates
 
     fun updateEditDisplayName(name: String) {
         _uiState.update { it.copy(editDisplayName = name) }

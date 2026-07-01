@@ -1,11 +1,9 @@
-package com.team.smartnutrition.meal.model
+﻿package com.team.smartnutrition.meal.model
 
 import com.google.firebase.Timestamp
 
 /**
- * ═══════════════════════════════════════════
  * DATA MODELS cho Module 3 - AI Meal Planner
- * ═══════════════════════════════════════════
  *
  * Ánh xạ trực tiếp tới Firestore document:
  *   users/{uid}/mealPlans/{weekId}

@@ -1,4 +1,4 @@
-package com.team.smartnutrition.auth
+﻿package com.team.smartnutrition.auth
 
 import android.app.Activity
 import androidx.compose.animation.AnimatedVisibility
@@ -53,9 +53,7 @@ private fun Context.findActivity(): Activity? {
 }
 
 /**
- * ═══════════════════════════════════════════
  * MODULE 1 - TV1: MÀN HÌNH ĐĂNG NHẬP
- * ═══════════════════════════════════════════
  *
  * Tính năng:
  * - Đăng nhập Email/Password (Firebase Auth)
@@ -110,7 +108,7 @@ fun LoginScreen(
         ) {
             Spacer(modifier = Modifier.weight(1f))
 
-            // ═══ Logo & App Name ═══
+            // Logo & App Name
             Text(
                 text = "🥗",
                 style = MaterialTheme.typography.displayMedium,
@@ -131,7 +129,7 @@ fun LoginScreen(
                 modifier = Modifier.padding(top = 4.dp, bottom = 40.dp)
             )
 
-            // ═══ Email Field ═══
+            // Email Field
             OutlinedTextField(
                 value = uiState.email,
                 onValueChange = { viewModel.updateEmail(it) },
@@ -153,7 +151,7 @@ fun LoginScreen(
             )
             Spacer(modifier = Modifier.height(12.dp))
 
-            // ═══ Password Field ═══
+            // Password Field
             OutlinedTextField(
                 value = uiState.password,
                 onValueChange = { viewModel.updatePassword(it) },
@@ -189,7 +187,7 @@ fun LoginScreen(
             )
             Spacer(modifier = Modifier.height(24.dp))
 
-            // ═══ Login Button ═══
+            // Login Button
             Button(
                 onClick = { viewModel.signInWithEmail() },
                 modifier = Modifier
@@ -210,7 +208,7 @@ fun LoginScreen(
             }
             Spacer(modifier = Modifier.height(12.dp))
 
-            // ═══ Divider ═══
+            // Divider
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
@@ -225,7 +223,7 @@ fun LoginScreen(
             }
             Spacer(modifier = Modifier.height(12.dp))
 
-            // ═══ Google Sign-In Button ═══
+            // Google Sign-In Button
             OutlinedButton(
                 onClick = {
                     val activity = context.findActivity()
@@ -254,7 +252,7 @@ fun LoginScreen(
 
             Spacer(modifier = Modifier.weight(1f))
 
-            // ═══ Register Link ═══
+            // Register Link
             TextButton(
                 onClick = { navController.navigate(Screen.Register.route) },
                 enabled = !uiState.isLoading

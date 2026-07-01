@@ -1,4 +1,4 @@
-package com.team.smartnutrition.auth
+﻿package com.team.smartnutrition.auth
 
 import androidx.compose.animation.*
 import androidx.compose.foundation.BorderStroke
@@ -29,9 +29,7 @@ import com.team.smartnutrition.navigation.Screen
 import java.time.Year
 
 /**
- * ═══════════════════════════════════════════
  * MODULE 1 - TV1: THIẾT LẬP THỂ TRẠNG
- * ═══════════════════════════════════════════
  *
  * Multi-step wizard 3 bước:
  * Step 1: Giới tính + Năm sinh + Tên hiển thị
@@ -80,7 +78,7 @@ fun ProfileSetupScreen(
                 .fillMaxSize()
                 .padding(padding)
         ) {
-            // ═══ Progress Bar ═══
+            // Progress Bar
             LinearProgressIndicator(
                 progress = { uiState.currentStep.toFloat() / uiState.totalSteps },
                 modifier = Modifier
@@ -90,7 +88,7 @@ fun ProfileSetupScreen(
                 trackColor = MaterialTheme.colorScheme.surfaceVariant,
             )
 
-            // ═══ Step Content ═══
+            // Step Content
             Column(
                 modifier = Modifier
                     .weight(1f)
@@ -118,7 +116,7 @@ fun ProfileSetupScreen(
                 }
             }
 
-            // ═══ Bottom Buttons ═══
+            // Bottom Buttons
             Surface(
                 tonalElevation = 2.dp,
                 modifier = Modifier.fillMaxWidth()
@@ -192,10 +190,7 @@ fun ProfileSetupScreen(
         }
     }
 }
-
-// ═══════════════════════════════════════════
 // STEP 1: Giới tính + Năm sinh + Tên
-// ═══════════════════════════════════════════
 @Composable
 private fun Step1Content(
     uiState: ProfileSetupUiState,
@@ -213,7 +208,7 @@ private fun Step1Content(
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
 
-        // ═══ Tên hiển thị ═══
+        // Tên hiển thị
         OutlinedTextField(
             value = uiState.displayName,
             onValueChange = { viewModel.updateDisplayName(it) },
@@ -224,7 +219,7 @@ private fun Step1Content(
             singleLine = true
         )
 
-        // ═══ Giới tính ═══
+        // Giới tính
         Text(
             text = stringResource(R.string.gender_label),
             style = MaterialTheme.typography.titleMedium
@@ -249,7 +244,7 @@ private fun Step1Content(
             )
         }
 
-        // ═══ Năm sinh ═══
+        // Năm sinh
         Text(
             text = stringResource(R.string.birth_year_display, uiState.birthYear, Year.now().value - uiState.birthYear),
             style = MaterialTheme.typography.titleMedium
@@ -337,10 +332,7 @@ private fun GenderCard(
         }
     }
 }
-
-// ═══════════════════════════════════════════
 // STEP 2: Chiều cao + Cân nặng
-// ═══════════════════════════════════════════
 @Composable
 private fun Step2Content(
     uiState: ProfileSetupUiState,
@@ -372,7 +364,7 @@ private fun Step2Content(
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
 
-        // ═══ Chiều cao ═══
+        // Chiều cao
         Card(
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(16.dp),
@@ -441,7 +433,7 @@ private fun Step2Content(
             }
         }
 
-        // ═══ Cân nặng ═══
+        // Cân nặng
         Card(
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(16.dp),
@@ -515,7 +507,7 @@ private fun Step2Content(
             }
         }
 
-        // ═══ Preview BMI ═══
+        // Preview BMI
         val bmi = com.team.smartnutrition.auth.util.HealthCalculator.calculateBmi(
             uiState.weightKg, uiState.heightCm
         )
@@ -558,10 +550,7 @@ private fun Step2Content(
         }
     }
 }
-
-// ═══════════════════════════════════════════
 // STEP 3: Mục tiêu + Vận động + Kết quả
-// ═══════════════════════════════════════════
 @Composable
 private fun Step3Content(
     uiState: ProfileSetupUiState,
@@ -573,7 +562,7 @@ private fun Step3Content(
             style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold)
         )
 
-        // ═══ Mục tiêu sức khỏe ═══
+        // Mục tiêu sức khỏe
         Text(stringResource(R.string.goal_label), style = MaterialTheme.typography.titleMedium)
         goalOptions.forEach { option ->
             val labelText = when (option.value) {
@@ -632,7 +621,7 @@ private fun Step3Content(
 
         Spacer(modifier = Modifier.height(4.dp))
 
-        // ═══ Mức độ vận động ═══
+        // Mức độ vận động
         Text(stringResource(R.string.activity_label), style = MaterialTheme.typography.titleMedium)
         activityLevelOptions.forEach { option ->
             val labelText = when (option.value) {
@@ -658,7 +647,7 @@ private fun Step3Content(
             }
         }
 
-        // ═══ Kết quả tính toán ═══
+        // Kết quả tính toán
         uiState.metrics?.let { metrics ->
             HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
             Text(

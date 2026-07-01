@@ -1,4 +1,4 @@
-package com.team.smartnutrition.auth.viewmodel
+﻿package com.team.smartnutrition.auth.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -15,9 +15,7 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 /**
- * ═══════════════════════════════════════════
  * WEIGHT LOG VIEW MODEL
- * ═══════════════════════════════════════════
  *
  * Xử lý:
  * - Nhập cân nặng hôm nay

@@ -69,7 +69,7 @@ fun FoodDetailScreen(
                         IconButton(onClick = { viewModel.startEditing() }) {
                             Icon(Icons.Filled.Edit, contentDescription = "Sửa")
                         }
-                        // Delete button
+                        // Xóa dữ liệu button
                         IconButton(onClick = { viewModel.showDeleteConfirm() }) {
                             Icon(
                                 Icons.Filled.Delete,

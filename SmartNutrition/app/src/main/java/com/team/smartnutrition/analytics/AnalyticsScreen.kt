@@ -1,4 +1,4 @@
-package com.team.smartnutrition.analytics
+﻿package com.team.smartnutrition.analytics
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn

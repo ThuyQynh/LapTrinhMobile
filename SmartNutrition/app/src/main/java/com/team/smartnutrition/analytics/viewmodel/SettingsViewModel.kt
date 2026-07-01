@@ -1,4 +1,4 @@
-package com.team.smartnutrition.analytics.viewmodel
+﻿package com.team.smartnutrition.analytics.viewmodel
 
 import android.app.Application
 import android.content.Context

@@ -1,13 +1,11 @@
-package com.team.smartnutrition.auth.util
+﻿package com.team.smartnutrition.auth.util
 
 import java.time.Year
 import kotlin.math.pow
 import kotlin.math.roundToInt
 
 /**
- * ═══════════════════════════════════════════
  * HEALTH CALCULATOR - Tính chỉ số sức khỏe
- * ═══════════════════════════════════════════
  *
  * Pure functions, chạy LOCAL trên app.
  * Công thức Harris-Benedict cho BMR.

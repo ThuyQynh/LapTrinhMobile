@@ -1,4 +1,4 @@
-package com.team.smartnutrition.auth.viewmodel
+﻿package com.team.smartnutrition.auth.viewmodel
 
 import android.app.Activity
 import androidx.credentials.CredentialManager
@@ -18,9 +18,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 /**
- * ═══════════════════════════════════════════
  * LOGIN VIEW MODEL
- * ═══════════════════════════════════════════
  *
  * Xử lý:
  * - Đăng nhập Email/Password

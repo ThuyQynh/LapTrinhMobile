@@ -1,4 +1,4 @@
-package com.team.smartnutrition.meal.viewmodel
+﻿package com.team.smartnutrition.meal.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -21,9 +21,7 @@ import kotlinx.coroutines.launch
 import com.team.smartnutrition.R
 
 /**
- * ═══════════════════════════════════════════
  * MEAL PLAN UI STATE
- * ═══════════════════════════════════════════
  */
 data class MealPlanUiState(
     val mealPlan: MealPlan? = null,          // Plan hiện tại (null = chưa generate)
@@ -38,9 +36,7 @@ data class MealPlanUiState(
 )
 
 /**
- * ═══════════════════════════════════════════
  * MEAL PLAN VIEW MODEL
- * ═══════════════════════════════════════════
  *
  * Shared ViewModel cho MealPlanWeekScreen + MealDetailScreen.
  *
@@ -78,11 +74,7 @@ class MealPlanViewModel : ViewModel() {
     init {
         loadCurrentPlan()
     }
-
-    // ═══════════════════════════════════════════════════
     // PUBLIC ACTIONS
-    // ═══════════════════════════════════════════════════
-
     /**
      * Khởi tạo hoặc tạo lại thực đơn cho ngày hiện tại đang chọn.
      * Nếu chưa có MealPlan (null) -> khởi tạo khung 7 ngày và tạo thực đơn cho ngày hôm nay.
@@ -519,11 +511,7 @@ class MealPlanViewModel : ViewModel() {
             }
         }
     }
-
-    // ═══════════════════════════════════════════════════
-    // HELPER PROPERTIES
-    // ═══════════════════════════════════════════════════
-
+    // Hàm hỗ trợ PROPERTIES
     /** DayPlan đang được chọn (cho MealPlanWeekScreen) */
     val selectedDay: DayPlan?
         get() {
@@ -538,11 +526,7 @@ class MealPlanViewModel : ViewModel() {
     fun getMeal(dayIndex: Int, mealType: String): Meal? {
         return _uiState.value.mealPlan?.days?.getOrNull(dayIndex)?.meals?.get(mealType)
     }
-
-    // ═══════════════════════════════════════════════════
     // PRIVATE
-    // ═══════════════════════════════════════════════════
-
     /**
      * Load meal plan tuần hiện tại từ Firestore.
      * Nếu không có plan tuần này → thử load plan gần nhất.

@@ -1,4 +1,4 @@
-package com.team.smartnutrition.habit.viewmodel
+﻿package com.team.smartnutrition.habit.viewmodel
 
 import android.app.Application
 import android.util.Log
@@ -22,9 +22,7 @@ import java.util.Date
 import java.util.Locale
 
 /**
- * ═══════════════════════════════════════════
  * HABIT UI STATE
- * ═══════════════════════════════════════════
  */
 data class HabitUiState(
     // === Dashboard state (from Firestore) ===
@@ -52,9 +50,7 @@ data class HabitUiState(
 )
 
 /**
- * ═══════════════════════════════════════════
  * HABIT VIEW MODEL
- * ═══════════════════════════════════════════
  */
 class HabitViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -69,11 +65,7 @@ class HabitViewModel(application: Application) : AndroidViewModel(application) {
         loadTodayHabit()
         syncSettingsFromCloud()
     }
-
-    // ═══════════════════════════════════════════════════
     // DASHBOARD ACTIONS
-    // ═══════════════════════════════════════════════════
-
     /** Thêm 1 cốc nước. Optimistic update UI → fire-and-forget Firestore. */
     fun addWaterCup() {
         val uid = repository.currentUid ?: return
@@ -121,11 +113,7 @@ class HabitViewModel(application: Application) : AndroidViewModel(application) {
     fun clearError() {
         _uiState.update { it.copy(errorMessage = null) }
     }
-
-    // ═══════════════════════════════════════════════════
     // CUSTOM REMINDERS ACTIONS (SharedPreferences + AlarmScheduler)
-    // ═══════════════════════════════════════════════════
-
     /** Thêm một nhắc nhở tùy chỉnh mới */
     fun addCustomReminder(name: String, hour: Int, minute: Int) {
         val newReminder = CustomReminder(
@@ -207,11 +195,7 @@ class HabitViewModel(application: Application) : AndroidViewModel(application) {
         _uiState.update { it.copy(habitDay = updated) }
         repository.saveHabitDay(uid, updated)
     }
-
-    // ═══════════════════════════════════════════════════
     // SLEEP REMINDER SETTINGS ACTIONS
-    // ═══════════════════════════════════════════════════
-
     /** Bật/tắt nhắc nhở đi ngủ */
     fun setSleepReminderEnabled(enabled: Boolean) {
         prefs.sleepReminderEnabled = enabled
@@ -250,11 +234,7 @@ class HabitViewModel(application: Application) : AndroidViewModel(application) {
         }
         syncSettingsToCloud()
     }
-
-    // ═══════════════════════════════════════════════════
     // SETTINGS ACTIONS (SharedPreferences + AlarmScheduler)
-    // ═══════════════════════════════════════════════════
-
     /** Bật/tắt nhắc nhở uống nước. */
     fun setWaterReminderEnabled(enabled: Boolean) {
         prefs.waterReminderEnabled = enabled
@@ -301,7 +281,7 @@ class HabitViewModel(application: Application) : AndroidViewModel(application) {
         prefs.waterGoal = cups
         _uiState.update { it.copy(waterGoal = cups) }
 
-        // Update Firestore habit day nếu đang có
+        // Cập nhật dữ liệu Firestore habit day nếu đang có
         val uid = repository.currentUid ?: return
         val current = _uiState.value.habitDay ?: return
         val updated = current.copy(waterGoal = cups)
@@ -349,11 +329,7 @@ class HabitViewModel(application: Application) : AndroidViewModel(application) {
         _uiState.update { it.copy(customReminders = list) }
         syncSettingsToCloud()
     }
-
-    // ═══════════════════════════════════════════════════
     // PRIVATE HELPERS
-    // ═══════════════════════════════════════════════════
-
     /**
      * Load habit data của ngày hôm nay từ Firestore.
      * Nếu chưa có → tạo HabitDay mặc định với waterGoal từ prefs.
@@ -428,11 +404,7 @@ class HabitViewModel(application: Application) : AndroidViewModel(application) {
             )
         }
     }
-
-    // ═══════════════════════════════════════════════════
     // CLOUD SYNCHRONIZATION HELPERS
-    // ═══════════════════════════════════════════════════
-
     private fun syncSettingsToCloud() {
         val uid = repository.currentUid ?: return
         val settingsMap = mapOf(

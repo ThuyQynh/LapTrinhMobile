@@ -1,4 +1,4 @@
-package com.team.smartnutrition.analytics.viewmodel
+﻿package com.team.smartnutrition.analytics.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

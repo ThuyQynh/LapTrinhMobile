@@ -196,7 +196,7 @@ class PantryListViewModel : ViewModel() {
         return items.map { item ->
             val currentStatus = calculateExpiryStatus(item.expiryDate)
             if (currentStatus.firestoreValue != item.status) {
-                // Update Firestore async (fire-and-forget)
+                // Cập nhật dữ liệu Firestore async (fire-and-forget)
                 viewModelScope.launch {
                     try {
                         repository.updateItem(

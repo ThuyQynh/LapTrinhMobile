@@ -1,4 +1,4 @@
-package com.team.smartnutrition.habit.receiver
+﻿package com.team.smartnutrition.habit.receiver
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -16,9 +16,7 @@ import com.team.smartnutrition.R
 import com.team.smartnutrition.habit.util.AlarmScheduler
 
 /**
- * ═══════════════════════════════════════════
  * WATER REMINDER RECEIVER
- * ═══════════════════════════════════════════
  *
  * Được kích hoạt bởi AlarmManager khi đến giờ uống nước.
  * Hiển thị notification với action button "💧 Đã uống ✓".

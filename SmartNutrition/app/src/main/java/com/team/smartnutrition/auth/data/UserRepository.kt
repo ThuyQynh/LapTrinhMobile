@@ -1,4 +1,4 @@
-package com.team.smartnutrition.auth.data
+﻿package com.team.smartnutrition.auth.data
 
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.AuthCredential
@@ -14,9 +14,7 @@ import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.tasks.await
 
 /**
- * ═══════════════════════════════════════════
  * USER REPOSITORY - Lớp dữ liệu duy nhất
- * ═══════════════════════════════════════════
  *
  * Đóng gói toàn bộ Firebase Auth + Firestore operations.
  * Tất cả ViewModel dùng chung repository này.
@@ -26,7 +24,7 @@ class UserRepository {
     private val auth = FirebaseAuth.getInstance()
     private val firestore = FirebaseFirestore.getInstance()
 
-    // ═══ FIREBASE AUTH ═══
+    // FIREBASE AUTH
 
     /** User hiện tại (null nếu chưa login) */
     val currentUser: FirebaseUser?
@@ -74,7 +72,7 @@ class UserRepository {
         auth.signOut()
     }
 
-    // ═══ FIRESTORE: USER PROFILE ═══
+    // FIRESTORE: USER PROFILE
 
     /**
      * Kiểm tra user đã có profile trên Firestore chưa.
@@ -144,7 +142,7 @@ class UserRepository {
             .set(data, com.google.firebase.firestore.SetOptions.merge())
     }
 
-    // ═══ FIRESTORE: WEIGHT LOG ═══
+    // FIRESTORE: WEIGHT LOG
 
     /**
      * Lưu entry cân nặng ngày hôm nay.

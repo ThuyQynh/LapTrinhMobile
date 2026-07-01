@@ -1,4 +1,4 @@
-package com.team.smartnutrition.habit
+﻿package com.team.smartnutrition.habit
 
 import android.Manifest
 import android.app.AlarmManager
@@ -36,9 +36,7 @@ import com.team.smartnutrition.habit.viewmodel.HabitViewModel
 import com.team.smartnutrition.habit.model.CustomReminder
 
 /**
- * ═══════════════════════════════════════════
  * MODULE 4 - REMINDER SETTINGS SCREEN
- * ═══════════════════════════════════════════
  *
  * Cài đặt:
  * - Mục tiêu cốc nước/ngày
@@ -139,11 +137,7 @@ fun ReminderSettingsScreen(
         }
     }
 }
-
-// ═══════════════════════════════════════════════════════════
 // EXACT ALARM WARNING (Android 12+)
-// ═══════════════════════════════════════════════════════════
-
 @Composable
 private fun ExactAlarmWarning(context: Context) {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
@@ -185,11 +179,7 @@ private fun ExactAlarmWarning(context: Context) {
         }
     }
 }
-
-// ═══════════════════════════════════════════════════════════
 // WATER GOAL SELECTOR
-// ═══════════════════════════════════════════════════════════
-
 @Composable
 private fun WaterGoalSelector(
     currentGoal: Int,
@@ -246,11 +236,7 @@ private fun WaterGoalSelector(
         }
     }
 }
-
-// ═══════════════════════════════════════════════════════════
 // WATER REMINDER SECTION
-// ═══════════════════════════════════════════════════════════
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun WaterReminderSection(
@@ -372,11 +358,7 @@ private fun WaterReminderSection(
         )
     }
 }
-
-// ═══════════════════════════════════════════════════════════
 // CUSTOM REMINDERS SETTINGS SECTION - Quản lý nhắc nhở tùy chỉnh
-// ═══════════════════════════════════════════════════════════
-
 @Composable
 private fun CustomRemindersSettingsSection(
     uiState: HabitUiState,
@@ -526,11 +508,7 @@ private fun CustomRemindersSettingsSection(
         )
     }
 }
-
-// ═══════════════════════════════════════════════════════════
 // DIALOG: ADD/EDIT CUSTOM REMINDER
-// ═══════════════════════════════════════════════════════════
-
 @Composable
 private fun AddEditReminderDialog(
     reminder: CustomReminder?,
@@ -609,11 +587,7 @@ private fun AddEditReminderDialog(
         )
     }
 }
-
-// ═══════════════════════════════════════════════════════════
 // TIME PICKER DIALOG - Helper
-// ═══════════════════════════════════════════════════════════
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun TimePickerDialog(

@@ -1,4 +1,4 @@
-package com.team.smartnutrition.analytics
+﻿package com.team.smartnutrition.analytics
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -172,7 +172,7 @@ fun SettingsScreen(navController: NavController) {
     }
 }
 
-// helper to support State Flow syntax in compose cleanly
+// Hàm hỗ trợ to support State Flow syntax in compose cleanly
 private fun <T> mutableStateFlowOf(value: T) = mutableStateOf(value)
 
 @Composable
