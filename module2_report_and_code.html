@@ -605,9 +605,9 @@ import com.team.smartnutrition.navigation.Screen
 import com.team.smartnutrition.pantry.viewmodel.BarcodeScanViewModel
 
 /**
- * ═══════════════════════════════════════════
+
  * MODULE 2 - TV2: QUÉT MÃ VẠCH
- * ═══════════════════════════════════════════
+
  *
  * Camera quét barcode real-time bằng ML Kit.
  * Phát hiện barcode → tra cứu BarcodeDatabase → navigate FoodResult.
@@ -1051,9 +1051,9 @@ import com.team.smartnutrition.navigation.Screen
 import com.team.smartnutrition.pantry.viewmodel.CameraCaptureViewModel
 
 /**
- * ═══════════════════════════════════════════
+
  * MODULE 2 - TV2: CHỤP ẢNH THỰC PHẨM
- * ═══════════════════════════════════════════
+
  *
  * CameraX Preview toàn màn hình + nút chụp.
  * Sau khi chụp → gửi Gemini Vision API → navigate FoodResult.
@@ -1388,9 +1388,9 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 /**
- * ═══════════════════════════════════════════
+
  * MODULE 2 - TV2: CHI TIẾT THỰC PHẨM
- * ═══════════════════════════════════════════
+
  *
  * Hiển thị chi tiết 1 item trong kho:
  * - Thông tin dinh dưỡng (tên, calo, protein)
@@ -1777,9 +1777,9 @@ import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 
 /**
- * ═══════════════════════════════════════════
+
  * MODULE 2 - TV2: KẾT QUẢ NHẬN DIỆN AI
- * ═══════════════════════════════════════════
+
  *
  * Hiển thị kết quả từ Gemini / barcode / empty (manual):
  * - Pre-fill tên, calo, protein
@@ -2105,9 +2105,9 @@ import com.team.smartnutrition.pantry.viewmodel.ExpiryFilter
 import com.team.smartnutrition.pantry.viewmodel.PantryListViewModel
 
 /**
- * ═══════════════════════════════════════════
+
  * MODULE 2 - TV2: DANH SÁCH KHO THỰC PHẨM
- * ═══════════════════════════════════════════
+
  *
  * Màn hình chính Module 2:
  * - LazyColumn hiển thị thực phẩm với badge hạn sử dụng (Xanh/Vàng/Đỏ)
@@ -2615,9 +2615,9 @@ import com.team.smartnutrition.pantry.model.FoodRecognitionResult
 import java.io.ByteArrayOutputStream
 
 /**
- * ═══════════════════════════════════════════
+
  * GEMINI SERVICE - Gọi Gemini Vision API
- * ═══════════════════════════════════════════
+
  *
  * Nhận diện thực phẩm từ ảnh chụp bằng Gemini Vision API.
  * Pipeline: Bitmap → Resize → Gemini API → JSON → FoodRecognitionResult
@@ -2772,9 +2772,9 @@ import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.tasks.await
 
 /**
- * ═══════════════════════════════════════════
+
  * PANTRY REPOSITORY - Lớp dữ liệu kho thực phẩm
- * ═══════════════════════════════════════════
+
  *
  * Đóng gói toàn bộ Firestore operations cho collection:
  *   users/{uid}/pantry/{autoId}
@@ -2938,9 +2938,9 @@ class PantryRepository {
 import com.google.firebase.Timestamp
 
 /**
- * ═══════════════════════════════════════════
+
  * DATA MODELS cho Module 2 - Pantry Scanner
- * ═══════════════════════════════════════════
+
  *
  * Ánh xạ trực tiếp tới Firestore document:
  * - PantryItem → users/{uid}/pantry/{autoId}
@@ -2984,9 +2984,9 @@ data class FoodRecognitionResult(
 import com.team.smartnutrition.pantry.model.FoodRecognitionResult
 
 /**
- * ═══════════════════════════════════════════
+
  * BARCODE DATABASE - Tra cứu sản phẩm VN local
- * ═══════════════════════════════════════════
+
  *
  * HashMap hardcode các sản phẩm phổ biến tại Việt Nam.
  * Dùng làm fallback khi không có API tra cứu online.
@@ -3065,9 +3065,9 @@ import java.time.ZoneId
 import java.time.temporal.ChronoUnit
 
 /**
- * ═══════════════════════════════════════════
+
  * EXPIRY STATUS - Logic cảnh báo hạn sử dụng
- * ═══════════════════════════════════════════
+
  *
  * Quy tắc:
  * - 🟢 FRESH:    còn &gt; 3 ngày
@@ -3147,9 +3147,9 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 /**
- * ═══════════════════════════════════════════
+
  * BARCODE SCAN VIEW MODEL
- * ═══════════════════════════════════════════
+
  *
  * Xử lý:
  * - Trạng thái quyền camera
@@ -3307,9 +3307,9 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 /**
- * ═══════════════════════════════════════════
+
  * CAMERA CAPTURE VIEW MODEL
- * ═══════════════════════════════════════════
+
  *
  * Xử lý:
  * - Trạng thái quyền camera
@@ -3397,9 +3397,9 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 /**
- * ═══════════════════════════════════════════
+
  * FOOD DETAIL VIEW MODEL
- * ═══════════════════════════════════════════
+
  *
  * Xử lý:
  * - Load chi tiết 1 thực phẩm theo itemId
@@ -3571,9 +3571,9 @@ import java.time.ZoneId
 import java.time.ZoneOffset
 
 /**
- * ═══════════════════════════════════════════
+
  * FOOD RESULT VIEW MODEL
- * ═══════════════════════════════════════════
+
  *
  * Xử lý:
  * - Hiển thị kết quả AI nhận diện (pre-filled)
@@ -3792,9 +3792,9 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 /**
- * ═══════════════════════════════════════════
+
  * PANTRY LIST VIEW MODEL
- * ═══════════════════════════════════════════
+
  *
  * Xử lý:
  * - Load realtime danh sách thực phẩm từ Firestore

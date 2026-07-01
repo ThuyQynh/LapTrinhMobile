@@ -41,9 +41,7 @@ import com.team.smartnutrition.navigation.Screen
 import com.team.smartnutrition.pantry.viewmodel.CameraCaptureViewModel
 
 /**
- * ═══════════════════════════════════════════
- * MODULE 2 - TV2: CHỤP ẢNH THỰC PHẨM
- * ═══════════════════════════════════════════
+ * Module 2 - TV2: Chụp ảnh thực phẩm
  *
  * CameraX Preview toàn màn hình + nút chụp.
  * Sau khi chụp → gửi Gemini Vision API → navigate FoodResult.
@@ -57,14 +55,14 @@ fun CameraCaptureScreen(
     val lifecycleOwner = LocalLifecycleOwner.current
     val uiState by viewModel.uiState.collectAsState()
 
-    // ImageCapture use case
+    // Cấu hình use case chụp ảnh (ImageCapture) của CameraX
     val imageCapture = remember {
         ImageCapture.Builder()
             .setCaptureMode(ImageCapture.CAPTURE_MODE_MINIMIZE_LATENCY)
             .build()
     }
 
-    // ═══ PERMISSION HANDLING ═══
+    // Xử lý quyền truy cập camera
     val permissionLauncher = rememberLauncherForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { granted ->
@@ -83,7 +81,7 @@ fun CameraCaptureScreen(
         }
     }
 
-    // ═══ NAVIGATION EFFECT ═══
+    // Hiệu ứng điều hướng màn hình (Navigation)
     LaunchedEffect(uiState.navigateToResult) {
         if (uiState.navigateToResult && uiState.resultJson != null) {
             navController.currentBackStackEntry?.savedStateHandle?.apply {
@@ -95,9 +93,9 @@ fun CameraCaptureScreen(
         }
     }
 
-    // ═══ UI ═══
+    // Giao diện UI
     if (!uiState.hasCameraPermission) {
-        // Permission denied state
+        // Màn hình hiển thị khi quyền truy cập camera bị từ chối
         PermissionDeniedScreen(
             onBack = { navController.popBackStack() },
             onRequestPermission = {
@@ -106,10 +104,10 @@ fun CameraCaptureScreen(
         )
     } else {
         Box(modifier = Modifier.fillMaxSize()) {
-            // Camera Preview
+            // View hiển thị luồng Camera trước (Camera Preview)
             val previewView = remember { PreviewView(context) }
 
-            // Setup camera in LaunchedEffect to use await()
+            // Cài đặt cấu hình camera trong LaunchedEffect sử dụng cơ chế bất đồng bộ await()
             LaunchedEffect(uiState.hasCameraPermission) {
                 if (!uiState.hasCameraPermission) return@LaunchedEffect
                 try {
@@ -125,7 +123,7 @@ fun CameraCaptureScreen(
                         imageCapture
                     )
                 } catch (_: Exception) {
-                    // Camera binding failed
+                    // Liên kết camera thất bại
                 }
             }
 
@@ -134,7 +132,7 @@ fun CameraCaptureScreen(
                 modifier = Modifier.fillMaxSize()
             )
 
-            // Top bar overlay
+            // Thanh công cụ phía trên hiển thị đè lên màn hình camera (Top bar overlay)
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -159,11 +157,11 @@ fun CameraCaptureScreen(
                     fontWeight = FontWeight.Bold
                 )
                 Spacer(modifier = Modifier.weight(1f))
-                // Placeholder to balance layout
+                // Khoảng trống giả lập để giữ cân đối bố cục (Placeholder)
                 Spacer(modifier = Modifier.size(48.dp))
             }
 
-            // Bottom controls
+            // Các nút bấm điều khiển ở hàng dưới (chụp ảnh, quét mã vạch)
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -172,10 +170,10 @@ fun CameraCaptureScreen(
                 horizontalArrangement = Arrangement.SpaceEvenly,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                // Spacer left
+                // Khoảng đệm bên trái để cân đối nút chụp nằm giữa
                 Spacer(modifier = Modifier.size(56.dp))
 
-                // Capture button
+                // Nút chụp ảnh thực phẩm
                 IconButton(
                     onClick = {
                         if (!uiState.isProcessing) {
@@ -198,7 +196,7 @@ fun CameraCaptureScreen(
                     ) {}
                 }
 
-                // Barcode button
+                // Nút chuyển hướng sang màn hình quét mã vạch
                 IconButton(
                     onClick = { navController.navigate(Screen.BarcodeScan.route) },
                     modifier = Modifier.size(56.dp),
@@ -215,7 +213,7 @@ fun CameraCaptureScreen(
                 }
             }
 
-            // Processing overlay
+            // Lớp phủ hiển thị trạng thái đang xử lý và nhận diện ảnh bằng AI (Loading screen)
             if (uiState.isProcessing) {
                 Box(
                     modifier = Modifier
@@ -238,7 +236,7 @@ fun CameraCaptureScreen(
                 }
             }
 
-            // Error snackbar
+            // Thanh thông báo khi xảy ra lỗi (Snackbar)
             if (uiState.errorMessage != null) {
                 Snackbar(
                     modifier = Modifier
@@ -279,7 +277,7 @@ private fun capturePhoto(
             }
 
             override fun onError(exception: ImageCaptureException) {
-                // Lỗi sẽ được hiện qua error state
+                // Xử lý khi lỗi chụp ảnh xảy ra và cập nhật trạng thái lỗi
             }
         }
     )
