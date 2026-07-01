@@ -11,9 +11,9 @@ import java.time.temporal.ChronoUnit
  * ═══════════════════════════════════════════
  *
  * Quy tắc:
- * -  FRESH:    còn > 3 ngày
- * -  EXPIRING: còn 1-3 ngày
- * -  EXPIRED:  đã hết hạn (≤ 0 ngày)
+ * - 🟢 FRESH:    còn > 3 ngày
+ * - 🟡 EXPIRING: còn 1-3 ngày
+ * - 🔴 EXPIRED:  đã hết hạn (≤ 0 ngày)
  */
 enum class ExpiryStatus(
     val label: String,

@@ -1,0 +1,4002 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Báo cáo Chi tiết & Mã nguồn Module 2 - Smart Nutrition</title>
+    <style>
+        body {
+            font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: #333333;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        /* Typography */
+        h1, h2, h3, h4 {
+            color: #2e7d32; /* Nutrition green */
+            font-weight: 600;
+            margin-top: 1.5em;
+            margin-bottom: 0.5em;
+        }
+        h1 {
+            font-size: 24pt;
+            border-bottom: 3px solid #81c784;
+            padding-bottom: 8px;
+            margin-top: 40px;
+            text-transform: uppercase;
+        }
+        h2 {
+            font-size: 18pt;
+            border-bottom: 1px solid #a5d6a7;
+            padding-bottom: 6px;
+            margin-top: 30px;
+        }
+        h3 {
+            font-size: 14pt;
+            color: #1b5e20;
+        }
+        p {
+            margin-bottom: 12px;
+            text-align: justify;
+        }
+        p.spacer {
+            height: 8px;
+            margin: 0;
+        }
+        
+        /* Lists */
+        ul, ol {
+            margin-bottom: 16px;
+            padding-left: 24px;
+        }
+        li {
+            margin-bottom: 6px;
+        }
+        
+        /* Inline markup */
+        code {
+            font-family: "Consolas", "Courier New", monospace;
+            background-color: #f1f8e9;
+            padding: 2px 5px;
+            border-radius: 4px;
+            color: #1b5e20;
+            font-size: 0.95em;
+        }
+        a {
+            color: #2e7d32;
+            text-decoration: none;
+            border-bottom: 1px dashed #2e7d32;
+        }
+        a:hover {
+            color: #1b5e20;
+            border-bottom-style: solid;
+        }
+        
+        /* Custom Blockquotes & Alerts */
+        blockquote {
+            margin: 20px 0;
+            padding: 10px 20px;
+            background-color: #f9f9f9;
+            border-left: 5px solid #cfd8dc;
+            color: #555555;
+            font-style: italic;
+        }
+        
+        .alert {
+            padding: 12px 18px;
+            margin: 18px 0;
+            border-radius: 6px;
+            border-left: 5px solid;
+            font-size: 10.5pt;
+        }
+        .alert-important {
+            background-color: #ffebee;
+            border-color: #e53935;
+            color: #c62828;
+        }
+        .alert-tip {
+            background-color: #f1f8e9;
+            border-color: #4caf50;
+            color: #1b5e20;
+        }
+        .alert-note {
+            background-color: #e3f2fd;
+            border-color: #1e88e5;
+            color: #0d47a1;
+        }
+        
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 10.5pt;
+        }
+        th, td {
+            border: 1px solid #c8e6c9;
+            padding: 10px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background-color: #f9fbf9;
+        }
+        
+        /* Code File Section */
+        .code-file-section {
+            margin-top: 40px;
+        }
+        .code-file-header {
+            background-color: #f5f5f5;
+            padding: 10px 16px;
+            border-radius: 6px 6px 0 0;
+            border: 1px solid #e0e0e0;
+            border-bottom: none;
+            font-family: "Consolas", "Courier New", monospace;
+            font-weight: bold;
+            color: #424242;
+            font-size: 11pt;
+        }
+        .code-file-section pre {
+            margin: 0;
+            background-color: #fafafa;
+            border: 1px solid #e0e0e0;
+            border-left: 5px solid #2e7d32;
+            border-radius: 0 0 6px 6px;
+            padding: 15px;
+            overflow-x: auto;
+        }
+        .code-file-section pre code {
+            background-color: transparent;
+            padding: 0;
+            color: #212121;
+            font-size: 8.5pt;
+            font-family: "Consolas", "Courier New", monospace;
+        }
+        
+        /* Cover Page Styling */
+        .cover-page {
+            text-align: center;
+            padding: 80px 20px;
+            margin-bottom: 60px;
+            border: 2px solid #81c784;
+            border-radius: 12px;
+            background-color: #f1f8e9;
+        }
+        .cover-title {
+            font-size: 28pt;
+            color: #1b5e20;
+            margin-bottom: 20px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        .cover-subtitle {
+            font-size: 16pt;
+            color: #4caf50;
+            margin-bottom: 40px;
+        }
+        .cover-info {
+            font-size: 12pt;
+            color: #424242;
+            line-height: 1.8;
+            margin-top: 60px;
+        }
+        
+        /* Print Layout Rules */
+        @media print {
+            .page-break {
+                page-break-before: always;
+            }
+            body {
+                padding: 0;
+                margin: 0;
+                font-size: 11pt;
+            }
+            table, pre, blockquote, .alert {
+                page-break-inside: avoid;
+            }
+            h1, h2, h3 {
+                page-break-after: avoid;
+            }
+            a {
+                border-bottom: none;
+                color: #333333;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Cover Page -->
+    <div class="cover-page">
+        <div class="cover-title">Báo Cáo Chi Tiết & Mã Nguồn</div>
+        <div class="cover-subtitle">MODULE 2: QUẢN LÝ KHO THỰC PHẨM & AI SCANNER</div>
+        <div class="cover-info">
+            <strong>Dự án:</strong> Ứng dụng Quản lý Dinh dưỡng Cá nhân với AI (Smart Nutrition)<br/>
+            <strong>Nền tảng:</strong> Android Native (Kotlin) + Firebase Auth & Firestore + Jetpack Compose<br/>
+            <strong>Người thực hiện:</strong> Thành viên 2 - Module Pantry Scanner & Inventory<br/>
+            <strong>Thời gian báo cáo:</strong> Tháng 7 năm 2026
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- Report Section -->
+    <div class="report-section">
+        <h1>BÁO CÁO CHI TIẾT: MODULE 2 — PANTRY SCANNER &amp; INVENTORY</h1>
+<p class="spacer"></p>
+<h2>1. TỔNG QUAN HỆ THỐNG &amp; KIẾN TRÚC (MVVM)</h2>
+<p class="spacer"></p>
+<p>Module 2 phụ trách <strong>quản lý kho thực phẩm (Pantry)</strong> của người dùng, tích hợp các công nghệ phần cứng và AI tiên tiến:</p>
+<ul>
+  <li><strong>CameraX API</strong>: Hỗ trợ chụp ảnh thực phẩm (Camera AI) và truyền luồng ảnh phân tích mã vạch.</li>
+  <li><strong>Gemini Vision API (SDK <code>generativeai</code>)</strong>: Nhận diện hình ảnh thực phẩm tươi sống, trả về lượng Calo và Protein ước tính.</li>
+  <li><strong>Google ML Kit Barcode Scanning</strong>: Phân tích luồng hình ảnh thời gian thực để quét mã vạch EAN-13 của thực phẩm đóng hộp.</li>
+  <li><strong>Firebase Firestore Offline Persistence</strong>: Đồng bộ hóa dữ liệu kho 2 chiều thời gian thực (realtime) hỗ trợ ngoại tuyến hoàn toàn.</li>
+</ul>
+<p class="spacer"></p>
+<p>Kiến trúc tuân thủ nghiêm ngặt mô hình <strong>MVVM (Model-View-ViewModel)</strong> phối hợp với Repository Pattern:</p>
+<p class="spacer"></p>
+<pre><code class="language-mermaid">
+graph TD
+    subgraph View [Jetpack Compose UI]
+        A[PantryListScreen]
+        B[CameraCaptureScreen]
+        C[BarcodeScanScreen]
+        D[FoodResultScreen]
+        E[FoodDetailScreen]
+    end
+
+    subgraph ViewModel [State &amp; Business Logic]
+        F[PantryListViewModel]
+        G[CameraCaptureViewModel]
+        H[BarcodeScanViewModel]
+        I[FoodResultViewModel]
+        J[FoodDetailViewModel]
+    end
+
+    subgraph Repository [Data Access Layer]
+        K[PantryRepository]
+        L[GeminiService]
+        M[BarcodeDatabase]
+    end
+
+    subgraph Remote_Local [DataSource]
+        N[(Cloud Firestore)]
+        O[(SQLite Offline Cache)]
+    end
+
+    %% Interactions
+    A --&gt; F
+    B --&gt; G
+    C --&gt; H
+    D --&gt; I
+    E --&gt; J
+
+    F --&gt; K
+    G --&gt; L
+    H --&gt; M
+    I --&gt; K
+    J --&gt; K
+
+    K --&gt; N
+    K --&gt; O
+</code></pre>
+<p class="spacer"></p>
+<h3>Luồng Dữ Liệu Chi Tiết:</h3>
+<p>1.  <strong>Quét mã vạch (Barcode Scan)</strong>:</p>
+<ul>
+  <li><code>BarcodeScanScreen</code> dùng CameraX phân tích khung hình → Truyền sang ML Kit <code>BarcodeScanner</code>.</li>
+  <li>Phát hiện mã vạch → <code>BarcodeScanViewModel</code> tra cứu trong <code>BarcodeDatabase</code> (Local HashMap cho Việt Nam).</li>
+  <li>Nếu khớp: Trả về thông tin thực phẩm dưới dạng bottom sheet. Nếu không khớp: Cho phép người dùng chuyển tới <code>FoodResultScreen</code> để tự nhập thông tin thủ công.</li>
+</ul>
+<p>2.  <strong>Nhận diện hình ảnh (Camera AI)</strong>:</p>
+<ul>
+  <li><code>CameraCaptureScreen</code> chụp ảnh bằng CameraX <code>ImageCapture</code>.</li>
+  <li><code>CameraCaptureViewModel</code> gửi Bitmap đã thu gọn (max 1024px) tới <code>GeminiService</code>.</li>
+  <li><code>GeminiService</code> gọi API <code>gemini-2.5-flash</code> kèm prompt chuyên biệt trả về cấu trúc JSON.</li>
+  <li>Parse kết quả thành <code>FoodRecognitionResult</code> rồi truyền sang màn hình <code>FoodResultScreen</code> bằng <code>savedStateHandle</code> của Compose Navigation để người dùng kiểm tra lại và chỉnh sửa trước khi lưu.</li>
+</ul>
+<p>3.  <strong>Quản lý kho (Pantry List)</strong>:</p>
+<ul>
+  <li><code>PantryListScreen</code> lắng nghe <code>Flow&lt;List&lt;PantryItem&gt;&gt;</code> từ <code>PantryRepository</code> thông qua Snapshot Listener của Firestore.</li>
+  <li>Trạng thái hết hạn sử dụng (<code>ExpiryStatus</code>) được tính toán động ngay trên UI dựa vào ngày hiện tại và ngày hết hạn lưu trên document Firestore.</li>
+</ul>
+<p class="spacer"></p>
+<p>---</p>
+<p class="spacer"></p>
+<h2>2. THUẬT TOÁN &amp; LOGIC CỐT LÕI</h2>
+<p class="spacer"></p>
+<h3>A. Tự động Nén &amp; Điều chỉnh Kích thước Ảnh (Image Optimization)</h3>
+<p>Để tránh lỗi vượt quá dung lượng request (thường là 4MB) của Gemini API và tiết kiệm băng thông mạng, ảnh Bitmap chụp từ camera được xử lý giảm kích thước thông qua phương thức <code>resizeBitmap</code> trong <code>GeminiService.kt</code>:</p>
+<p class="spacer"></p>
+<ul>
+  <li><strong>Nguyên lý</strong>: Tìm hệ số tỷ lệ <code>ratio = minOf(1024 / width, 1024 / height)</code>.</li>
+  <li><strong>Thực thi</strong>: Nếu ảnh lớn hơn 1024px ở chiều rộng hoặc chiều cao, ảnh sẽ được nhân với tỉ lệ này để co nhỏ lại mà vẫn giữ nguyên tỉ lệ khung hình (Aspect Ratio), sau đó tạo một bản Bitmap mới thông qua <code>Bitmap.createScaledBitmap()</code>.</li>
+</ul>
+<p class="spacer"></p>
+<h3>B. Kỹ thuật Kỹ sư Prompt (Prompt Engineering) với Gemini</h3>
+<p>Nhận diện hình ảnh yêu cầu dữ liệu trả về phải có cấu trúc ổn định để ứng dụng Android tự động chuyển đổi thành đối tượng Kotlin (Deserialization).</p>
+<p>Prompt được tinh chỉnh nghiêm ngặt trong <code>GeminiService.kt</code>:</p>
+<pre><code class="language-kotlin">
+private const val FOOD_RECOGNITION_PROMPT = &quot;&quot;&quot;
+Bạn là chuyên gia dinh dưỡng. Nhận diện thực phẩm trong ảnh này.
+Trả về ĐÚNG 1 JSON object với format sau:
+{&quot;name&quot;: &quot;tên tiếng Việt&quot;, &quot;calories&quot;: số kcal trên 100g, &quot;protein&quot;: số gram protein trên 100g}
+
+Quy tắc:
+- &quot;name&quot;: tên thực phẩm bằng tiếng Việt, viết thường, ngắn gọn
+- &quot;calories&quot;: số nguyên, ước tính kcal trên 100g
+- &quot;protein&quot;: số nguyên, ước tính gram protein trên 100g
+- Chỉ trả JSON thuần, KHÔNG giải thích thêm, KHÔNG wrap trong markdown
+&quot;&quot;&quot;
+</code></pre>
+<p><strong>Xử lý Ngoại lệ (Robustness)</strong>: Gemini thỉnh thoảng sẽ tự động bao bọc JSON trong khối mã Markdown (ví dụ: <code> </code><code></code>json\n...\n<code></code><code> </code>). Do đó, hàm <code>stripMarkdownWrapper</code> sẽ loại bỏ các ký tự bọc này trước khi đưa chuỗi JSON vào thư viện <code>Gson</code> để parse.</p>
+<p class="spacer"></p>
+<h3>C. Logic Phân loại Cảnh báo Hạn Sử Dụng (Expiry Alert Logic)</h3>
+<p>Ứng dụng thực hiện phân loại thực phẩm thành 3 mức độ cảnh báo dựa trên số ngày còn lại đến khi hết hạn sử dụng. Logic được cài đặt tại <code>ExpiryStatus.kt</code>:</p>
+<p class="spacer"></p>
+<ul>
+  <li><strong>Tính toán số ngày còn lại</strong>:</li>
+</ul>
+<p>$$\text{days} = \text{ChronoUnit.DAYS.between}(\text{LocalDate.now()}, \text{expiryLocalDate})$$</p>
+<ul>
+  <li><strong>Quy tắc phân loại</strong>:</li>
+  <li>🟢 <strong>FRESH (Còn tươi)</strong>: $\text{days} &gt; 3$</li>
+  <li>🟡 <strong>EXPIRING (Sắp hết hạn)</strong>: $1 \le \text{days} \le 3$</li>
+  <li>🔴 <strong>EXPIRED (Đã hết hạn)</strong>: $\text{days} \le 0$</li>
+  <li><strong>Màu sắc hiển thị</strong>: Sử dụng mã hex màu tiêu chuẩn để đồng bộ hóa mã giao diện UI (<code>#4CAF50</code> cho xanh, <code>#FFC107</code> cho vàng, <code>#F44336</code> cho đỏ).</li>
+</ul>
+<p class="spacer"></p>
+<p>---</p>
+<p class="spacer"></p>
+<h2>3. FIRESTORE DATABASE SCHEMA</h2>
+<p class="spacer"></p>
+<p>Mỗi tài khoản có một kho thực phẩm riêng biệt, được tổ chức dưới dạng một <strong>Sub-collection</strong> nằm bên trong document của người dùng.</p>
+<p class="spacer"></p>
+<h3>Path: <code>users/{uid}/pantry/{itemId}</code></h3>
+<p class="spacer"></p>
+<table>
+  <tr>
+    <th>Field Name</th>
+    <th>Firestore Data Type</th>
+    <th>Description</th>
+    <th>Example / Value</th>
+  </tr>
+  <tr>
+    <td><strong>id</strong></td>
+    <td><code>String</code> (Document ID)</td>
+    <td>ID tự động sinh bởi Firestore</td>
+    <td><code>"zX9Y7wK2sLm8N"</code></td>
+  </tr>
+  <tr>
+    <td><strong>name</strong></td>
+    <td><code>String</code></td>
+    <td>Tên thực phẩm (tiếng Việt)</td>
+    <td><code>"Ức gà"</code></td>
+  </tr>
+  <tr>
+    <td><strong>caloriesPer100g</strong></td>
+    <td><code>Number (Integer)</code></td>
+    <td>Lượng calo trên 100g thực phẩm</td>
+    <td><code>165</code></td>
+  </tr>
+  <tr>
+    <td><strong>proteinPer100g</strong></td>
+    <td><code>Number (Integer)</code></td>
+    <td>Lượng protein trên 100g thực phẩm</td>
+    <td><code>31</code></td>
+  </tr>
+  <tr>
+    <td><strong>quantityGrams</strong></td>
+    <td><code>Number (Integer)</code></td>
+    <td>Khối lượng/Số lượng thực phẩm</td>
+    <td><code>500</code></td>
+  </tr>
+  <tr>
+    <td><strong>unit</strong></td>
+    <td><code>String</code></td>
+    <td>Đơn vị đo lường</td>
+    <td><code>"gram"</code> \</td>
+    <td><code>"piece"</code> \</td>
+    <td><code>"ml"</code></td>
+  </tr>
+  <tr>
+    <td><strong>source</strong></td>
+    <td><code>String</code></td>
+    <td>Nguồn gốc dữ liệu nhập vào</td>
+    <td><code>"camera"</code> \</td>
+    <td><code>"barcode"</code> \</td>
+    <td><code>"manual"</code></td>
+  </tr>
+  <tr>
+    <td><strong>imageUrl</strong></td>
+    <td><code>String</code></td>
+    <td>Đường dẫn ảnh chụp (nếu có)</td>
+    <td><code>"https://firebasestorage..."</code></td>
+  </tr>
+  <tr>
+    <td><strong>barcode</strong></td>
+    <td><code>String</code></td>
+    <td>Mã vạch EAN-13 nếu quét qua barcode</td>
+    <td><code>"8934673583220"</code></td>
+  </tr>
+  <tr>
+    <td><strong>expiryDate</strong></td>
+    <td><code>Timestamp</code></td>
+    <td>Thời điểm hết hạn sử dụng</td>
+    <td><code>Timestamp(seconds=1782877200, nanoseconds=0)</code></td>
+  </tr>
+  <tr>
+    <td><strong>addedAt</strong></td>
+    <td><code>Timestamp</code></td>
+    <td>Thời điểm đưa vào kho</td>
+    <td><code>Timestamp.now()</code></td>
+  </tr>
+  <tr>
+    <td><strong>status</strong></td>
+    <td><code>String</code></td>
+    <td>Trạng thái đồng bộ (từ ExpiryStatus)</td>
+    <td><code>"fresh"</code> \</td>
+    <td><code>"expiring"</code> \</td>
+    <td><code>"expired"</code></td>
+  </tr>
+</table>
+<p class="spacer"></p>
+<p>---</p>
+<p class="spacer"></p>
+<h2>4. CHI TIẾT CÁC LỚP TRONG MODULE 2</h2>
+<p class="spacer"></p>
+<h3>A. Data Layer (<code>com.team.smartnutrition.pantry.data</code>)</h3>
+<p>1.  <strong><code>PantryRepository.kt</code></strong>:</p>
+<ul>
+  <li><code>addItem(uid, item)</code>: Thêm tài nguyên mới vào database. Ghi trực tiếp vào SQLite cache local để hỗ trợ ngoại tuyến ngay lập tức.</li>
+  <li><code>getItems(uid)</code>: Trả về một <code>Flow&lt;List&lt;PantryItem&gt;&gt;</code> sử dụng Snapshot Listener, sắp xếp theo thứ tự <code>expiryDate</code> tăng dần (thực phẩm sắp hết hạn đứng trước).</li>
+  <li><code>getAvailableItems(uid)</code>: Lấy các thực phẩm chưa bị hết hạn (cho Module 3 - AI Meal Planner lên thực đơn).</li>
+  <li><code>updateItem(...)</code> &amp; <code>deleteItem(...)</code>: Chỉnh sửa thông tin/xóa thực phẩm.</li>
+</ul>
+<p>2.  <strong><code>GeminiService.kt</code></strong>:</p>
+<ul>
+  <li>Gọi và quản lý kết nối tới Gemini API. Chuyển đổi tệp ảnh chụp Bitmap thành dữ liệu phân tích dạng JSON.</li>
+</ul>
+<p class="spacer"></p>
+<h3>B. ViewModel Layer (<code>com.team.smartnutrition.pantry.viewmodel</code>)</h3>
+<p>1.  <strong><code>PantryListViewModel.kt</code></strong>:</p>
+<ul>
+  <li>Lắng nghe danh sách thực phẩm từ Repo. Thực hiện bộ lọc tìm kiếm (Search Query) và bộ lọc theo trạng thái hạn dùng (<code>ExpiryFilter</code>: ALL, EXPIRING, EXPIRED) trên bộ nhớ (in-memory) để đảm bảo tốc độ phản hồi UI cực nhanh.</li>
+</ul>
+<p>2.  <strong><code>CameraCaptureViewModel.kt</code></strong>:</p>
+<ul>
+  <li>Quản lý trạng thái luồng camera (quản lý quyền camera <code>hasCameraPermission</code>) và trạng thái chờ kết quả phản hồi của AI (<code>isProcessing</code>).</li>
+</ul>
+<p>3.  <strong><code>BarcodeScanViewModel.kt</code></strong>:</p>
+<ul>
+  <li>Quản lý sự kiện quét được mã vạch. Thực hiện đối chiếu mã với <code>BarcodeDatabase</code> cục bộ để tìm kiếm thông tin ngay tức thì.</li>
+</ul>
+<p>4.  <strong><code>FoodResultViewModel.kt</code></strong>:</p>
+<ul>
+  <li>Lưu trữ kết quả tạm thời nhận từ camera/barcode và xử lý sự kiện bấm "Xác nhận" để lưu vào kho thực phẩm Firestore.</li>
+</ul>
+<p>5.  <strong><code>FoodDetailViewModel.kt</code></strong>:</p>
+<ul>
+  <li>Quản lý thông tin chi tiết của một mặt hàng cụ thể, xử lý logic chỉnh sửa số lượng nhanh (ví dụ: tăng/giảm gam) và cập nhật ngày hết hạn mới.</li>
+</ul>
+<p class="spacer"></p>
+<h3>C. UI Component Layer (<code>com.team.smartnutrition.pantry</code>)</h3>
+<p>1.  <strong><code>PantryListScreen.kt</code></strong>:</p>
+<ul>
+  <li>Màn hình chính. Hiển thị danh sách thực phẩm với các màu sắc trực quan (Xanh/Vàng/Đỏ). Sử dụng <code>SwipeToDismissBox</code> của Material3 để vuốt sang trái để xóa một cách trực quan.</li>
+</ul>
+<p>2.  <strong><code>CameraCaptureScreen.kt</code></strong>:</p>
+<ul>
+  <li>Màn hình camera toàn cảnh bằng CameraX <code>PreviewView</code>. Nút chụp kết nối trực tiếp với SDK Gemini.</li>
+</ul>
+<p>3.  <strong><code>BarcodeScanScreen.kt</code></strong>:</p>
+<ul>
+  <li>Màn hình quét mã vạch thời gian thực. Vẽ khung ngắm (Overlay Scan Window) bằng Canvas Compose và truyền luồng phân tích hình ảnh (Image Analysis) vào thư viện Google ML Kit.</li>
+</ul>
+<p>4.  <strong><code>FoodResultScreen.kt</code></strong>:</p>
+<ul>
+  <li>Form điền thông tin thực phẩm (tự động điền dữ liệu trả về từ Gemini hoặc Barcode). Người dùng có thể chỉnh sửa lại tên, calo, protein, số lượng và ngày hết hạn.</li>
+</ul>
+<p>5.  <strong><code>FoodDetailScreen.kt</code></strong>:</p>
+<ul>
+  <li>Màn hình chi tiết thực phẩm. Hiển thị thông số dinh dưỡng chi tiết và cho phép chỉnh sửa nhanh số lượng thực phẩm.</li>
+</ul>
+<p class="spacer"></p>
+<p>---</p>
+<p class="spacer"></p>
+<h2>5. BỘ CÂU HỎI Q&amp;A PHẢN BIỆN (DÀNH CHO BÁO CÁO THẦY CÔ)</h2>
+<p class="spacer"></p>
+<h3>❓ Câu hỏi 1: Tại sao em lại sử dụng ImageAnalysis của CameraX kết hợp ML Kit mà không chụp ảnh rồi mới quét mã vạch?</h3>
+<ul>
+  <li><strong>Trả lời</strong>: Sử dụng <code>ImageAnalysis</code> cho phép ứng dụng phân tích trực tiếp từng khung hình trong luồng xem trước của camera (Camera Preview) với tần suất cao (real-time). Người dùng chỉ cần hướng camera vào mã vạch mà không cần bấm nút chụp, giúp cải thiện trải nghiệm người dùng tối đa. ML Kit xử lý cực nhanh và trực tiếp ngay trên thiết bị (on-device) nên không gây trễ giao diện.</li>
+</ul>
+<p class="spacer"></p>
+<h3>❓ Câu hỏi 2: Gemini Vision API yêu cầu kết nối mạng, nếu app bị mất mạng đột ngột khi đang chụp ảnh thực phẩm thì xử lý thế nào?</h3>
+<ul>
+  <li><strong>Trả lời</strong>:</li>
+</ul>
+<p>1.  Trong <code>GeminiService.kt</code>, em đã cài đặt khối cấu trúc <code>try-catch</code> và <code>withTimeoutOrNull</code> (30 giây) bao quanh yêu cầu gửi tới API. Nếu không có mạng hoặc quá thời gian, app sẽ ném ra lỗi <code>"Timeout khi gọi AI nhận diện thực phẩm"</code> hoặc <code>"Lỗi kết nối mạng"</code>.</p>
+<p>2.  Lỗi này được ViewModel đón nhận và lưu vào trạng thái <code>errorMessage</code> để hiển thị một thông báo Snackbar cảnh báo trực quan cho người dùng.</p>
+<p>3.  Đồng thời, ứng dụng cung cấp tùy chọn "Nhập thủ công" (Manual Entry) trên giao diện để người dùng có thể tự điền thông tin thực phẩm mà không bị gián đoạn trải nghiệm sử dụng.</p>
+<p class="spacer"></p>
+<h3>❓ Câu hỏi 3: Nếu mã vạch quét được không có trong cơ sở dữ liệu local (BarcodeDatabase), app sẽ xử lý ra sao?</h3>
+<ul>
+  <li><strong>Trả lời</strong>: <code>BarcodeDatabase</code> hiện tại là một HashMap cục bộ chứa các sản phẩm phổ biến ở Việt Nam. Khi quét một mã lạ, hàm <code>lookup</code> trả về <code>null</code>. Khi đó, <code>BarcodeScanViewModel</code> sẽ chuyển đổi trạng thái <code>showNotFoundDialog</code> thành <code>true</code>. Trên giao diện sẽ xuất hiện một hộp thoại thông báo sản phẩm chưa có trong hệ thống, kèm nút hướng dẫn người dùng tới màn hình nhập thông tin thủ công (với mã vạch đã được điền sẵn vào ô thông tin).</li>
+</ul>
+<p class="spacer"></p>
+<h3>❓ Câu hỏi 4: Cơ chế Offline-first của kho thực phẩm hoạt động cụ thể thế nào trên Firestore?</h3>
+<ul>
+  <li><strong>Trả lời</strong>: Khi khởi chạy ứng dụng, Firestore đã được cấu hình bật tính năng lưu trữ ngoại tuyến (<code>PersistenceEnabled</code>). Khi gọi <code>pantryRef(uid).document().set(data)</code> trong <code>PantryRepository</code>, dữ liệu sẽ được ghi ngay lập tức vào cơ sở dữ liệu SQLite cục bộ trên điện thoại và báo thành công cho UI cập nhật danh sách lập tức. Khi thiết bị có mạng trở lại, Firebase SDK sẽ tự động chạy tiến trình ngầm đồng bộ hóa dữ liệu này lên Cloud Firestore ở trên đám mây.</li>
+</ul>
+<p class="spacer"></p>
+<h3>❓ Câu hỏi 5: Tại sao em lại giới hạn kích thước ảnh gửi lên Gemini là 1024px? Tại sao không dùng ảnh gốc chất lượng cao cho chính xác?</h3>
+<ul>
+  <li><strong>Trả lời</strong>: Camera điện thoại hiện nay chụp ảnh có độ phân giải rất lớn (thường &gt; 12 Megapixels, kích thước file &gt; 5MB). Nếu gửi trực tiếp ảnh gốc này:</li>
+</ul>
+<p>1.  Dễ gặp lỗi tràn bộ nhớ (OutOfMemoryError) trên các dòng máy Android có dung lượng RAM hạn chế.</p>
+<p>2.  Vượt quá giới hạn gói tin tải lên của Gemini Vision API.</p>
+<p>3.  Tốc độ tải lên mạng sẽ rất chậm, gây khó chịu cho người dùng.</p>
+<p>Qua thử nghiệm thực tế, độ phân giải 1024px là hoàn toàn đủ chi tiết để các mô hình thị giác máy tính như <code>gemini-2.5-flash</code> nhận diện chính xác các loại thực phẩm thông thường, trong khi dung lượng tệp tin giảm đi hơn 90% (chỉ còn khoảng vài trăm KB).</p>
+<p class="spacer"></p>
+
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- Source Code Section Divider -->
+    <h1>Mã Nguồn Chi Tiết Module 2 (Source Code)</h1>
+    <p>Dưới đây là nội dung toàn bộ mã nguồn của các lớp thuộc Module 2, sắp xếp theo cấu trúc thư mục dự án.</p>
+    
+    <div class=""code-file-section page-break"">
+    <div class=""code-file-header"">File: pantry/BarcodeScanScreen.kt</div>
+    <pre class=""line-numbers""><code>package com.team.smartnutrition.pantry
+
+import android.Manifest
+import android.content.pm.PackageManager
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.camera.core.CameraSelector
+import androidx.camera.core.ExperimentalGetImage
+import androidx.camera.core.ImageAnalysis
+import androidx.camera.core.ImageProxy
+import androidx.camera.core.Preview
+import androidx.camera.lifecycle.ProcessCameraProvider
+import androidx.camera.view.PreviewView
+import androidx.concurrent.futures.await
+import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.*
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.BlendMode
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.viewinterop.AndroidView
+import androidx.core.content.ContextCompat
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import com.google.mlkit.vision.barcode.BarcodeScannerOptions
+import com.google.mlkit.vision.barcode.BarcodeScanning
+import com.google.mlkit.vision.barcode.common.Barcode
+import com.google.mlkit.vision.common.InputImage
+import com.team.smartnutrition.common.components.GradientButton
+import com.team.smartnutrition.navigation.Screen
+import com.team.smartnutrition.pantry.viewmodel.BarcodeScanViewModel
+
+/**
+ * ═══════════════════════════════════════════
+ * MODULE 2 - TV2: QUÉT MÃ VẠCH
+ * ═══════════════════════════════════════════
+ *
+ * Camera quét barcode real-time bằng ML Kit.
+ * Phát hiện barcode → tra cứu BarcodeDatabase → navigate FoodResult.
+ */
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun BarcodeScanScreen(
+    navController: NavController,
+    viewModel: BarcodeScanViewModel = viewModel()
+) {
+    val context = LocalContext.current
+    val lifecycleOwner = LocalLifecycleOwner.current
+    val uiState by viewModel.uiState.collectAsState()
+
+    // ═══ PERMISSION ═══
+    val permissionLauncher = rememberLauncherForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { granted -&gt;
+        viewModel.updatePermission(granted)
+    }
+
+    LaunchedEffect(Unit) {
+        val hasPermission = ContextCompat.checkSelfPermission(
+            context, Manifest.permission.CAMERA
+        ) == PackageManager.PERMISSION_GRANTED
+
+        if (hasPermission) {
+            viewModel.updatePermission(true)
+        } else {
+            permissionLauncher.launch(Manifest.permission.CAMERA)
+        }
+    }
+
+    // ═══ NAVIGATION EFFECT ═══
+    LaunchedEffect(uiState.navigateToResult) {
+        if (uiState.navigateToResult) {
+            navController.currentBackStackEntry?.savedStateHandle?.apply {
+                if (uiState.resultJson != null) {
+                    set(&quot;food_result_json&quot;, uiState.resultJson)
+                }
+                set(&quot;food_source&quot;, &quot;barcode&quot;)
+                set(&quot;food_barcode&quot;, uiState.detectedBarcode ?: &quot;&quot;)
+            }
+            navController.navigate(Screen.FoodResult.route)
+            viewModel.onNavigated()
+        }
+    }
+
+    // ═══ UI ═══
+    if (!uiState.hasCameraPermission) {
+        // Reuse permission denied pattern
+        Box(
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center
+        ) {
+            Column(
+                modifier = Modifier.padding(32.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Icon(
+                    Icons.Filled.QrCodeScanner,
+                    contentDescription = null,
+                    modifier = Modifier.size(80.dp),
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f)
+                )
+                Spacer(modifier = Modifier.height(24.dp))
+                Text(
+                    text = &quot;Cần quyền truy cập Camera&quot;,
+                    style = MaterialTheme.typography.titleLarge,
+                    textAlign = TextAlign.Center
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(
+                    text = &quot;Ứng dụng cần quyền camera để quét mã vạch sản phẩm.&quot;,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    textAlign = TextAlign.Center
+                )
+                Spacer(modifier = Modifier.height(24.dp))
+                Button(onClick = { permissionLauncher.launch(Manifest.permission.CAMERA) }) {
+                    Text(&quot;Cấp quyền Camera&quot;)
+                }
+                Spacer(modifier = Modifier.height(12.dp))
+                TextButton(onClick = { navController.popBackStack() }) {
+                    Text(&quot;Quay lại&quot;)
+                }
+            }
+        }
+    } else {
+        Box(modifier = Modifier.fillMaxSize()) {
+            // Camera Preview with Barcode Analyzer
+            val previewView = remember { PreviewView(context) }
+
+            // Setup camera with barcode analyzer
+            LaunchedEffect(uiState.hasCameraPermission) {
+                if (!uiState.hasCameraPermission) return@LaunchedEffect
+                try {
+                    val cameraProvider = ProcessCameraProvider.getInstance(context).await()
+                    val preview = Preview.Builder().build().also {
+                        it.setSurfaceProvider(previewView.surfaceProvider)
+                    }
+                    val imageAnalysis = ImageAnalysis.Builder()
+                        .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
+                        .build()
+                        .also {
+                            it.setAnalyzer(
+                                ContextCompat.getMainExecutor(context),
+                                BarcodeAnalyzer { rawValue -&gt;
+                                    viewModel.onBarcodeDetected(rawValue)
+                                }
+                            )
+                        }
+                    cameraProvider.unbindAll()
+                    cameraProvider.bindToLifecycle(
+                        lifecycleOwner,
+                        CameraSelector.DEFAULT_BACK_CAMERA,
+                        preview,
+                        imageAnalysis
+                    )
+                } catch (_: Exception) {}
+            }
+
+            AndroidView(
+                factory = { previewView },
+                modifier = Modifier.fillMaxSize()
+            )
+
+            // Scan frame overlay
+            ScanFrameOverlay()
+
+            // Top bar
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .statusBarsPadding()
+                    .padding(16.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                IconButton(
+                    onClick = { navController.popBackStack() },
+                    colors = IconButtonDefaults.iconButtonColors(
+                        containerColor = Color.Black.copy(alpha = 0.5f),
+                        contentColor = Color.White
+                    )
+                ) {
+                    Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = &quot;Quay lại&quot;)
+                }
+                Spacer(modifier = Modifier.weight(1f))
+                Text(
+                    text = &quot;Quét mã vạch&quot;,
+                    style = MaterialTheme.typography.titleMedium,
+                    color = Color.White,
+                    fontWeight = FontWeight.Bold
+                )
+                Spacer(modifier = Modifier.weight(1f))
+                Spacer(modifier = Modifier.size(48.dp))
+            }
+
+            // Instruction text
+            Text(
+                text = &quot;Hướng camera vào mã vạch sản phẩm&quot;,
+                style = MaterialTheme.typography.bodyLarge,
+                color = Color.White,
+                fontWeight = FontWeight.Medium,
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
+                    .padding(bottom = 80.dp)
+                    .background(
+                        Color.Black.copy(alpha = 0.5f),
+                        RoundedCornerShape(20.dp)
+                    )
+                    .padding(horizontal = 24.dp, vertical = 12.dp)
+            )
+
+            // Loading overlay
+            if (uiState.isLookingUp) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(Color.Black.copy(alpha = 0.7f)),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        CircularProgressIndicator(color = Color.White)
+                        Spacer(modifier = Modifier.height(16.dp))
+                        Text(&quot;Đang tra cứu sản phẩm...&quot;, color = Color.White)
+                    }
+                }
+            }
+        }
+    }
+
+    // ═══ RESULT BOTTOM SHEET ═══
+    if (uiState.showResultSheet &amp;&amp; uiState.lookupResult != null) {
+        ModalBottomSheet(
+            onDismissRequest = { viewModel.dismissResultSheet() }
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(24.dp)
+            ) {
+                Text(
+                    text = &quot;✅ Sản phẩm tìm thấy&quot;,
+                    style = MaterialTheme.typography.titleLarge,
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.primary
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(
+                    text = &quot;Mã vạch: ${uiState.detectedBarcode}&quot;,
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+                Spacer(modifier = Modifier.height(20.dp))
+
+                Card(
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = RoundedCornerShape(16.dp),
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.surfaceVariant
+                    )
+                ) {
+                    Column(modifier = Modifier.padding(20.dp)) {
+                        Text(
+                            text = uiState.lookupResult!!.name,
+                            style = MaterialTheme.typography.headlineSmall,
+                            fontWeight = FontWeight.Bold
+                        )
+                        Spacer(modifier = Modifier.height(12.dp))
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceEvenly
+                        ) {
+                            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                                Text(
+                                    text = &quot;${uiState.lookupResult!!.calories}&quot;,
+                                    style = MaterialTheme.typography.headlineMedium,
+                                    fontWeight = FontWeight.Bold,
+                                    color = MaterialTheme.colorScheme.primary
+                                )
+                                Text(&quot;kcal/100g&quot;, style = MaterialTheme.typography.bodySmall)
+                            }
+                            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                                Text(
+                                    text = &quot;${uiState.lookupResult!!.protein}g&quot;,
+                                    style = MaterialTheme.typography.headlineMedium,
+                                    fontWeight = FontWeight.Bold,
+                                    color = MaterialTheme.colorScheme.tertiary
+                                )
+                                Text(&quot;protein/100g&quot;, style = MaterialTheme.typography.bodySmall)
+                            }
+                        }
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(20.dp))
+
+                GradientButton(
+                    text = &quot;Thêm vào kho&quot;,
+                    onClick = { viewModel.confirmResult() },
+                    icon = Icons.Filled.Add
+                )
+
+                Spacer(modifier = Modifier.height(12.dp))
+
+                TextButton(
+                    onClick = { viewModel.resetScan() },
+                    modifier = Modifier.fillMaxWidth()
+                ) { Text(&quot;Quét mã khác&quot;) }
+
+                Spacer(modifier = Modifier.height(16.dp))
+            }
+        }
+    }
+
+    // ═══ NOT FOUND DIALOG ═══
+    if (uiState.showNotFoundDialog) {
+        AlertDialog(
+            onDismissRequest = { viewModel.dismissNotFoundDialog() },
+            icon = { Icon(Icons.Filled.SearchOff, contentDescription = null) },
+            title = { Text(&quot;Không tìm thấy sản phẩm&quot;) },
+            text = {
+                Text(&quot;Mã vạch: ${uiState.detectedBarcode}\n\nSản phẩm này chưa có trong cơ sở dữ liệu. Bạn có muốn nhập thông tin thủ công?&quot;)
+            },
+            confirmButton = {
+                TextButton(onClick = { viewModel.navigateManualEntry() }) {
+                    Text(&quot;Nhập thủ công&quot;)
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { viewModel.dismissNotFoundDialog() }) {
+                    Text(&quot;Quét lại&quot;)
+                }
+            }
+        )
+    }
+}
+
+/**
+ * Scan frame overlay: semi-transparent background + scan window ở giữa.
+ */
+@Composable
+private fun ScanFrameOverlay() {
+    Canvas(modifier = Modifier.fillMaxSize()) {
+        val scanWidth = size.width * 0.75f
+        val scanHeight = 200f
+        val left = (size.width - scanWidth) / 2
+        val top = (size.height - scanHeight) / 2
+
+        // Semi-transparent overlay
+        // Top
+        drawRect(
+            color = Color.Black.copy(alpha = 0.5f),
+            topLeft = Offset.Zero,
+            size = Size(size.width, top)
+        )
+        // Bottom
+        drawRect(
+            color = Color.Black.copy(alpha = 0.5f),
+            topLeft = Offset(0f, top + scanHeight),
+            size = Size(size.width, size.height - top - scanHeight)
+        )
+        // Left
+        drawRect(
+            color = Color.Black.copy(alpha = 0.5f),
+            topLeft = Offset(0f, top),
+            size = Size(left, scanHeight)
+        )
+        // Right
+        drawRect(
+            color = Color.Black.copy(alpha = 0.5f),
+            topLeft = Offset(left + scanWidth, top),
+            size = Size(size.width - left - scanWidth, scanHeight)
+        )
+
+        // Corner lines
+        val cornerLength = 30f
+        val cornerColor = Color(0xFF4CAF50)
+        val strokeWidth = 4f
+
+        // Top-left corner
+        drawLine(cornerColor, Offset(left, top), Offset(left + cornerLength, top), strokeWidth)
+        drawLine(cornerColor, Offset(left, top), Offset(left, top + cornerLength), strokeWidth)
+        // Top-right corner
+        drawLine(cornerColor, Offset(left + scanWidth - cornerLength, top), Offset(left + scanWidth, top), strokeWidth)
+        drawLine(cornerColor, Offset(left + scanWidth, top), Offset(left + scanWidth, top + cornerLength), strokeWidth)
+        // Bottom-left corner
+        drawLine(cornerColor, Offset(left, top + scanHeight - cornerLength), Offset(left, top + scanHeight), strokeWidth)
+        drawLine(cornerColor, Offset(left, top + scanHeight), Offset(left + cornerLength, top + scanHeight), strokeWidth)
+        // Bottom-right corner
+        drawLine(cornerColor, Offset(left + scanWidth, top + scanHeight - cornerLength), Offset(left + scanWidth, top + scanHeight), strokeWidth)
+        drawLine(cornerColor, Offset(left + scanWidth - cornerLength, top + scanHeight), Offset(left + scanWidth, top + scanHeight), strokeWidth)
+    }
+}
+
+/**
+ * ML Kit Barcode Analyzer cho CameraX ImageAnalysis.
+ */
+private class BarcodeAnalyzer(
+    private val onBarcodeDetected: (String) -&gt; Unit
+) : ImageAnalysis.Analyzer {
+
+    private val scanner = BarcodeScanning.getClient(
+        BarcodeScannerOptions.Builder()
+            .setBarcodeFormats(
+                Barcode.FORMAT_EAN_13,
+                Barcode.FORMAT_EAN_8,
+                Barcode.FORMAT_UPC_A
+            )
+            .build()
+    )
+
+    @androidx.annotation.OptIn(ExperimentalGetImage::class)
+    override fun analyze(imageProxy: ImageProxy) {
+        val mediaImage = imageProxy.image
+        if (mediaImage == null) {
+            imageProxy.close()
+            return
+        }
+
+        val inputImage = InputImage.fromMediaImage(
+            mediaImage, imageProxy.imageInfo.rotationDegrees
+        )
+
+        scanner.process(inputImage)
+            .addOnSuccessListener { barcodes -&gt;
+                barcodes.firstOrNull()?.rawValue?.let { value -&gt;
+                    onBarcodeDetected(value)
+                }
+            }
+            .addOnCompleteListener {
+                imageProxy.close()
+            }
+    }
+}
+</code></pre>
+</div>
+<div class=""code-file-section page-break"">
+    <div class=""code-file-header"">File: pantry/CameraCaptureScreen.kt</div>
+    <pre class=""line-numbers""><code>package com.team.smartnutrition.pantry
+
+import android.Manifest
+import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.Matrix
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.camera.core.CameraSelector
+import androidx.camera.core.ImageCapture
+import androidx.camera.core.ImageCaptureException
+import androidx.camera.core.ImageProxy
+import androidx.camera.core.Preview
+import androidx.camera.lifecycle.ProcessCameraProvider
+import androidx.camera.view.PreviewView
+import androidx.concurrent.futures.await
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.*
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.viewinterop.AndroidView
+import androidx.core.content.ContextCompat
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import com.team.smartnutrition.navigation.Screen
+import com.team.smartnutrition.pantry.viewmodel.CameraCaptureViewModel
+
+/**
+ * ═══════════════════════════════════════════
+ * MODULE 2 - TV2: CHỤP ẢNH THỰC PHẨM
+ * ═══════════════════════════════════════════
+ *
+ * CameraX Preview toàn màn hình + nút chụp.
+ * Sau khi chụp → gửi Gemini Vision API → navigate FoodResult.
+ */
+@Composable
+fun CameraCaptureScreen(
+    navController: NavController,
+    viewModel: CameraCaptureViewModel = viewModel()
+) {
+    val context = LocalContext.current
+    val lifecycleOwner = LocalLifecycleOwner.current
+    val uiState by viewModel.uiState.collectAsState()
+
+    // ImageCapture use case
+    val imageCapture = remember {
+        ImageCapture.Builder()
+            .setCaptureMode(ImageCapture.CAPTURE_MODE_MINIMIZE_LATENCY)
+            .build()
+    }
+
+    // ═══ PERMISSION HANDLING ═══
+    val permissionLauncher = rememberLauncherForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { granted -&gt;
+        viewModel.updatePermission(granted)
+    }
+
+    LaunchedEffect(Unit) {
+        val hasPermission = ContextCompat.checkSelfPermission(
+            context, Manifest.permission.CAMERA
+        ) == PackageManager.PERMISSION_GRANTED
+
+        if (hasPermission) {
+            viewModel.updatePermission(true)
+        } else {
+            permissionLauncher.launch(Manifest.permission.CAMERA)
+        }
+    }
+
+    // ═══ NAVIGATION EFFECT ═══
+    LaunchedEffect(uiState.navigateToResult) {
+        if (uiState.navigateToResult &amp;&amp; uiState.resultJson != null) {
+            navController.currentBackStackEntry?.savedStateHandle?.apply {
+                set(&quot;food_result_json&quot;, uiState.resultJson)
+                set(&quot;food_source&quot;, &quot;camera&quot;)
+            }
+            navController.navigate(Screen.FoodResult.route)
+            viewModel.onNavigated()
+        }
+    }
+
+    // ═══ UI ═══
+    if (!uiState.hasCameraPermission) {
+        // Permission denied state
+        PermissionDeniedScreen(
+            onBack = { navController.popBackStack() },
+            onRequestPermission = {
+                permissionLauncher.launch(Manifest.permission.CAMERA)
+            }
+        )
+    } else {
+        Box(modifier = Modifier.fillMaxSize()) {
+            // Camera Preview
+            val previewView = remember { PreviewView(context) }
+
+            // Setup camera in LaunchedEffect to use await()
+            LaunchedEffect(uiState.hasCameraPermission) {
+                if (!uiState.hasCameraPermission) return@LaunchedEffect
+                try {
+                    val cameraProvider = ProcessCameraProvider.getInstance(context).await()
+                    val preview = Preview.Builder().build().also {
+                        it.setSurfaceProvider(previewView.surfaceProvider)
+                    }
+                    cameraProvider.unbindAll()
+                    cameraProvider.bindToLifecycle(
+                        lifecycleOwner,
+                        CameraSelector.DEFAULT_BACK_CAMERA,
+                        preview,
+                        imageCapture
+                    )
+                } catch (_: Exception) {
+                    // Camera binding failed
+                }
+            }
+
+            AndroidView(
+                factory = { previewView },
+                modifier = Modifier.fillMaxSize()
+            )
+
+            // Top bar overlay
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .statusBarsPadding()
+                    .padding(16.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                IconButton(
+                    onClick = { navController.popBackStack() },
+                    colors = IconButtonDefaults.iconButtonColors(
+                        containerColor = Color.Black.copy(alpha = 0.5f),
+                        contentColor = Color.White
+                    )
+                ) {
+                    Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = &quot;Quay lại&quot;)
+                }
+                Spacer(modifier = Modifier.weight(1f))
+                Text(
+                    text = &quot;Chụp ảnh thực phẩm&quot;,
+                    style = MaterialTheme.typography.titleMedium,
+                    color = Color.White,
+                    fontWeight = FontWeight.Bold
+                )
+                Spacer(modifier = Modifier.weight(1f))
+                // Placeholder to balance layout
+                Spacer(modifier = Modifier.size(48.dp))
+            }
+
+            // Bottom controls
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .align(Alignment.BottomCenter)
+                    .padding(bottom = 48.dp),
+                horizontalArrangement = Arrangement.SpaceEvenly,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                // Spacer left
+                Spacer(modifier = Modifier.size(56.dp))
+
+                // Capture button
+                IconButton(
+                    onClick = {
+                        if (!uiState.isProcessing) {
+                            capturePhoto(imageCapture, context) { bitmap -&gt;
+                                viewModel.onPhotoCaptured(bitmap)
+                            }
+                        }
+                    },
+                    modifier = Modifier
+                        .size(72.dp)
+                        .border(4.dp, Color.White, CircleShape),
+                    colors = IconButtonDefaults.iconButtonColors(
+                        containerColor = Color.White.copy(alpha = 0.3f)
+                    )
+                ) {
+                    Surface(
+                        modifier = Modifier.size(56.dp),
+                        shape = CircleShape,
+                        color = Color.White
+                    ) {}
+                }
+
+                // Barcode button
+                IconButton(
+                    onClick = { navController.navigate(Screen.BarcodeScan.route) },
+                    modifier = Modifier.size(56.dp),
+                    colors = IconButtonDefaults.iconButtonColors(
+                        containerColor = Color.Black.copy(alpha = 0.5f),
+                        contentColor = Color.White
+                    )
+                ) {
+                    Icon(
+                        Icons.Filled.QrCodeScanner,
+                        contentDescription = &quot;Quét mã vạch&quot;,
+                        modifier = Modifier.size(28.dp)
+                    )
+                }
+            }
+
+            // Processing overlay
+            if (uiState.isProcessing) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(Color.Black.copy(alpha = 0.7f)),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        CircularProgressIndicator(
+                            color = Color.White,
+                            modifier = Modifier.size(48.dp)
+                        )
+                        Spacer(modifier = Modifier.height(16.dp))
+                        Text(
+                            text = &quot;🤖 AI đang nhận diện...&quot;,
+                            color = Color.White,
+                            style = MaterialTheme.typography.titleMedium
+                        )
+                    }
+                }
+            }
+
+            // Error snackbar
+            if (uiState.errorMessage != null) {
+                Snackbar(
+                    modifier = Modifier
+                        .align(Alignment.BottomCenter)
+                        .padding(16.dp),
+                    action = {
+                        TextButton(onClick = { viewModel.clearError() }) {
+                            Text(&quot;Đóng&quot;, color = Color.White)
+                        }
+                    },
+                    containerColor = MaterialTheme.colorScheme.errorContainer,
+                    contentColor = MaterialTheme.colorScheme.onErrorContainer
+                ) {
+                    Text(uiState.errorMessage!!)
+                }
+            }
+        }
+    }
+}
+
+/**
+ * Chụp ảnh từ CameraX ImageCapture.
+ */
+private fun capturePhoto(
+    imageCapture: ImageCapture,
+    context: android.content.Context,
+    onCaptured: (Bitmap) -&gt; Unit
+) {
+    imageCapture.takePicture(
+        ContextCompat.getMainExecutor(context),
+        object : ImageCapture.OnImageCapturedCallback() {
+            override fun onCaptureSuccess(imageProxy: ImageProxy) {
+                val bitmap = imageProxy.toBitmap()
+                // Xoay ảnh theo rotation nếu cần
+                val rotatedBitmap = rotateBitmap(bitmap, imageProxy.imageInfo.rotationDegrees)
+                imageProxy.close()
+                onCaptured(rotatedBitmap)
+            }
+
+            override fun onError(exception: ImageCaptureException) {
+                // Lỗi sẽ được hiện qua error state
+            }
+        }
+    )
+}
+
+/**
+ * Xoay bitmap theo rotationDegrees từ ImageProxy.
+ */
+private fun rotateBitmap(bitmap: Bitmap, rotationDegrees: Int): Bitmap {
+    if (rotationDegrees == 0) return bitmap
+
+    val matrix = Matrix().apply {
+        postRotate(rotationDegrees.toFloat())
+    }
+    return Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height, matrix, true)
+}
+
+/**
+ * Màn hình khi quyền camera bị từ chối.
+ */
+@Composable
+private fun PermissionDeniedScreen(
+    onBack: () -&gt; Unit,
+    onRequestPermission: () -&gt; Unit
+) {
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ) {
+        Column(
+            modifier = Modifier.padding(32.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Icon(
+                Icons.Filled.CameraAlt,
+                contentDescription = null,
+                modifier = Modifier.size(80.dp),
+                tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f)
+            )
+            Spacer(modifier = Modifier.height(24.dp))
+            Text(
+                text = &quot;Cần quyền truy cập Camera&quot;,
+                style = MaterialTheme.typography.titleLarge,
+                textAlign = TextAlign.Center
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                text = &quot;Ứng dụng cần quyền camera để chụp ảnh thực phẩm và nhận diện bằng AI.&quot;,
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                textAlign = TextAlign.Center
+            )
+            Spacer(modifier = Modifier.height(24.dp))
+            Button(onClick = onRequestPermission) {
+                Text(&quot;Cấp quyền Camera&quot;)
+            }
+            Spacer(modifier = Modifier.height(12.dp))
+            TextButton(onClick = onBack) {
+                Text(&quot;Quay lại&quot;)
+            }
+        }
+    }
+}
+</code></pre>
+</div>
+<div class=""code-file-section page-break"">
+    <div class=""code-file-header"">File: pantry/FoodDetailScreen.kt</div>
+    <pre class=""line-numbers""><code>package com.team.smartnutrition.pantry
+
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.*
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import com.team.smartnutrition.common.components.ErrorCard
+import com.team.smartnutrition.common.components.LoadingScreen
+import com.team.smartnutrition.common.components.SmartTopBar
+import com.team.smartnutrition.pantry.util.ExpiryStatus
+import com.team.smartnutrition.pantry.util.calculateExpiryStatus
+import com.team.smartnutrition.pantry.util.daysUntilExpiry
+import com.team.smartnutrition.pantry.util.expiryDisplayText
+import com.team.smartnutrition.pantry.viewmodel.FoodDetailViewModel
+import java.text.SimpleDateFormat
+import java.util.*
+
+/**
+ * ═══════════════════════════════════════════
+ * MODULE 2 - TV2: CHI TIẾT THỰC PHẨM
+ * ═══════════════════════════════════════════
+ *
+ * Hiển thị chi tiết 1 item trong kho:
+ * - Thông tin dinh dưỡng (tên, calo, protein)
+ * - Thông tin kho (số lượng, đơn vị, nguồn, mã vạch, ngày thêm, hạn SD)
+ * - Badge trạng thái hạn sử dụng
+ * - Edit mode cho số lượng
+ * - Delete với confirm dialog
+ */
+@Composable
+fun FoodDetailScreen(
+    navController: NavController,
+    itemId: String,
+    viewModel: FoodDetailViewModel = viewModel()
+) {
+    val uiState by viewModel.uiState.collectAsState()
+
+    // Load item khi mở screen
+    LaunchedEffect(itemId) {
+        viewModel.loadItem(itemId)
+    }
+
+    // Navigate back sau khi xóa
+    LaunchedEffect(uiState.deleteSuccess) {
+        if (uiState.deleteSuccess) {
+            navController.popBackStack()
+        }
+    }
+
+    Scaffold(
+        topBar = {
+            SmartTopBar(
+                title = &quot;Chi tiết thực phẩm&quot;,
+                onBackClick = { navController.popBackStack() },
+                actions = {
+                    if (uiState.item != null &amp;&amp; !uiState.isEditing) {
+                        // Edit button
+                        IconButton(onClick = { viewModel.startEditing() }) {
+                            Icon(Icons.Filled.Edit, contentDescription = &quot;Sửa&quot;)
+                        }
+                        // Delete button
+                        IconButton(onClick = { viewModel.showDeleteConfirm() }) {
+                            Icon(
+                                Icons.Filled.Delete,
+                                contentDescription = &quot;Xóa&quot;,
+                                tint = MaterialTheme.colorScheme.error
+                            )
+                        }
+                    }
+                    if (uiState.isEditing) {
+                        // Save button
+                        IconButton(onClick = { viewModel.saveChanges() }) {
+                            Icon(
+                                Icons.Filled.Check,
+                                contentDescription = &quot;Lưu&quot;,
+                                tint = MaterialTheme.colorScheme.primary
+                            )
+                        }
+                        // Cancel button
+                        IconButton(onClick = { viewModel.cancelEditing() }) {
+                            Icon(Icons.Filled.Close, contentDescription = &quot;Hủy&quot;)
+                        }
+                    }
+                }
+            )
+        }
+    ) { paddingValues -&gt;
+        when {
+            uiState.isLoading -&gt; {
+                LoadingScreen(
+                    message = &quot;Đang tải...&quot;,
+                    modifier = Modifier.padding(paddingValues)
+                )
+            }
+            uiState.item == null -&gt; {
+                ErrorCard(
+                    message = uiState.errorMessage ?: &quot;Không tìm thấy thực phẩm&quot;,
+                    onRetry = { viewModel.loadItem(itemId) },
+                    modifier = Modifier.padding(paddingValues)
+                )
+            }
+            else -&gt; {
+                val item = uiState.item!!
+                val expiryStatus = calculateExpiryStatus(item.expiryDate)
+                val days = daysUntilExpiry(item.expiryDate)
+                val dateFormat = SimpleDateFormat(&quot;dd/MM/yyyy&quot;, Locale.getDefault())
+
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(paddingValues)
+                        .verticalScroll(rememberScrollState())
+                        .padding(16.dp),
+                    verticalArrangement = Arrangement.spacedBy(16.dp)
+                ) {
+                    // ═══ STATUS BADGE (full width) ═══
+                    Surface(
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = RoundedCornerShape(16.dp),
+                        color = Color(android.graphics.Color.parseColor(expiryStatus.colorHex))
+                    ) {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(16.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.Center
+                        ) {
+                            Icon(
+                                imageVector = when (expiryStatus) {
+                                    ExpiryStatus.FRESH -&gt; Icons.Filled.CheckCircle
+                                    ExpiryStatus.EXPIRING -&gt; Icons.Filled.Warning
+                                    ExpiryStatus.EXPIRED -&gt; Icons.Filled.Error
+                                },
+                                contentDescription = null,
+                                tint = Color.White
+                            )
+                            Spacer(modifier = Modifier.width(8.dp))
+                            Text(
+                                text = expiryDisplayText(item.expiryDate),
+                                style = MaterialTheme.typography.titleMedium,
+                                color = Color.White,
+                                fontWeight = FontWeight.Bold
+                            )
+                        }
+                    }
+
+                    // ═══ CARD 1: Thông tin dinh dưỡng ═══
+                    Card(
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = RoundedCornerShape(16.dp)
+                    ) {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(20.dp)
+                        ) {
+                            Text(
+                                text = item.name,
+                                style = MaterialTheme.typography.headlineSmall,
+                                fontWeight = FontWeight.Bold
+                            )
+                            Spacer(modifier = Modifier.height(16.dp))
+                            HorizontalDivider()
+                            Spacer(modifier = Modifier.height(16.dp))
+
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.SpaceEvenly
+                            ) {
+                                NutrientInfo(
+                                    label = &quot;Calo&quot;,
+                                    value = &quot;${item.caloriesPer100g}&quot;,
+                                    unit = &quot;kcal/100g&quot;,
+                                    color = MaterialTheme.colorScheme.primary
+                                )
+                                NutrientInfo(
+                                    label = &quot;Protein&quot;,
+                                    value = &quot;${item.proteinPer100g}&quot;,
+                                    unit = &quot;g/100g&quot;,
+                                    color = MaterialTheme.colorScheme.tertiary
+                                )
+                            }
+                        }
+                    }
+
+                    // ═══ CARD 2: Thông tin kho ═══
+                    Card(
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = RoundedCornerShape(16.dp)
+                    ) {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(20.dp),
+                            verticalArrangement = Arrangement.spacedBy(12.dp)
+                        ) {
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Icon(
+                                    Icons.Filled.Inventory2,
+                                    contentDescription = null,
+                                    tint = MaterialTheme.colorScheme.primary
+                                )
+                                Spacer(modifier = Modifier.width(8.dp))
+                                Text(
+                                    text = &quot;Thông tin kho&quot;,
+                                    style = MaterialTheme.typography.titleMedium,
+                                    fontWeight = FontWeight.Bold
+                                )
+                            }
+
+                            HorizontalDivider()
+
+                            // Số lượng (editable khi isEditing)
+                            if (uiState.isEditing) {
+                                OutlinedTextField(
+                                    value = uiState.editQuantity,
+                                    onValueChange = { viewModel.updateEditQuantity(it) },
+                                    label = { Text(&quot;Số lượng&quot;) },
+                                    suffix = { Text(item.unit) },
+                                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                                    singleLine = true,
+                                    modifier = Modifier.fillMaxWidth(),
+                                    shape = RoundedCornerShape(12.dp)
+                                )
+                            } else {
+                                DetailRow(
+                                    icon = Icons.Filled.Scale,
+                                    label = &quot;Số lượng&quot;,
+                                    value = &quot;${item.quantityGrams} ${item.unit}&quot;
+                                )
+                            }
+
+                            DetailRow(
+                                icon = when (item.source) {
+                                    &quot;camera&quot; -&gt; Icons.Filled.CameraAlt
+                                    &quot;barcode&quot; -&gt; Icons.Filled.QrCodeScanner
+                                    else -&gt; Icons.Filled.Edit
+                                },
+                                label = &quot;Nguồn&quot;,
+                                value = when (item.source) {
+                                    &quot;camera&quot; -&gt; &quot;📸 Chụp ảnh AI&quot;
+                                    &quot;barcode&quot; -&gt; &quot;📱 Quét mã vạch&quot;
+                                    else -&gt; &quot;✏️ Nhập thủ công&quot;
+                                }
+                            )
+
+                            if (item.barcode.isNotBlank()) {
+                                DetailRow(
+                                    icon = Icons.Filled.QrCode,
+                                    label = &quot;Mã vạch&quot;,
+                                    value = item.barcode
+                                )
+                            }
+
+                            DetailRow(
+                                icon = Icons.Filled.CalendarToday,
+                                label = &quot;Ngày thêm&quot;,
+                                value = item.addedAt?.toDate()?.let { dateFormat.format(it) } ?: &quot;—&quot;
+                            )
+
+                            DetailRow(
+                                icon = Icons.Filled.EventBusy,
+                                label = &quot;Hạn sử dụng&quot;,
+                                value = item.expiryDate?.toDate()?.let { dateFormat.format(it) } ?: &quot;—&quot;
+                            )
+                        }
+                    }
+
+                    // ═══ ERROR MESSAGE ═══
+                    if (uiState.errorMessage != null) {
+                        Card(
+                            colors = CardDefaults.cardColors(
+                                containerColor = MaterialTheme.colorScheme.errorContainer
+                            ),
+                            shape = RoundedCornerShape(12.dp)
+                        ) {
+                            Text(
+                                text = &quot;⚠️ ${uiState.errorMessage}&quot;,
+                                modifier = Modifier.padding(16.dp),
+                                color = MaterialTheme.colorScheme.onErrorContainer
+                            )
+                        }
+                    }
+
+                    Spacer(modifier = Modifier.height(16.dp))
+                }
+            }
+        }
+    }
+
+    // ═══ DELETE CONFIRM DIALOG ═══
+    if (uiState.showDeleteDialog) {
+        AlertDialog(
+            onDismissRequest = { viewModel.dismissDeleteConfirm() },
+            icon = { Icon(Icons.Filled.Delete, contentDescription = null, tint = MaterialTheme.colorScheme.error) },
+            title = { Text(&quot;Xóa thực phẩm&quot;) },
+            text = {
+                Text(&quot;Bạn có chắc muốn xóa \&quot;${uiState.item?.name}\&quot; khỏi kho?&quot;)
+            },
+            confirmButton = {
+                TextButton(
+                    onClick = { viewModel.deleteItem() },
+                    colors = ButtonDefaults.textButtonColors(
+                        contentColor = MaterialTheme.colorScheme.error
+                    )
+                ) { Text(&quot;Xóa&quot;) }
+            },
+            dismissButton = {
+                TextButton(onClick = { viewModel.dismissDeleteConfirm() }) { Text(&quot;Hủy&quot;) }
+            }
+        )
+    }
+}
+
+// ═══════════════════════════════════════════
+// SUB-COMPOSABLES
+// ═══════════════════════════════════════════
+
+@Composable
+private fun NutrientInfo(
+    label: String,
+    value: String,
+    unit: String,
+    color: Color
+) {
+    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+        Text(
+            text = value,
+            style = MaterialTheme.typography.headlineMedium,
+            fontWeight = FontWeight.Bold,
+            color = color
+        )
+        Text(
+            text = label,
+            style = MaterialTheme.typography.bodyMedium,
+            fontWeight = FontWeight.Medium
+        )
+        Text(
+            text = unit,
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant
+        )
+    }
+}
+
+@Composable
+private fun DetailRow(
+    icon: androidx.compose.ui.graphics.vector.ImageVector,
+    label: String,
+    value: String
+) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Icon(
+            imageVector = icon,
+            contentDescription = null,
+            modifier = Modifier.size(20.dp),
+            tint = MaterialTheme.colorScheme.onSurfaceVariant
+        )
+        Spacer(modifier = Modifier.width(12.dp))
+        Text(
+            text = label,
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = Modifier.width(100.dp)
+        )
+        Text(
+            text = value,
+            style = MaterialTheme.typography.bodyMedium,
+            fontWeight = FontWeight.Medium
+        )
+    }
+}
+</code></pre>
+</div>
+<div class=""code-file-section page-break"">
+    <div class=""code-file-header"">File: pantry/FoodResultScreen.kt</div>
+    <pre class=""line-numbers""><code>package com.team.smartnutrition.pantry
+
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.*
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import com.team.smartnutrition.common.components.GradientButton
+import com.team.smartnutrition.common.components.SmartTopBar
+import com.team.smartnutrition.navigation.Screen
+import com.team.smartnutrition.pantry.viewmodel.FoodResultViewModel
+import java.time.Instant
+import java.time.ZoneOffset
+import java.time.format.DateTimeFormatter
+
+/**
+ * ═══════════════════════════════════════════
+ * MODULE 2 - TV2: KẾT QUẢ NHẬN DIỆN AI
+ * ═══════════════════════════════════════════
+ *
+ * Hiển thị kết quả từ Gemini / barcode / empty (manual):
+ * - Pre-fill tên, calo, protein
+ * - Cho user chỉnh sửa
+ * - Chọn số lượng, đơn vị, ngày hết hạn
+ * - Nút &quot;Lưu vào kho&quot; → Firestore
+ */
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun FoodResultScreen(
+    navController: NavController,
+    viewModel: FoodResultViewModel = viewModel()
+) {
+    val uiState by viewModel.uiState.collectAsState()
+    var showDatePicker by remember { mutableStateOf(false) }
+    var showUnitDropdown by remember { mutableStateOf(false) }
+
+    // ═══ INIT FROM PREVIOUS SCREEN ═══
+    val foodResultJson = navController.previousBackStackEntry
+        ?.savedStateHandle?.get&lt;String&gt;(&quot;food_result_json&quot;)
+    val foodSource = navController.previousBackStackEntry
+        ?.savedStateHandle?.get&lt;String&gt;(&quot;food_source&quot;)
+    val foodBarcode = navController.previousBackStackEntry
+        ?.savedStateHandle?.get&lt;String&gt;(&quot;food_barcode&quot;)
+
+    LaunchedEffect(Unit) {
+        viewModel.initFromResult(foodResultJson, foodSource, foodBarcode)
+    }
+
+    // ═══ SAVE SUCCESS → NAVIGATE BACK ═══
+    LaunchedEffect(uiState.saveSuccess) {
+        if (uiState.saveSuccess) {
+            navController.popBackStack(Screen.Pantry.route, inclusive = false)
+        }
+    }
+
+    Scaffold(
+        topBar = {
+            SmartTopBar(
+                title = when (uiState.source) {
+                    &quot;camera&quot; -&gt; &quot;🤖 Kết quả AI&quot;
+                    &quot;barcode&quot; -&gt; &quot;📱 Sản phẩm barcode&quot;
+                    else -&gt; &quot;✏️ Nhập thủ công&quot;
+                },
+                onBackClick = { navController.popBackStack() }
+            )
+        }
+    ) { paddingValues -&gt;
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues)
+                .verticalScroll(rememberScrollState())
+                .padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            // ═══ CARD 1: Thông tin dinh dưỡng ═══
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(16.dp),
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.surfaceVariant
+                )
+            ) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(20.dp),
+                    verticalArrangement = Arrangement.spacedBy(16.dp)
+                ) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Icon(
+                            Icons.Filled.Fastfood,
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.primary
+                        )
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(
+                            text = &quot;Thông tin dinh dưỡng&quot;,
+                            style = MaterialTheme.typography.titleMedium,
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
+
+                    // Tên thực phẩm
+                    OutlinedTextField(
+                        value = uiState.name,
+                        onValueChange = { viewModel.updateName(it) },
+                        label = { Text(&quot;Tên thực phẩm&quot;) },
+                        placeholder = { Text(&quot;VD: Ức gà&quot;) },
+                        leadingIcon = { Icon(Icons.Filled.Label, contentDescription = null) },
+                        singleLine = true,
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = RoundedCornerShape(12.dp)
+                    )
+
+                    // Calo và Protein trên cùng 1 hàng
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(12.dp)
+                    ) {
+                        OutlinedTextField(
+                            value = uiState.caloriesPer100g,
+                            onValueChange = { viewModel.updateCalories(it) },
+                            label = { Text(&quot;Calo/100g&quot;) },
+                            suffix = { Text(&quot;kcal&quot;) },
+                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                            singleLine = true,
+                            modifier = Modifier.weight(1f),
+                            shape = RoundedCornerShape(12.dp)
+                        )
+                        OutlinedTextField(
+                            value = uiState.proteinPer100g,
+                            onValueChange = { viewModel.updateProtein(it) },
+                            label = { Text(&quot;Protein/100g&quot;) },
+                            suffix = { Text(&quot;g&quot;) },
+                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                            singleLine = true,
+                            modifier = Modifier.weight(1f),
+                            shape = RoundedCornerShape(12.dp)
+                        )
+                    }
+                }
+            }
+
+            // ═══ CARD 2: Thông tin kho ═══
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(16.dp),
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.surfaceVariant
+                )
+            ) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(20.dp),
+                    verticalArrangement = Arrangement.spacedBy(16.dp)
+                ) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Icon(
+                            Icons.Filled.Inventory2,
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.primary
+                        )
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(
+                            text = &quot;Thông tin bổ sung&quot;,
+                            style = MaterialTheme.typography.titleMedium,
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
+
+                    // Số lượng và Đơn vị
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(12.dp)
+                    ) {
+                        OutlinedTextField(
+                            value = uiState.quantityGrams,
+                            onValueChange = { viewModel.updateQuantity(it) },
+                            label = { Text(&quot;Số lượng&quot;) },
+                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                            singleLine = true,
+                            modifier = Modifier.weight(1f),
+                            shape = RoundedCornerShape(12.dp)
+                        )
+
+                        // Unit dropdown
+                        ExposedDropdownMenuBox(
+                            expanded = showUnitDropdown,
+                            onExpandedChange = { showUnitDropdown = it },
+                            modifier = Modifier.weight(1f)
+                        ) {
+                            OutlinedTextField(
+                                value = when (uiState.unit) {
+                                    &quot;gram&quot; -&gt; &quot;Gram (g)&quot;
+                                    &quot;piece&quot; -&gt; &quot;Cái/Quả&quot;
+                                    &quot;ml&quot; -&gt; &quot;Mililit (ml)&quot;
+                                    else -&gt; uiState.unit
+                                },
+                                onValueChange = {},
+                                readOnly = true,
+                                label = { Text(&quot;Đơn vị&quot;) },
+                                trailingIcon = {
+                                    ExposedDropdownMenuDefaults.TrailingIcon(expanded = showUnitDropdown)
+                                },
+                                modifier = Modifier.menuAnchor(),
+                                shape = RoundedCornerShape(12.dp)
+                            )
+                            ExposedDropdownMenu(
+                                expanded = showUnitDropdown,
+                                onDismissRequest = { showUnitDropdown = false }
+                            ) {
+                                listOf(&quot;gram&quot; to &quot;Gram (g)&quot;, &quot;piece&quot; to &quot;Cái/Quả&quot;, &quot;ml&quot; to &quot;Mililit (ml)&quot;)
+                                    .forEach { (value, label) -&gt;
+                                        DropdownMenuItem(
+                                            text = { Text(label) },
+                                            onClick = {
+                                                viewModel.updateUnit(value)
+                                                showUnitDropdown = false
+                                            }
+                                        )
+                                    }
+                            }
+                        }
+                    }
+
+                    // Ngày hết hạn
+                    OutlinedTextField(
+                        value = uiState.expiryDateMillis?.let { millis -&gt;
+                            Instant.ofEpochMilli(millis)
+                                .atZone(ZoneOffset.UTC)
+                                .toLocalDate()
+                                .format(DateTimeFormatter.ofPattern(&quot;dd/MM/yyyy&quot;))
+                        } ?: &quot;Chọn ngày&quot;,
+                        onValueChange = {},
+                        readOnly = true,
+                        label = { Text(&quot;Hạn sử dụng&quot;) },
+                        leadingIcon = { Icon(Icons.Filled.CalendarMonth, contentDescription = null) },
+                        trailingIcon = {
+                            IconButton(onClick = { showDatePicker = true }) {
+                                Icon(Icons.Filled.EditCalendar, contentDescription = &quot;Chọn ngày&quot;)
+                            }
+                        },
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = RoundedCornerShape(12.dp)
+                    )
+                }
+            }
+
+            // ═══ ERROR MESSAGE ═══
+            if (uiState.errorMessage != null) {
+                Card(
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.errorContainer
+                    ),
+                    shape = RoundedCornerShape(12.dp)
+                ) {
+                    Text(
+                        text = &quot;⚠️ ${uiState.errorMessage}&quot;,
+                        modifier = Modifier.padding(16.dp),
+                        color = MaterialTheme.colorScheme.onErrorContainer,
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                }
+            }
+
+            // ═══ SAVE BUTTON ═══
+            GradientButton(
+                text = if (uiState.isSaving) &quot;Đang lưu...&quot; else &quot;💾 Lưu vào kho&quot;,
+                onClick = { viewModel.saveToKho() },
+                icon = Icons.Filled.Save
+            )
+
+            Spacer(modifier = Modifier.height(16.dp))
+        }
+    }
+
+    // ═══ DATE PICKER DIALOG ═══
+    if (showDatePicker) {
+        val datePickerState = rememberDatePickerState(
+            initialSelectedDateMillis = uiState.expiryDateMillis
+        )
+        DatePickerDialog(
+            onDismissRequest = { showDatePicker = false },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        datePickerState.selectedDateMillis?.let { millis -&gt;
+                            viewModel.setExpiryDate(millis)
+                        }
+                        showDatePicker = false
+                    }
+                ) { Text(&quot;OK&quot;) }
+            },
+            dismissButton = {
+                TextButton(onClick = { showDatePicker = false }) { Text(&quot;Hủy&quot;) }
+            }
+        ) {
+            DatePicker(state = datePickerState)
+        }
+    }
+}
+</code></pre>
+</div>
+<div class=""code-file-section page-break"">
+    <div class=""code-file-header"">File: pantry/PantryListScreen.kt</div>
+    <pre class=""line-numbers""><code>package com.team.smartnutrition.pantry
+
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.outlined.Search
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import com.team.smartnutrition.R
+import com.team.smartnutrition.common.components.ErrorCard
+import com.team.smartnutrition.common.components.LoadingScreen
+import com.team.smartnutrition.navigation.Screen
+import com.team.smartnutrition.pantry.model.PantryItem
+import com.team.smartnutrition.pantry.util.ExpiryStatus
+import com.team.smartnutrition.pantry.util.calculateExpiryStatus
+import com.team.smartnutrition.pantry.util.daysUntilExpiry
+import com.team.smartnutrition.pantry.viewmodel.ExpiryFilter
+import com.team.smartnutrition.pantry.viewmodel.PantryListViewModel
+
+/**
+ * ═══════════════════════════════════════════
+ * MODULE 2 - TV2: DANH SÁCH KHO THỰC PHẨM
+ * ═══════════════════════════════════════════
+ *
+ * Màn hình chính Module 2:
+ * - LazyColumn hiển thị thực phẩm với badge hạn sử dụng (Xanh/Vàng/Đỏ)
+ * - Bộ lọc: Tất cả / Sắp hết hạn / Đã hết hạn
+ * - Tìm kiếm theo tên
+ * - FAB → BottomSheet (Chụp ảnh | Quét barcode | Nhập thủ công)
+ * - Swipe để xóa (confirm dialog)
+ * - Click vào item → FoodDetailScreen
+ */
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun PantryListScreen(
+    navController: NavController,
+    viewModel: PantryListViewModel = viewModel()
+) {
+    val uiState by viewModel.uiState.collectAsState()
+
+    Scaffold(
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = { viewModel.toggleAddSheet(true) },
+                containerColor = MaterialTheme.colorScheme.primary,
+                contentColor = MaterialTheme.colorScheme.onPrimary
+            ) {
+                Icon(Icons.Filled.Add, contentDescription = stringResource(R.string.add_food_btn))
+            }
+        }
+    ) { paddingValues -&gt;
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues)
+        ) {
+            // ═══ HEADER ═══
+            Text(
+                text = &quot;🏪 &quot; + stringResource(R.string.pantry_toolbar_title),
+                style = MaterialTheme.typography.headlineMedium,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp)
+            )
+
+            // ═══ SEARCH BAR ═══
+            OutlinedTextField(
+                value = uiState.searchQuery,
+                onValueChange = { viewModel.setSearchQuery(it) },
+                placeholder = { Text(stringResource(R.string.search_placeholder)) },
+                leadingIcon = {
+                    Icon(Icons.Outlined.Search, contentDescription = stringResource(R.string.search_placeholder))
+                },
+                trailingIcon = {
+                    if (uiState.searchQuery.isNotBlank()) {
+                        IconButton(onClick = { viewModel.setSearchQuery(&quot;&quot;) }) {
+                            Icon(Icons.Filled.Clear, contentDescription = stringResource(R.string.delete))
+                        }
+                    }
+                },
+                singleLine = true,
+                shape = RoundedCornerShape(16.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp)
+            )
+
+            Spacer(modifier = Modifier.height(12.dp))
+
+            // ═══ FILTER CHIPS ═══
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                ExpiryFilter.entries.forEach { filter -&gt;
+                    val filterLabel = when (filter) {
+                        ExpiryFilter.ALL -&gt; stringResource(R.string.filter_all)
+                        ExpiryFilter.EXPIRING -&gt; stringResource(R.string.expiry_status_expiring)
+                        ExpiryFilter.EXPIRED -&gt; stringResource(R.string.expiry_status_expired)
+                    }
+                    FilterChip(
+                        selected = uiState.selectedFilter == filter,
+                        onClick = { viewModel.setFilter(filter) },
+                        label = { Text(filterLabel) },
+                        leadingIcon = if (uiState.selectedFilter == filter) {
+                            { Icon(Icons.Filled.Check, contentDescription = null, Modifier.size(18.dp)) }
+                        } else null
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            // ═══ CONTENT ═══
+            when {
+                uiState.isLoading -&gt; {
+                    LoadingScreen(message = stringResource(R.string.loading_pantry))
+                }
+                uiState.errorMessage != null -&gt; {
+                    ErrorCard(
+                        message = uiState.errorMessage!!,
+                        onRetry = { viewModel.clearError() }
+                    )
+                }
+                uiState.filteredItems.isEmpty() -&gt; {
+                    EmptyPantryState(
+                        isFiltered = uiState.selectedFilter != ExpiryFilter.ALL
+                                || uiState.searchQuery.isNotBlank()
+                    )
+                }
+                else -&gt; {
+                    // ═══ DANH SÁCH THỰC PHẨM ═══
+                    LazyColumn(
+                        modifier = Modifier.fillMaxSize(),
+                        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
+                        verticalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        items(
+                            items = uiState.filteredItems,
+                            key = { it.id }
+                        ) { item -&gt;
+                            SwipeToDismissItem(
+                                item = item,
+                                onDelete = { viewModel.showDeleteConfirm(item) },
+                                onClick = {
+                                    navController.navigate(Screen.FoodDetail.createRoute(item.id))
+                                }
+                            )
+                        }
+
+                        // Spacer cho FAB
+                        item {
+                            Spacer(modifier = Modifier.height(72.dp))
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    // ═══ ADD BOTTOM SHEET ═══
+    if (uiState.showAddSheet) {
+        ModalBottomSheet(
+            onDismissRequest = { viewModel.toggleAddSheet(false) }
+        ) {
+            AddFoodBottomSheet(
+                onCameraClick = {
+                    viewModel.toggleAddSheet(false)
+                    navController.navigate(Screen.CameraCapture.route)
+                },
+                onBarcodeClick = {
+                    viewModel.toggleAddSheet(false)
+                    navController.navigate(Screen.BarcodeScan.route)
+                },
+                onManualClick = {
+                    viewModel.toggleAddSheet(false)
+                    // Navigate FoodResult với source=manual (empty form)
+                    navController.currentBackStackEntry?.savedStateHandle?.set(&quot;food_source&quot;, &quot;manual&quot;)
+                    navController.navigate(Screen.FoodResult.route)
+                }
+            )
+        }
+    }
+
+    // ═══ DELETE CONFIRM DIALOG ═══
+    if (uiState.showDeleteDialog &amp;&amp; uiState.itemToDelete != null) {
+        AlertDialog(
+            onDismissRequest = { viewModel.dismissDeleteConfirm() },
+            title = { Text(stringResource(R.string.delete_food_title)) },
+            text = {
+                Text(stringResource(R.string.delete_food_confirm, uiState.itemToDelete!!.name))
+            },
+            confirmButton = {
+                TextButton(
+                    onClick = { viewModel.deleteItem(uiState.itemToDelete!!) },
+                    colors = ButtonDefaults.textButtonColors(
+                        contentColor = MaterialTheme.colorScheme.error
+                    )
+                ) { Text(stringResource(R.string.delete)) }
+            },
+            dismissButton = {
+                TextButton(onClick = { viewModel.dismissDeleteConfirm() }) { Text(stringResource(R.string.cancel)) }
+            }
+        )
+    }
+}
+
+// ═══════════════════════════════════════════
+// SUB-COMPOSABLES
+// ═══════════════════════════════════════════
+
+/**
+ * Item thực phẩm với swipe-to-delete.
+ */
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun SwipeToDismissItem(
+    item: PantryItem,
+    onDelete: () -&gt; Unit,
+    onClick: () -&gt; Unit
+) {
+    val dismissState = rememberSwipeToDismissBoxState(
+        confirmValueChange = { dismissValue -&gt;
+            if (dismissValue == SwipeToDismissBoxValue.EndToStart) {
+                onDelete()
+                false // Không tự dismiss, chờ confirm dialog
+            } else false
+        }
+    )
+
+    SwipeToDismissBox(
+        state = dismissState,
+        backgroundContent = {
+            // Background đỏ khi swipe
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(
+                        MaterialTheme.colorScheme.errorContainer,
+                        RoundedCornerShape(16.dp)
+                    )
+                    .padding(horizontal = 20.dp),
+                contentAlignment = Alignment.CenterEnd
+            ) {
+                Icon(
+                    Icons.Filled.Delete,
+                    contentDescription = stringResource(R.string.delete),
+                    tint = MaterialTheme.colorScheme.onErrorContainer
+                )
+            }
+        },
+        enableDismissFromStartToEnd = false
+    ) {
+        PantryItemCard(item = item, onClick = onClick)
+    }
+}
+
+/**
+ * Card hiển thị 1 thực phẩm.
+ */
+@Composable
+private fun PantryItemCard(
+    item: PantryItem,
+    onClick: () -&gt; Unit
+) {
+    val expiryStatus = calculateExpiryStatus(item.expiryDate)
+    val days = daysUntilExpiry(item.expiryDate)
+
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable(onClick = onClick),
+        shape = RoundedCornerShape(16.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surface
+        ),
+        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            // Icon theo nguồn
+            Surface(
+                modifier = Modifier.size(48.dp),
+                shape = RoundedCornerShape(12.dp),
+                color = MaterialTheme.colorScheme.primaryContainer
+            ) {
+                Box(contentAlignment = Alignment.Center) {
+                    Icon(
+                        imageVector = when (item.source) {
+                            &quot;camera&quot; -&gt; Icons.Filled.CameraAlt
+                            &quot;barcode&quot; -&gt; Icons.Filled.QrCodeScanner
+                            else -&gt; Icons.Filled.Edit
+                        },
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.onPrimaryContainer,
+                        modifier = Modifier.size(24.dp)
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.width(12.dp))
+
+            // Thông tin
+            Column(modifier = Modifier.weight(1f)) {
+                Text(
+                    text = item.name,
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.SemiBold,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+                Spacer(modifier = Modifier.height(2.dp))
+                Text(
+                    text = &quot;${item.caloriesPer100g} kcal • ${item.proteinPer100g}g protein • ${item.quantityGrams}${item.unit}&quot;,
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+            }
+
+            Spacer(modifier = Modifier.width(8.dp))
+
+            // Status Badge
+            StatusBadge(status = expiryStatus, daysLeft = days)
+        }
+    }
+}
+
+/**
+ * Badge hiển thị trạng thái hạn sử dụng (Xanh/Vàng/Đỏ).
+ */
+@Composable
+fun StatusBadge(
+    status: ExpiryStatus,
+    daysLeft: Long,
+    modifier: Modifier = Modifier
+) {
+    val backgroundColor = Color(android.graphics.Color.parseColor(status.colorHex))
+
+    Surface(
+        modifier = modifier,
+        shape = RoundedCornerShape(12.dp),
+        color = backgroundColor
+    ) {
+        Text(
+            text = when (status) {
+                ExpiryStatus.FRESH -&gt; &quot;${daysLeft}d&quot;
+                ExpiryStatus.EXPIRING -&gt; &quot;${daysLeft}d ⚠️&quot;
+                ExpiryStatus.EXPIRED -&gt; stringResource(R.string.expiry_status_expired)
+            },
+            style = MaterialTheme.typography.labelSmall,
+            color = Color.White,
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
+        )
+    }
+}
+
+/**
+ * Empty state khi kho trống.
+ */
+@Composable
+private fun EmptyPantryState(isFiltered: Boolean) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(32.dp),
+        contentAlignment = Alignment.Center
+    ) {
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            Icon(
+                imageVector = if (isFiltered) Icons.Filled.SearchOff else Icons.Filled.Kitchen,
+                contentDescription = null,
+                modifier = Modifier.size(80.dp),
+                tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f)
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+            Text(
+                text = if (isFiltered) stringResource(R.string.no_food_found)
+                else stringResource(R.string.pantry_empty),
+                style = MaterialTheme.typography.titleLarge,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                text = if (isFiltered) stringResource(R.string.filter_or_search_hint)
+                else stringResource(R.string.pantry_empty_hint),
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f),
+                textAlign = TextAlign.Center
+            )
+        }
+    }
+}
+
+/**
+ * BottomSheet chọn cách thêm thực phẩm.
+ */
+@Composable
+private fun AddFoodBottomSheet(
+    onCameraClick: () -&gt; Unit,
+    onBarcodeClick: () -&gt; Unit,
+    onManualClick: () -&gt; Unit
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(24.dp)
+    ) {
+        Text(
+            text = stringResource(R.string.add_food_btn),
+            style = MaterialTheme.typography.titleLarge,
+            fontWeight = FontWeight.Bold
+        )
+        Spacer(modifier = Modifier.height(20.dp))
+
+        // Option 1: Camera AI
+        AddOptionItem(
+            icon = Icons.Filled.CameraAlt,
+            title = stringResource(R.string.photo_ai_title),
+            description = stringResource(R.string.photo_ai_desc),
+            onClick = onCameraClick
+        )
+        Spacer(modifier = Modifier.height(12.dp))
+
+        // Option 2: Barcode
+        AddOptionItem(
+            icon = Icons.Filled.QrCodeScanner,
+            title = stringResource(R.string.barcode_scan_title),
+            description = stringResource(R.string.barcode_scan_desc),
+            onClick = onBarcodeClick
+        )
+        Spacer(modifier = Modifier.height(12.dp))
+
+        // Option 3: Manual
+        AddOptionItem(
+            icon = Icons.Filled.Edit,
+            title = stringResource(R.string.manual_entry_title),
+            description = stringResource(R.string.manual_entry_desc),
+            onClick = onManualClick
+        )
+
+        Spacer(modifier = Modifier.height(24.dp))
+    }
+}
+
+/**
+ * Item trong BottomSheet thêm thực phẩm.
+ */
+@Composable
+private fun AddOptionItem(
+    icon: androidx.compose.ui.graphics.vector.ImageVector,
+    title: String,
+    description: String,
+    onClick: () -&gt; Unit
+) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable(onClick = onClick),
+        shape = RoundedCornerShape(16.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surfaceVariant
+        )
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Surface(
+                modifier = Modifier.size(48.dp),
+                shape = RoundedCornerShape(12.dp),
+                color = MaterialTheme.colorScheme.primary.copy(alpha = 0.1f)
+            ) {
+                Box(contentAlignment = Alignment.Center) {
+                    Icon(
+                        imageVector = icon,
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.primary,
+                        modifier = Modifier.size(24.dp)
+                    )
+                }
+            }
+            Spacer(modifier = Modifier.width(16.dp))
+            Column(modifier = Modifier.weight(1f)) {
+                Text(
+                    text = title,
+                    style = MaterialTheme.typography.titleSmall,
+                    fontWeight = FontWeight.SemiBold
+                )
+                Text(
+                    text = description,
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
+            Icon(
+                Icons.Filled.ChevronRight,
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+        }
+    }
+}
+</code></pre>
+</div>
+<div class=""code-file-section page-break"">
+    <div class=""code-file-header"">File: pantry/data/GeminiService.kt</div>
+    <pre class=""line-numbers""><code>package com.team.smartnutrition.pantry.data
+
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.util.Log
+import com.google.ai.client.generativeai.GenerativeModel
+import com.google.ai.client.generativeai.type.content
+import com.google.gson.Gson
+import com.google.gson.JsonSyntaxException
+import com.team.smartnutrition.BuildConfig
+import com.team.smartnutrition.pantry.model.FoodRecognitionResult
+import java.io.ByteArrayOutputStream
+
+/**
+ * ═══════════════════════════════════════════
+ * GEMINI SERVICE - Gọi Gemini Vision API
+ * ═══════════════════════════════════════════
+ *
+ * Nhận diện thực phẩm từ ảnh chụp bằng Gemini Vision API.
+ * Pipeline: Bitmap → Resize → Gemini API → JSON → FoodRecognitionResult
+ *
+ * Lưu ý:
+ * - API Key lấy từ BuildConfig.GEMINI_API_KEY (local.properties)
+ * - Ảnh resize xuống max 1024×1024 để tránh request quá 4MB
+ * - Gemini đôi khi trả markdown wrapper → cần strip trước khi parse JSON
+ */
+class GeminiService {
+
+    companion object {
+        private const val TAG = &quot;GeminiService&quot;
+        private const val MAX_IMAGE_SIZE = 1024
+        private const val MODEL_NAME = &quot;gemini-2.5-flash&quot;
+
+        /** Prompt nhận diện thực phẩm (tiếng Việt) */
+        private const val FOOD_RECOGNITION_PROMPT = &quot;&quot;&quot;
+Bạn là chuyên gia dinh dưỡng. Nhận diện thực phẩm trong ảnh này.
+Trả về ĐÚNG 1 JSON object với format sau:
+{&quot;name&quot;: &quot;tên tiếng Việt&quot;, &quot;calories&quot;: số kcal trên 100g, &quot;protein&quot;: số gram protein trên 100g}
+
+Quy tắc:
+- &quot;name&quot;: tên thực phẩm bằng tiếng Việt, viết thường, ngắn gọn
+- &quot;calories&quot;: số nguyên, ước tính kcal trên 100g
+- &quot;protein&quot;: số nguyên, ước tính gram protein trên 100g
+- Chỉ trả JSON thuần, KHÔNG giải thích thêm, KHÔNG wrap trong markdown
+&quot;&quot;&quot;
+    }
+
+    private val model: GenerativeModel by lazy {
+        val apiKey = BuildConfig.GEMINI_API_KEY
+        if (apiKey.isBlank()) {
+            throw IllegalStateException(
+                &quot;GEMINI_API_KEY chưa được cấu hình. &quot; +
+                &quot;Thêm dòng GEMINI_API_KEY=your_key vào file local.properties&quot;
+            )
+        }
+        GenerativeModel(
+            modelName = MODEL_NAME,
+            apiKey = apiKey
+        )
+    }
+
+    /**
+     * Nhận diện thực phẩm từ ảnh Bitmap.
+     *
+     * @param bitmap ảnh chụp thực phẩm (sẽ tự resize nếu quá lớn)
+     * @return FoodRecognitionResult chứa tên, calo, protein
+     * @throws Exception nếu API call hoặc JSON parse thất bại
+     */
+    suspend fun recognizeFood(bitmap: Bitmap): FoodRecognitionResult {
+        // 1. Resize bitmap nếu cần
+        val resizedBitmap = resizeBitmap(bitmap)
+
+        // 2. Gọi Gemini Vision API
+        val response = kotlinx.coroutines.withTimeoutOrNull(30000) {
+            model.generateContent(
+                content {
+                    image(resizedBitmap)
+                    text(FOOD_RECOGNITION_PROMPT)
+                }
+            )
+        } ?: throw Exception(&quot;Timeout khi gọi AI nhận diện thực phẩm&quot;)
+
+        val responseText = response.text
+            ?: throw Exception(&quot;AI không trả về kết quả&quot;)
+
+        Log.d(TAG, &quot;Gemini response: $responseText&quot;)
+
+        // 3. Parse JSON (strip markdown wrapper nếu có)
+        return parseResponse(responseText)
+    }
+
+    /**
+     * Resize bitmap xuống max 1024×1024, giữ tỷ lệ.
+     * Nếu bitmap đã nhỏ hơn → trả nguyên.
+     */
+    private fun resizeBitmap(bitmap: Bitmap): Bitmap {
+        val width = bitmap.width
+        val height = bitmap.height
+
+        if (width &lt;= MAX_IMAGE_SIZE &amp;&amp; height &lt;= MAX_IMAGE_SIZE) {
+            return bitmap
+        }
+
+        val ratio = minOf(
+            MAX_IMAGE_SIZE.toFloat() / width,
+            MAX_IMAGE_SIZE.toFloat() / height
+        )
+        val newWidth = (width * ratio).toInt()
+        val newHeight = (height * ratio).toInt()
+
+        return Bitmap.createScaledBitmap(bitmap, newWidth, newHeight, true)
+    }
+
+    /**
+     * Parse response text từ Gemini thành FoodRecognitionResult.
+     * Xử lý các trường hợp Gemini wrap JSON trong markdown code block.
+     */
+    private fun parseResponse(responseText: String): FoodRecognitionResult {
+        // Strip markdown wrapper nếu có
+        val jsonString = stripMarkdownWrapper(responseText)
+
+        return try {
+            val result = Gson().fromJson(jsonString, FoodRecognitionResult::class.java)
+            // Validate
+            if (result.name.isBlank()) {
+                throw Exception(&quot;AI không nhận diện được tên thực phẩm&quot;)
+            }
+            result
+        } catch (e: JsonSyntaxException) {
+            Log.e(TAG, &quot;JSON parse error: $jsonString&quot;, e)
+            throw Exception(&quot;Không thể đọc kết quả từ AI. Vui lòng chụp lại ảnh rõ hơn.&quot;)
+        }
+    }
+
+    /**
+     * Strip markdown code block wrapper.
+     * Gemini đôi khi trả: ```json\n{...}\n``` thay vì pure JSON.
+     */
+    private fun stripMarkdownWrapper(text: String): String {
+        var result = text.trim()
+
+        // Remove ```json ... ``` wrapper
+        if (result.startsWith(&quot;```&quot;)) {
+            result = result.removePrefix(&quot;```json&quot;)
+                .removePrefix(&quot;```JSON&quot;)
+                .removePrefix(&quot;```&quot;)
+            if (result.endsWith(&quot;```&quot;)) {
+                result = result.removeSuffix(&quot;```&quot;)
+            }
+        }
+
+        return result.trim()
+    }
+}
+</code></pre>
+</div>
+<div class=""code-file-section page-break"">
+    <div class=""code-file-header"">File: pantry/data/PantryRepository.kt</div>
+    <pre class=""line-numbers""><code>package com.team.smartnutrition.pantry.data
+
+import com.google.firebase.Timestamp
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
+import com.team.smartnutrition.pantry.model.PantryItem
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.tasks.await
+
+/**
+ * ═══════════════════════════════════════════
+ * PANTRY REPOSITORY - Lớp dữ liệu kho thực phẩm
+ * ═══════════════════════════════════════════
+ *
+ * Đóng gói toàn bộ Firestore operations cho collection:
+ *   users/{uid}/pantry/{autoId}
+ *
+ * Convention: giống UserRepository (Module 1)
+ * - Dùng withTimeoutOrNull cho mọi Firestore call
+ * - Suspend functions cho one-shot operations
+ * - Flow cho realtime listeners
+ */
+class PantryRepository {
+
+    private val firestore = FirebaseFirestore.getInstance()
+
+    /** UID của user hiện tại */
+    val currentUid: String?
+        get() = FirebaseAuth.getInstance().currentUser?.uid
+
+    // ═══ HELPER ═══
+
+    /** Reference tới pantry collection của user */
+    private fun pantryRef(uid: String) =
+        firestore.collection(&quot;users&quot;).document(uid).collection(&quot;pantry&quot;)
+
+    // ═══ CREATE ═══
+
+    /**
+     * Thêm thực phẩm mới vào kho.
+     * @return document ID được tạo tự động
+     */
+    suspend fun addItem(uid: String, item: PantryItem): String {
+        val data = itemToMap(item).toMutableMap()
+        data[&quot;addedAt&quot;] = Timestamp.now()
+
+        // Tạo document ID tự động trước ở client
+        val docRef = pantryRef(uid).document()
+        // Ghi bất đồng bộ (offline-first) - ghi lập tức vào SQLite cache của thiết bị
+        docRef.set(data)
+
+        return docRef.id
+    }
+
+    // ═══ READ ═══
+
+    /**
+     * Lấy realtime danh sách tất cả thực phẩm trong kho.
+     * Sắp xếp theo ngày hết hạn (sắp hết hạn lên trước).
+     * @return Flow tự cập nhật khi data thay đổi
+     */
+    fun getItems(uid: String): Flow&lt;List&lt;PantryItem&gt;&gt; = callbackFlow {
+        val listener = pantryRef(uid)
+            .orderBy(&quot;expiryDate&quot;, Query.Direction.ASCENDING)
+            .addSnapshotListener { snapshot, error -&gt;
+                if (error != null) {
+                    close(error)
+                    return@addSnapshotListener
+                }
+                val items = snapshot?.documents?.map { doc -&gt;
+                    doc.toObject(PantryItem::class.java)?.copy(id = doc.id)
+                        ?: PantryItem(id = doc.id)
+                } ?: emptyList()
+                trySend(items)
+            }
+        awaitClose { listener.remove() }
+    }
+
+    /**
+     * Lấy 1 thực phẩm theo document ID.
+     * @return PantryItem hoặc null nếu không tồn tại
+     */
+    suspend fun getItem(uid: String, itemId: String): PantryItem? {
+        val doc = try {
+            kotlinx.coroutines.withTimeout(3000) {
+                pantryRef(uid).document(itemId).get().await()
+            }
+        } catch (e: Exception) {
+            // Fallback đọc từ cache local
+            pantryRef(uid).document(itemId).get(com.google.firebase.firestore.Source.CACHE).await()
+        }
+
+        return doc.toObject(PantryItem::class.java)?.copy(id = doc.id)
+    }
+
+    /**
+     * Lấy danh sách thực phẩm chưa hết hạn, sắp xếp sắp hết hạn trước.
+     * Dùng cho Module 3 (AI Meal Planner) để lấy nguyên liệu.
+     */
+    suspend fun getAvailableItems(uid: String): List&lt;PantryItem&gt; {
+        val snapshot = try {
+            kotlinx.coroutines.withTimeout(3000) {
+                pantryRef(uid)
+                    .whereNotEqualTo(&quot;status&quot;, &quot;expired&quot;)
+                    .orderBy(&quot;status&quot;)
+                    .orderBy(&quot;expiryDate&quot;, Query.Direction.ASCENDING)
+                    .get()
+                    .await()
+            }
+        } catch (e: Exception) {
+            // Fallback đọc từ cache local
+            pantryRef(uid)
+                .whereNotEqualTo(&quot;status&quot;, &quot;expired&quot;)
+                .orderBy(&quot;status&quot;)
+                .orderBy(&quot;expiryDate&quot;, Query.Direction.ASCENDING)
+                .get(com.google.firebase.firestore.Source.CACHE)
+                .await()
+        }
+
+        return snapshot.documents.map { doc -&gt;
+            doc.toObject(PantryItem::class.java)?.copy(id = doc.id)
+                ?: PantryItem(id = doc.id)
+        }
+    }
+
+    // ═══ UPDATE ═══
+
+    /**
+     * Cập nhật fields cụ thể của 1 thực phẩm.
+     * @param updates Map chứa field name → value mới
+     */
+    suspend fun updateItem(uid: String, itemId: String, updates: Map&lt;String, Any&gt;) {
+        // Ghi bất đồng bộ (offline-first)
+        pantryRef(uid).document(itemId).update(updates)
+    }
+
+    // ═══ DELETE ═══
+
+    /**
+     * Xóa 1 thực phẩm khỏi kho.
+     */
+    suspend fun deleteItem(uid: String, itemId: String) {
+        // Ghi bất đồng bộ (offline-first)
+        pantryRef(uid).document(itemId).delete()
+    }
+
+    // ═══ HELPER: Convert PantryItem → Map ═══
+
+    /**
+     * Convert PantryItem thành Map để lưu Firestore.
+     * Không bao gồm &apos;id&apos; vì đó là document ID.
+     */
+    private fun itemToMap(item: PantryItem): Map&lt;String, Any?&gt; {
+        return mapOf(
+            &quot;name&quot; to item.name,
+            &quot;caloriesPer100g&quot; to item.caloriesPer100g,
+            &quot;proteinPer100g&quot; to item.proteinPer100g,
+            &quot;quantityGrams&quot; to item.quantityGrams,
+            &quot;unit&quot; to item.unit,
+            &quot;source&quot; to item.source,
+            &quot;imageUrl&quot; to item.imageUrl,
+            &quot;expiryDate&quot; to item.expiryDate,
+            &quot;status&quot; to item.status,
+            &quot;barcode&quot; to item.barcode
+        )
+    }
+}
+</code></pre>
+</div>
+<div class=""code-file-section page-break"">
+    <div class=""code-file-header"">File: pantry/model/PantryItem.kt</div>
+    <pre class=""line-numbers""><code>package com.team.smartnutrition.pantry.model
+
+import com.google.firebase.Timestamp
+
+/**
+ * ═══════════════════════════════════════════
+ * DATA MODELS cho Module 2 - Pantry Scanner
+ * ═══════════════════════════════════════════
+ *
+ * Ánh xạ trực tiếp tới Firestore document:
+ * - PantryItem → users/{uid}/pantry/{autoId}
+ * - FoodRecognitionResult → kết quả từ Gemini Vision API
+ */
+
+/**
+ * Thực phẩm trong kho, khớp 1:1 với Firestore schema.
+ * Dùng default values để Firestore.toObject() hoạt động.
+ */
+data class PantryItem(
+    val id: String = &quot;&quot;,                        // Firestore document ID
+    val name: String = &quot;&quot;,                      // Tên thực phẩm (VD: &quot;Ức gà&quot;)
+    val caloriesPer100g: Int = 0,               // kcal trên 100g
+    val proteinPer100g: Int = 0,                // gram protein trên 100g
+    val quantityGrams: Int = 0,                 // Tổng gram đang có
+    val unit: String = &quot;gram&quot;,                  // &quot;gram&quot; | &quot;piece&quot; | &quot;ml&quot;
+    val source: String = &quot;camera&quot;,              // &quot;camera&quot; | &quot;barcode&quot; | &quot;manual&quot;
+    val imageUrl: String = &quot;&quot;,                  // (optional) URL ảnh đã chụp
+    val expiryDate: Timestamp? = null,          // Ngày hết hạn
+    val addedAt: Timestamp? = null,             // Ngày thêm vào kho
+    val status: String = &quot;fresh&quot;,               // &quot;fresh&quot; | &quot;expiring&quot; | &quot;expired&quot;
+    val barcode: String = &quot;&quot;                    // Mã vạch nếu có
+)
+
+/**
+ * Kết quả nhận diện thực phẩm từ Gemini Vision API.
+ * Dùng để truyền giữa CameraCapture/BarcodeScan → FoodResult.
+ */
+data class FoodRecognitionResult(
+    val name: String = &quot;&quot;,
+    val calories: Int = 0,                      // kcal trên 100g
+    val protein: Int = 0                        // gram protein trên 100g
+)
+</code></pre>
+</div>
+<div class=""code-file-section page-break"">
+    <div class=""code-file-header"">File: pantry/util/BarcodeDatabase.kt</div>
+    <pre class=""line-numbers""><code>package com.team.smartnutrition.pantry.util
+
+import com.team.smartnutrition.pantry.model.FoodRecognitionResult
+
+/**
+ * ═══════════════════════════════════════════
+ * BARCODE DATABASE - Tra cứu sản phẩm VN local
+ * ═══════════════════════════════════════════
+ *
+ * HashMap hardcode các sản phẩm phổ biến tại Việt Nam.
+ * Dùng làm fallback khi không có API tra cứu online.
+ *
+ * Barcode format: EAN-13 (13 số) — chuẩn phổ biến nhất tại VN.
+ * Prefix 893 = Vietnam.
+ */
+object BarcodeDatabase {
+
+    private val products = mapOf(
+        // ═══ MÌ GÓI ═══
+        &quot;8934563138028&quot; to FoodRecognitionResult(&quot;Mì Hảo Hảo tôm chua cay&quot;, 360, 8),
+        &quot;8934563138011&quot; to FoodRecognitionResult(&quot;Mì Hảo Hảo sa tế hành&quot;, 355, 7),
+        &quot;8936136160019&quot; to FoodRecognitionResult(&quot;Mì Omachi xốt bò hầm&quot;, 370, 9),
+        &quot;8934680025256&quot; to FoodRecognitionResult(&quot;Mì Kokomi tôm chua cay&quot;, 350, 7),
+
+        // ═══ SỮA ═══
+        &quot;8934673583220&quot; to FoodRecognitionResult(&quot;Sữa Vinamilk có đường&quot;, 67, 3),
+        &quot;8934673583237&quot; to FoodRecognitionResult(&quot;Sữa Vinamilk không đường&quot;, 46, 3),
+        &quot;8936036020427&quot; to FoodRecognitionResult(&quot;Sữa TH True Milk&quot;, 63, 3),
+        &quot;8934804019529&quot; to FoodRecognitionResult(&quot;Sữa đậu nành Fami&quot;, 42, 3),
+        &quot;8934673573344&quot; to FoodRecognitionResult(&quot;Sữa tươi Vinamilk có đường 180ml&quot;, 76, 3),
+
+        // ═══ NƯỚC GIẢI KHÁT ═══
+        &quot;8935049500100&quot; to FoodRecognitionResult(&quot;Trà xanh Không Độ&quot;, 18, 0),
+        &quot;8934588013058&quot; to FoodRecognitionResult(&quot;Nước tăng lực Sting&quot;, 49, 0),
+        &quot;8935049501107&quot; to FoodRecognitionResult(&quot;Nước C2 trà chanh&quot;, 30, 0),
+        &quot;5449000000996&quot; to FoodRecognitionResult(&quot;Coca-Cola&quot;, 42, 0),
+        &quot;8934588062001&quot; to FoodRecognitionResult(&quot;Pepsi&quot;, 44, 0),
+        &quot;8938535231014&quot; to FoodRecognitionResult(&quot;Nước yến nha đam 500ml&quot;, 40, 0),
+
+        // ═══ BÁNH KẸO ═══
+        &quot;8934680027205&quot; to FoodRecognitionResult(&quot;Bánh Chocopie&quot;, 440, 5),
+        &quot;8934680010016&quot; to FoodRecognitionResult(&quot;Bánh Orion Custas&quot;, 400, 6),
+
+        // ═══ GIA VỊ ═══
+        &quot;8934804032160&quot; to FoodRecognitionResult(&quot;Nước mắm Chinsu&quot;, 50, 8),
+        &quot;8936017360019&quot; to FoodRecognitionResult(&quot;Nước tương Maggi&quot;, 60, 10),
+        &quot;8934563960018&quot; to FoodRecognitionResult(&quot;Hạt nêm Knorr&quot;, 210, 12),
+
+        // ═══ THỰC PHẨM ĐÓNG GÓI ═══
+        &quot;8938506556015&quot; to FoodRecognitionResult(&quot;Cá hộp Ba Cô Gái&quot;, 200, 25),
+        &quot;8934563789015&quot; to FoodRecognitionResult(&quot;Xúc xích Vissan&quot;, 280, 12),
+    )
+
+    /**
+     * Tra cứu sản phẩm theo mã vạch.
+     * @param barcode chuỗi số barcode (EAN-13)
+     * @return FoodRecognitionResult nếu tìm thấy, null nếu không có trong database
+     */
+    fun lookup(barcode: String): FoodRecognitionResult? {
+        return products[barcode.trim()]
+    }
+
+    /**
+     * Kiểm tra barcode có trong database không.
+     */
+    fun contains(barcode: String): Boolean {
+        return products.containsKey(barcode.trim())
+    }
+
+    /**
+     * Tổng số sản phẩm trong database.
+     */
+    val size: Int get() = products.size
+}
+</code></pre>
+</div>
+<div class=""code-file-section page-break"">
+    <div class=""code-file-header"">File: pantry/util/ExpiryStatus.kt</div>
+    <pre class=""line-numbers""><code>package com.team.smartnutrition.pantry.util
+
+import com.google.firebase.Timestamp
+import java.time.LocalDate
+import java.time.ZoneId
+import java.time.temporal.ChronoUnit
+
+/**
+ * ═══════════════════════════════════════════
+ * EXPIRY STATUS - Logic cảnh báo hạn sử dụng
+ * ═══════════════════════════════════════════
+ *
+ * Quy tắc:
+ * - 🟢 FRESH:    còn &gt; 3 ngày
+ * - 🟡 EXPIRING: còn 1-3 ngày
+ * - 🔴 EXPIRED:  đã hết hạn (≤ 0 ngày)
+ */
+enum class ExpiryStatus(
+    val label: String,
+    val colorHex: String,
+    val firestoreValue: String
+) {
+    FRESH(&quot;Còn tươi&quot;, &quot;#4CAF50&quot;, &quot;fresh&quot;),
+    EXPIRING(&quot;Sắp hết hạn!&quot;, &quot;#FFC107&quot;, &quot;expiring&quot;),
+    EXPIRED(&quot;ĐÃ HẾT HẠN&quot;, &quot;#F44336&quot;, &quot;expired&quot;);
+}
+
+/**
+ * Tính số ngày còn lại cho đến khi hết hạn.
+ * @return số ngày (âm nếu đã quá hạn), hoặc Long.MAX_VALUE nếu không có ngày hết hạn
+ */
+fun daysUntilExpiry(expiryDate: Timestamp?): Long {
+    if (expiryDate == null) return Long.MAX_VALUE
+
+    val expiryLocalDate = expiryDate.toDate().toInstant()
+        .atZone(ZoneId.systemDefault())
+        .toLocalDate()
+
+    return ChronoUnit.DAYS.between(LocalDate.now(), expiryLocalDate)
+}
+
+/**
+ * Xác định trạng thái hạn sử dụng dựa trên ngày hết hạn.
+ * @return ExpiryStatus tương ứng
+ */
+fun calculateExpiryStatus(expiryDate: Timestamp?): ExpiryStatus {
+    val days = daysUntilExpiry(expiryDate)
+
+    return when {
+        days &gt; 3 -&gt; ExpiryStatus.FRESH
+        days &gt;= 1 -&gt; ExpiryStatus.EXPIRING
+        else -&gt; ExpiryStatus.EXPIRED
+    }
+}
+
+/**
+ * Tạo text hiển thị cho trạng thái hạn sử dụng.
+ * VD: &quot;Còn 5 ngày&quot;, &quot;Sắp hết hạn!&quot;, &quot;ĐÃ HẾT HẠN&quot;
+ */
+fun expiryDisplayText(expiryDate: Timestamp?): String {
+    val days = daysUntilExpiry(expiryDate)
+    val status = calculateExpiryStatus(expiryDate)
+
+    return when (status) {
+        ExpiryStatus.FRESH -&gt; &quot;Còn $days ngày&quot;
+        ExpiryStatus.EXPIRING -&gt; &quot;Còn $days ngày - Sắp hết hạn!&quot;
+        ExpiryStatus.EXPIRED -&gt; {
+            if (days == 0L) &quot;Hết hạn hôm nay&quot;
+            else &quot;Đã hết hạn ${-days} ngày&quot;
+        }
+    }
+}
+</code></pre>
+</div>
+<div class=""code-file-section page-break"">
+    <div class=""code-file-header"">File: pantry/viewmodel/BarcodeScanViewModel.kt</div>
+    <pre class=""line-numbers""><code>package com.team.smartnutrition.pantry.viewmodel
+
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.google.gson.Gson
+import com.team.smartnutrition.pantry.model.FoodRecognitionResult
+import com.team.smartnutrition.pantry.util.BarcodeDatabase
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+
+/**
+ * ═══════════════════════════════════════════
+ * BARCODE SCAN VIEW MODEL
+ * ═══════════════════════════════════════════
+ *
+ * Xử lý:
+ * - Trạng thái quyền camera
+ * - Phát hiện barcode từ ML Kit
+ * - Tra cứu sản phẩm trong BarcodeDatabase local
+ * - Trả kết quả để navigate sang FoodResult
+ */
+
+data class BarcodeScanUiState(
+    val hasCameraPermission: Boolean = false,
+    val detectedBarcode: String? = null,
+    val lookupResult: FoodRecognitionResult? = null,
+    val isLookingUp: Boolean = false,
+    val notFound: Boolean = false,
+    val navigateToResult: Boolean = false,
+    val resultJson: String? = null,
+    val showResultSheet: Boolean = false,
+    val showNotFoundDialog: Boolean = false,
+    val errorMessage: String? = null
+)
+
+class BarcodeScanViewModel : ViewModel() {
+
+    private val gson = Gson()
+    private var processedBarcode: String? = null  // Tránh xử lý trùng
+
+    private val _uiState = MutableStateFlow(BarcodeScanUiState())
+    val uiState: StateFlow&lt;BarcodeScanUiState&gt; = _uiState.asStateFlow()
+
+    /**
+     * Cập nhật trạng thái quyền camera.
+     */
+    fun updatePermission(granted: Boolean) {
+        _uiState.update { it.copy(hasCameraPermission = granted) }
+    }
+
+    /**
+     * Xử lý khi ML Kit phát hiện barcode.
+     * Chỉ xử lý 1 lần cho mỗi mã (tránh trigger liên tục).
+     */
+    fun onBarcodeDetected(rawValue: String) {
+        // Tránh xử lý trùng
+        if (rawValue == processedBarcode) return
+        processedBarcode = rawValue
+
+        _uiState.update {
+            it.copy(
+                detectedBarcode = rawValue,
+                isLookingUp = true,
+                notFound = false,
+                lookupResult = null
+            )
+        }
+
+        viewModelScope.launch {
+            val result = BarcodeDatabase.lookup(rawValue)
+
+            if (result != null) {
+                _uiState.update {
+                    it.copy(
+                        lookupResult = result,
+                        isLookingUp = false,
+                        showResultSheet = true,
+                        resultJson = gson.toJson(result)
+                    )
+                }
+            } else {
+                _uiState.update {
+                    it.copy(
+                        notFound = true,
+                        isLookingUp = false,
+                        showNotFoundDialog = true
+                    )
+                }
+            }
+        }
+    }
+
+    /**
+     * User xác nhận sản phẩm tìm thấy → navigate FoodResult.
+     */
+    fun confirmResult() {
+        _uiState.update {
+            it.copy(
+                showResultSheet = false,
+                navigateToResult = true
+            )
+        }
+    }
+
+    /**
+     * Reset để quét barcode mới.
+     */
+    fun resetScan() {
+        processedBarcode = null
+        _uiState.update {
+            it.copy(
+                detectedBarcode = null,
+                lookupResult = null,
+                notFound = false,
+                showResultSheet = false,
+                showNotFoundDialog = false,
+                navigateToResult = false,
+                resultJson = null
+            )
+        }
+    }
+
+    /**
+     * Navigate FoodResult cho manual entry (barcode không tìm thấy).
+     */
+    fun navigateManualEntry() {
+        _uiState.update {
+            it.copy(
+                showNotFoundDialog = false,
+                navigateToResult = true,
+                resultJson = null  // null = empty form
+            )
+        }
+    }
+
+    /** Reset navigation state */
+    fun onNavigated() {
+        _uiState.update { it.copy(navigateToResult = false) }
+    }
+
+    /** Dismiss result sheet */
+    fun dismissResultSheet() {
+        _uiState.update { it.copy(showResultSheet = false) }
+        resetScan()
+    }
+
+    /** Dismiss not found dialog */
+    fun dismissNotFoundDialog() {
+        _uiState.update { it.copy(showNotFoundDialog = false) }
+        resetScan()
+    }
+}
+</code></pre>
+</div>
+<div class=""code-file-section page-break"">
+    <div class=""code-file-header"">File: pantry/viewmodel/CameraCaptureViewModel.kt</div>
+    <pre class=""line-numbers""><code>package com.team.smartnutrition.pantry.viewmodel
+
+import android.graphics.Bitmap
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.google.gson.Gson
+import com.team.smartnutrition.pantry.data.GeminiService
+import com.team.smartnutrition.pantry.model.FoodRecognitionResult
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+
+/**
+ * ═══════════════════════════════════════════
+ * CAMERA CAPTURE VIEW MODEL
+ * ═══════════════════════════════════════════
+ *
+ * Xử lý:
+ * - Trạng thái quyền camera
+ * - Capture ảnh từ CameraX
+ * - Gửi ảnh đến Gemini Vision API nhận diện
+ * - Trả kết quả dạng JSON string để truyền qua navigation
+ */
+
+data class CameraCaptureUiState(
+    val hasCameraPermission: Boolean = false,
+    val isProcessing: Boolean = false,
+    val errorMessage: String? = null,
+    val resultJson: String? = null,      // JSON string để truyền qua savedStateHandle
+    val navigateToResult: Boolean = false
+)
+
+class CameraCaptureViewModel : ViewModel() {
+
+    private val geminiService = GeminiService()
+    private val gson = Gson()
+
+    private val _uiState = MutableStateFlow(CameraCaptureUiState())
+    val uiState: StateFlow&lt;CameraCaptureUiState&gt; = _uiState.asStateFlow()
+
+    /**
+     * Cập nhật trạng thái quyền camera.
+     */
+    fun updatePermission(granted: Boolean) {
+        _uiState.update { it.copy(hasCameraPermission = granted) }
+    }
+
+    /**
+     * Xử lý ảnh đã chụp: gửi đến Gemini Vision API.
+     */
+    fun onPhotoCaptured(bitmap: Bitmap) {
+        viewModelScope.launch {
+            _uiState.update { it.copy(isProcessing = true, errorMessage = null) }
+
+            try {
+                val result = geminiService.recognizeFood(bitmap)
+                val json = gson.toJson(result)
+
+                _uiState.update {
+                    it.copy(
+                        isProcessing = false,
+                        resultJson = json,
+                        navigateToResult = true
+                    )
+                }
+            } catch (e: Exception) {
+                _uiState.update {
+                    it.copy(
+                        isProcessing = false,
+                        errorMessage = e.message ?: &quot;Lỗi nhận diện thực phẩm&quot;
+                    )
+                }
+            }
+        }
+    }
+
+    /** Reset navigation state sau khi đã navigate */
+    fun onNavigated() {
+        _uiState.update { it.copy(navigateToResult = false, resultJson = null) }
+    }
+
+    /** Clear error */
+    fun clearError() {
+        _uiState.update { it.copy(errorMessage = null) }
+    }
+}
+</code></pre>
+</div>
+<div class=""code-file-section page-break"">
+    <div class=""code-file-header"">File: pantry/viewmodel/FoodDetailViewModel.kt</div>
+    <pre class=""line-numbers""><code>package com.team.smartnutrition.pantry.viewmodel
+
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.team.smartnutrition.pantry.data.PantryRepository
+import com.team.smartnutrition.pantry.model.PantryItem
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+
+/**
+ * ═══════════════════════════════════════════
+ * FOOD DETAIL VIEW MODEL
+ * ═══════════════════════════════════════════
+ *
+ * Xử lý:
+ * - Load chi tiết 1 thực phẩm theo itemId
+ * - Chỉnh sửa số lượng
+ * - Xóa thực phẩm
+ */
+
+data class FoodDetailUiState(
+    val item: PantryItem? = null,
+    val isLoading: Boolean = true,
+    val isEditing: Boolean = false,
+    val editQuantity: String = &quot;&quot;,
+    val isSaving: Boolean = false,
+    val isDeleting: Boolean = false,
+    val deleteSuccess: Boolean = false,
+    val saveSuccess: Boolean = false,
+    val showDeleteDialog: Boolean = false,
+    val errorMessage: String? = null
+)
+
+class FoodDetailViewModel : ViewModel() {
+
+    private val repository = PantryRepository()
+
+    private val _uiState = MutableStateFlow(FoodDetailUiState())
+    val uiState: StateFlow&lt;FoodDetailUiState&gt; = _uiState.asStateFlow()
+
+    /**
+     * Load chi tiết item từ Firestore.
+     */
+    fun loadItem(itemId: String) {
+        val uid = repository.currentUid ?: return
+
+        viewModelScope.launch {
+            _uiState.update { it.copy(isLoading = true, errorMessage = null) }
+            try {
+                val item = repository.getItem(uid, itemId)
+                if (item != null) {
+                    _uiState.update {
+                        it.copy(
+                            item = item,
+                            isLoading = false,
+                            editQuantity = item.quantityGrams.toString()
+                        )
+                    }
+                } else {
+                    _uiState.update {
+                        it.copy(isLoading = false, errorMessage = &quot;Thực phẩm không tồn tại&quot;)
+                    }
+                }
+            } catch (e: Exception) {
+                _uiState.update {
+                    it.copy(isLoading = false, errorMessage = &quot;Lỗi: ${e.message}&quot;)
+                }
+            }
+        }
+    }
+
+    // ═══ EDIT MODE ═══
+
+    fun startEditing() {
+        _uiState.update { state -&gt;
+            state.copy(
+                isEditing = true,
+                editQuantity = state.item?.quantityGrams?.toString() ?: &quot;0&quot;
+            )
+        }
+    }
+
+    fun cancelEditing() {
+        _uiState.update { state -&gt;
+            state.copy(
+                isEditing = false,
+                editQuantity = state.item?.quantityGrams?.toString() ?: &quot;0&quot;
+            )
+        }
+    }
+
+    fun updateEditQuantity(value: String) {
+        _uiState.update { it.copy(editQuantity = value) }
+    }
+
+    fun saveChanges() {
+        val uid = repository.currentUid ?: return
+        val item = _uiState.value.item ?: return
+        val newQuantity = _uiState.value.editQuantity.toIntOrNull()
+
+        if (newQuantity == null || newQuantity &lt;= 0) {
+            _uiState.update { it.copy(errorMessage = &quot;Số lượng phải lớn hơn 0&quot;) }
+            return
+        }
+
+        viewModelScope.launch {
+            _uiState.update { it.copy(isSaving = true, errorMessage = null) }
+            try {
+                repository.updateItem(
+                    uid, item.id,
+                    mapOf(&quot;quantityGrams&quot; to newQuantity)
+                )
+                _uiState.update { state -&gt;
+                    state.copy(
+                        isSaving = false,
+                        isEditing = false,
+                        item = state.item?.copy(quantityGrams = newQuantity)
+                    )
+                }
+            } catch (e: Exception) {
+                _uiState.update {
+                    it.copy(isSaving = false, errorMessage = &quot;Lưu thất bại: ${e.message}&quot;)
+                }
+            }
+        }
+    }
+
+    // ═══ DELETE ═══
+
+    fun showDeleteConfirm() {
+        _uiState.update { it.copy(showDeleteDialog = true) }
+    }
+
+    fun dismissDeleteConfirm() {
+        _uiState.update { it.copy(showDeleteDialog = false) }
+    }
+
+    fun deleteItem() {
+        val uid = repository.currentUid ?: return
+        val item = _uiState.value.item ?: return
+
+        viewModelScope.launch {
+            _uiState.update { it.copy(isDeleting = true, showDeleteDialog = false) }
+            try {
+                repository.deleteItem(uid, item.id)
+                _uiState.update { it.copy(isDeleting = false, deleteSuccess = true) }
+            } catch (e: Exception) {
+                _uiState.update {
+                    it.copy(isDeleting = false, errorMessage = &quot;Xóa thất bại: ${e.message}&quot;)
+                }
+            }
+        }
+    }
+
+    /** Clear error */
+    fun clearError() {
+        _uiState.update { it.copy(errorMessage = null) }
+    }
+}
+</code></pre>
+</div>
+<div class=""code-file-section page-break"">
+    <div class=""code-file-header"">File: pantry/viewmodel/FoodResultViewModel.kt</div>
+    <pre class=""line-numbers""><code>package com.team.smartnutrition.pantry.viewmodel
+
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.google.firebase.Timestamp
+import com.google.gson.Gson
+import com.team.smartnutrition.pantry.data.PantryRepository
+import com.team.smartnutrition.pantry.model.FoodRecognitionResult
+import com.team.smartnutrition.pantry.model.PantryItem
+import com.team.smartnutrition.pantry.util.calculateExpiryStatus
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+import java.time.Instant
+import java.time.LocalDate
+import java.time.ZoneId
+import java.time.ZoneOffset
+
+/**
+ * ═══════════════════════════════════════════
+ * FOOD RESULT VIEW MODEL
+ * ═══════════════════════════════════════════
+ *
+ * Xử lý:
+ * - Hiển thị kết quả AI nhận diện (pre-filled)
+ * - Cho user chỉnh sửa tên, calo, protein
+ * - Chọn số lượng, đơn vị, ngày hết hạn
+ * - Lưu vào Firestore pantry collection
+ */
+
+data class FoodResultUiState(
+    val name: String = &quot;&quot;,
+    val caloriesPer100g: String = &quot;0&quot;,
+    val proteinPer100g: String = &quot;0&quot;,
+    val quantityGrams: String = &quot;100&quot;,
+    val unit: String = &quot;gram&quot;,
+    val expiryDateMillis: Long? = null,    // Epoch millis cho DatePicker
+    val source: String = &quot;camera&quot;,
+    val barcode: String = &quot;&quot;,
+    val isSaving: Boolean = false,
+    val saveSuccess: Boolean = false,
+    val errorMessage: String? = null,
+    val isInitialized: Boolean = false
+)
+
+class FoodResultViewModel : ViewModel() {
+
+    private val repository = PantryRepository()
+    private val gson = Gson()
+
+    private val _uiState = MutableStateFlow(FoodResultUiState())
+    val uiState: StateFlow&lt;FoodResultUiState&gt; = _uiState.asStateFlow()
+
+    /**
+     * Khởi tạo từ kết quả AI/barcode (JSON string) hoặc empty cho manual.
+     */
+    fun initFromResult(
+        resultJson: String?,
+        source: String?,
+        barcode: String?
+    ) {
+        if (_uiState.value.isInitialized) return // Tránh init lại khi recompose
+
+        val defaultExpiry = LocalDate.now().plusDays(7)
+            .atStartOfDay(ZoneOffset.UTC).toInstant().toEpochMilli()
+
+        if (resultJson != null) {
+            try {
+                val result = gson.fromJson(resultJson, FoodRecognitionResult::class.java)
+                _uiState.update {
+                    it.copy(
+                        name = result.name,
+                        caloriesPer100g = result.calories.toString(),
+                        proteinPer100g = result.protein.toString(),
+                        source = source ?: &quot;camera&quot;,
+                        barcode = barcode ?: &quot;&quot;,
+                        expiryDateMillis = defaultExpiry,
+                        isInitialized = true
+                    )
+                }
+            } catch (e: Exception) {
+                // JSON parse failed → empty form
+                _uiState.update {
+                    it.copy(
+                        source = source ?: &quot;manual&quot;,
+                        barcode = barcode ?: &quot;&quot;,
+                        expiryDateMillis = defaultExpiry,
+                        isInitialized = true
+                    )
+                }
+            }
+        } else {
+            // Manual entry
+            _uiState.update {
+                it.copy(
+                    source = source ?: &quot;manual&quot;,
+                    barcode = barcode ?: &quot;&quot;,
+                    expiryDateMillis = defaultExpiry,
+                    isInitialized = true
+                )
+            }
+        }
+    }
+
+    // ═══ FIELD UPDATES ═══
+
+    fun updateName(value: String) {
+        _uiState.update { it.copy(name = value, errorMessage = null) }
+    }
+
+    fun updateCalories(value: String) {
+        _uiState.update { it.copy(caloriesPer100g = value, errorMessage = null) }
+    }
+
+    fun updateProtein(value: String) {
+        _uiState.update { it.copy(proteinPer100g = value, errorMessage = null) }
+    }
+
+    fun updateQuantity(value: String) {
+        _uiState.update { it.copy(quantityGrams = value, errorMessage = null) }
+    }
+
+    fun updateUnit(value: String) {
+        _uiState.update { it.copy(unit = value, errorMessage = null) }
+    }
+
+    fun setExpiryDate(millis: Long) {
+        _uiState.update { it.copy(expiryDateMillis = millis, errorMessage = null) }
+    }
+
+    /**
+     * Kiểm tra form hợp lệ.
+     */
+    fun isFormValid(): Boolean {
+        val state = _uiState.value
+        return state.name.isNotBlank()
+                &amp;&amp; (state.caloriesPer100g.toIntOrNull() ?: 0) &gt;= 0
+                &amp;&amp; (state.proteinPer100g.toIntOrNull() ?: 0) &gt;= 0
+                &amp;&amp; (state.quantityGrams.toIntOrNull() ?: 0) &gt; 0
+                &amp;&amp; state.expiryDateMillis != null
+    }
+
+    /**
+     * Lưu thực phẩm vào Firestore pantry collection.
+     */
+    fun saveToKho() {
+        val uid = repository.currentUid
+        if (uid == null) {
+            _uiState.update { it.copy(errorMessage = &quot;Chưa đăng nhập&quot;) }
+            return
+        }
+
+        val state = _uiState.value
+
+        // Validate
+        if (state.name.isBlank()) {
+            _uiState.update { it.copy(errorMessage = &quot;Vui lòng nhập tên thực phẩm&quot;) }
+            return
+        }
+        val calories = state.caloriesPer100g.toIntOrNull()
+        if (calories == null || calories &lt; 0) {
+            _uiState.update { it.copy(errorMessage = &quot;Calo không hợp lệ&quot;) }
+            return
+        }
+        val protein = state.proteinPer100g.toIntOrNull()
+        if (protein == null || protein &lt; 0) {
+            _uiState.update { it.copy(errorMessage = &quot;Protein không hợp lệ&quot;) }
+            return
+        }
+        val quantity = state.quantityGrams.toIntOrNull()
+        if (quantity == null || quantity &lt;= 0) {
+            _uiState.update { it.copy(errorMessage = &quot;Số lượng phải lớn hơn 0&quot;) }
+            return
+        }
+        if (state.expiryDateMillis == null) {
+            _uiState.update { it.copy(errorMessage = &quot;Vui lòng chọn ngày hết hạn&quot;) }
+            return
+        }
+
+        // Tính expiry Timestamp
+        val expiryTimestamp = Timestamp(
+            java.util.Date(state.expiryDateMillis)
+        )
+
+        // Tính status từ expiry date
+        val status = calculateExpiryStatus(expiryTimestamp)
+
+        val item = PantryItem(
+            name = state.name.trim(),
+            caloriesPer100g = calories,
+            proteinPer100g = protein,
+            quantityGrams = quantity,
+            unit = state.unit,
+            source = state.source,
+            expiryDate = expiryTimestamp,
+            status = status.firestoreValue,
+            barcode = state.barcode
+        )
+
+        viewModelScope.launch {
+            _uiState.update { it.copy(isSaving = true, errorMessage = null) }
+            try {
+                repository.addItem(uid, item)
+                _uiState.update { it.copy(isSaving = false, saveSuccess = true) }
+            } catch (e: Exception) {
+                _uiState.update {
+                    it.copy(
+                        isSaving = false,
+                        errorMessage = &quot;Lưu thất bại: ${e.message}&quot;
+                    )
+                }
+            }
+        }
+    }
+
+    /** Clear error */
+    fun clearError() {
+        _uiState.update { it.copy(errorMessage = null) }
+    }
+}
+</code></pre>
+</div>
+<div class=""code-file-section page-break"">
+    <div class=""code-file-header"">File: pantry/viewmodel/PantryListViewModel.kt</div>
+    <pre class=""line-numbers""><code>package com.team.smartnutrition.pantry.viewmodel
+
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.team.smartnutrition.pantry.data.PantryRepository
+import com.team.smartnutrition.pantry.model.PantryItem
+import com.team.smartnutrition.pantry.util.ExpiryStatus
+import com.team.smartnutrition.pantry.util.calculateExpiryStatus
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+
+/**
+ * ═══════════════════════════════════════════
+ * PANTRY LIST VIEW MODEL
+ * ═══════════════════════════════════════════
+ *
+ * Xử lý:
+ * - Load realtime danh sách thực phẩm từ Firestore
+ * - Lọc theo trạng thái hạn sử dụng (Tất cả / Sắp hết hạn / Đã hết hạn)
+ * - Tìm kiếm theo tên
+ * - Xóa thực phẩm
+ * - Tự động cập nhật status khi hạn sử dụng thay đổi
+ */
+
+data class PantryListUiState(
+    val items: List&lt;PantryItem&gt; = emptyList(),
+    val filteredItems: List&lt;PantryItem&gt; = emptyList(),
+    val selectedFilter: ExpiryFilter = ExpiryFilter.ALL,
+    val searchQuery: String = &quot;&quot;,
+    val isLoading: Boolean = true,
+    val errorMessage: String? = null,
+    val showDeleteDialog: Boolean = false,
+    val itemToDelete: PantryItem? = null,
+    val showAddSheet: Boolean = false
+)
+
+enum class ExpiryFilter(val label: String) {
+    ALL(&quot;Tất cả&quot;),
+    EXPIRING(&quot;Sắp hết hạn&quot;),
+    EXPIRED(&quot;Đã hết hạn&quot;)
+}
+
+class PantryListViewModel : ViewModel() {
+
+    private val repository = PantryRepository()
+
+    private val _uiState = MutableStateFlow(PantryListUiState())
+    val uiState: StateFlow&lt;PantryListUiState&gt; = _uiState.asStateFlow()
+
+    init {
+        loadItems()
+    }
+
+    /**
+     * Load realtime danh sách từ Firestore.
+     * Tự cập nhật status nếu cần.
+     */
+    private fun loadItems() {
+        val uid = repository.currentUid ?: return
+
+        viewModelScope.launch {
+            repository.getItems(uid)
+                .catch { e -&gt;
+                    _uiState.update {
+                        it.copy(isLoading = false, errorMessage = &quot;Lỗi tải kho: ${e.message}&quot;)
+                    }
+                }
+                .collect { items -&gt;
+                    // Tự cập nhật status cho items có hạn sử dụng thay đổi
+                    val updatedItems = refreshStatuses(uid, items)
+
+                    _uiState.update { state -&gt;
+                        state.copy(
+                            items = updatedItems,
+                            filteredItems = applyFilters(
+                                updatedItems, state.selectedFilter, state.searchQuery
+                            ),
+                            isLoading = false,
+                            errorMessage = null
+                        )
+                    }
+                }
+        }
+    }
+
+    /**
+     * Đặt bộ lọc trạng thái hạn sử dụng.
+     */
+    fun setFilter(filter: ExpiryFilter) {
+        _uiState.update { state -&gt;
+            state.copy(
+                selectedFilter = filter,
+                filteredItems = applyFilters(state.items, filter, state.searchQuery)
+            )
+        }
+    }
+
+    /**
+     * Cập nhật query tìm kiếm.
+     */
+    fun setSearchQuery(query: String) {
+        _uiState.update { state -&gt;
+            state.copy(
+                searchQuery = query,
+                filteredItems = applyFilters(state.items, state.selectedFilter, query)
+            )
+        }
+    }
+
+    /**
+     * Hiện confirm dialog xóa.
+     */
+    fun showDeleteConfirm(item: PantryItem) {
+        _uiState.update { it.copy(showDeleteDialog = true, itemToDelete = item) }
+    }
+
+    /**
+     * Ẩn confirm dialog xóa.
+     */
+    fun dismissDeleteConfirm() {
+        _uiState.update { it.copy(showDeleteDialog = false, itemToDelete = null) }
+    }
+
+    /**
+     * Xóa thực phẩm khỏi kho.
+     */
+    fun deleteItem(item: PantryItem) {
+        val uid = repository.currentUid ?: return
+
+        viewModelScope.launch {
+            try {
+                repository.deleteItem(uid, item.id)
+                _uiState.update { it.copy(showDeleteDialog = false, itemToDelete = null) }
+            } catch (e: Exception) {
+                _uiState.update {
+                    it.copy(
+                        errorMessage = &quot;Không thể xóa: ${e.message}&quot;,
+                        showDeleteDialog = false,
+                        itemToDelete = null
+                    )
+                }
+            }
+        }
+    }
+
+    /** Toggle hiển thị BottomSheet thêm mới */
+    fun toggleAddSheet(show: Boolean) {
+        _uiState.update { it.copy(showAddSheet = show) }
+    }
+
+    /** Clear error message */
+    fun clearError() {
+        _uiState.update { it.copy(errorMessage = null) }
+    }
+
+    // ═══ PRIVATE HELPERS ═══
+
+    /**
+     * Áp dụng bộ lọc + tìm kiếm lên danh sách items.
+     */
+    private fun applyFilters(
+        items: List&lt;PantryItem&gt;,
+        filter: ExpiryFilter,
+        searchQuery: String
+    ): List&lt;PantryItem&gt; {
+        var result = items
+
+        // Lọc theo trạng thái
+        result = when (filter) {
+            ExpiryFilter.ALL -&gt; result
+            ExpiryFilter.EXPIRING -&gt; result.filter {
+                calculateExpiryStatus(it.expiryDate) == ExpiryStatus.EXPIRING
+            }
+            ExpiryFilter.EXPIRED -&gt; result.filter {
+                calculateExpiryStatus(it.expiryDate) == ExpiryStatus.EXPIRED
+            }
+        }
+
+        // Lọc theo tìm kiếm (case-insensitive)
+        if (searchQuery.isNotBlank()) {
+            result = result.filter {
+                it.name.contains(searchQuery, ignoreCase = true)
+            }
+        }
+
+        return result
+    }
+
+    /**
+     * Tự cập nhật status nếu hạn sử dụng thay đổi so với Firestore.
+     * VD: item ngày hôm qua còn &quot;fresh&quot;, hôm nay thành &quot;expiring&quot;.
+     */
+    private fun refreshStatuses(uid: String, items: List&lt;PantryItem&gt;): List&lt;PantryItem&gt; {
+        return items.map { item -&gt;
+            val currentStatus = calculateExpiryStatus(item.expiryDate)
+            if (currentStatus.firestoreValue != item.status) {
+                // Update Firestore async (fire-and-forget)
+                viewModelScope.launch {
+                    try {
+                        repository.updateItem(
+                            uid, item.id,
+                            mapOf(&quot;status&quot; to currentStatus.firestoreValue)
+                        )
+                    } catch (_: Exception) {
+                        // Silently ignore — sẽ retry lần load tiếp
+                    }
+                }
+                item.copy(status = currentStatus.firestoreValue)
+            } else {
+                item
+            }
+        }
+    }
+}
+</code></pre>
+</div>
+
+
+</body>
+</html>

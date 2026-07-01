@@ -36,9 +36,9 @@ val Amber500 = Color(0xFFF59E0B)
 val Amber600 = Color(0xFFD97706)
 
 // ═══ Status Colors (dùng cho badge hạn sử dụng) ═══
-val StatusFresh = Color(0xFF22C55E)       // 🟢 Còn tươi
-val StatusExpiring = Color(0xFFF59E0B)    // 🟡 Sắp hết hạn
-val StatusExpired = Color(0xFFEF4444)     // 🔴 Đã hết hạn
+val StatusFresh = Color(0xFF22C55E)       //  xanh lá: Còn tươi
+val StatusExpiring = Color(0xFFF59E0B)    //  vàng: Sắp hết hạn
+val StatusExpired = Color(0xFFEF4444)     //  Đỏ: Đã hết hạn
 
 // ═══ Error ═══
 val ErrorRed = Color(0xFFEF4444)
