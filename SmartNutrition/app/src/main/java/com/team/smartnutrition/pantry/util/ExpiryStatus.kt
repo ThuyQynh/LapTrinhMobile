@@ -1,4 +1,4 @@
-package com.team.smartnutrition.pantry.util
+﻿package com.team.smartnutrition.pantry.util
 
 import com.google.firebase.Timestamp
 import java.time.LocalDate
@@ -6,9 +6,7 @@ import java.time.ZoneId
 import java.time.temporal.ChronoUnit
 
 /**
- * ═══════════════════════════════════════════
  * EXPIRY STATUS - Logic cảnh báo hạn sử dụng
- * ═══════════════════════════════════════════
  *
  * Quy tắc:
  * -  FRESH:    còn > 3 ngày

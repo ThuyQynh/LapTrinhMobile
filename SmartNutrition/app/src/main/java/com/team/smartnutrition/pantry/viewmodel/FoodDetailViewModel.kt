@@ -1,4 +1,4 @@
-package com.team.smartnutrition.pantry.viewmodel
+﻿package com.team.smartnutrition.pantry.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -11,9 +11,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 /**
- * ═══════════════════════════════════════════
- * FOOD DETAIL VIEW MODEL
- * ═══════════════════════════════════════════
+ * FoodDetailViewModel
  *
  * Xử lý:
  * - Load chi tiết 1 thực phẩm theo itemId
@@ -72,7 +70,7 @@ class FoodDetailViewModel : ViewModel() {
         }
     }
 
-    // ═══ EDIT MODE ═══
+    // Chế độ chỉnh sửa thông tin
 
     fun startEditing() {
         _uiState.update { state ->
@@ -128,7 +126,7 @@ class FoodDetailViewModel : ViewModel() {
         }
     }
 
-    // ═══ DELETE ═══
+    // Xóa thực phẩm
 
     fun showDeleteConfirm() {
         _uiState.update { it.copy(showDeleteDialog = true) }

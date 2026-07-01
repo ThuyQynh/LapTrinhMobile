@@ -1,11 +1,9 @@
-package com.team.smartnutrition.pantry.model
+﻿package com.team.smartnutrition.pantry.model
 
 import com.google.firebase.Timestamp
 
 /**
- * ═══════════════════════════════════════════
  * DATA MODELS cho Module 2 - Pantry Scanner
- * ═══════════════════════════════════════════
  *
  * Ánh xạ trực tiếp tới Firestore document:
  * - PantryItem → users/{uid}/pantry/{autoId}

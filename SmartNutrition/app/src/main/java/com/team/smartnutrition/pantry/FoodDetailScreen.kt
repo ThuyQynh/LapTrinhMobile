@@ -1,4 +1,4 @@
-package com.team.smartnutrition.pantry
+﻿package com.team.smartnutrition.pantry
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -29,9 +29,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 /**
- * ═══════════════════════════════════════════
- * MODULE 2 - TV2: CHI TIẾT THỰC PHẨM
- * ═══════════════════════════════════════════
+ * Module 2 - TV2: Chi tiết thực phẩm
  *
  * Hiển thị chi tiết 1 item trong kho:
  * - Thông tin dinh dưỡng (tên, calo, protein)
@@ -126,7 +124,7 @@ fun FoodDetailScreen(
                         .padding(16.dp),
                     verticalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
-                    // ═══ STATUS BADGE (full width) ═══
+                    // Huy hiệu trạng thái hạn sử dụng
                     Surface(
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(16.dp),
@@ -158,7 +156,7 @@ fun FoodDetailScreen(
                         }
                     }
 
-                    // ═══ CARD 1: Thông tin dinh dưỡng ═══
+                    // Thẻ 1: Thông tin dinh dưỡng
                     Card(
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(16.dp)
@@ -197,7 +195,7 @@ fun FoodDetailScreen(
                         }
                     }
 
-                    // ═══ CARD 2: Thông tin kho ═══
+                    // Thẻ 2: Chi tiết kho thực phẩm
                     Card(
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(16.dp)
@@ -280,7 +278,7 @@ fun FoodDetailScreen(
                         }
                     }
 
-                    // ═══ ERROR MESSAGE ═══
+                    // Hiển thị thông báo lỗi
                     if (uiState.errorMessage != null) {
                         Card(
                             colors = CardDefaults.cardColors(
@@ -302,7 +300,7 @@ fun FoodDetailScreen(
         }
     }
 
-    // ═══ DELETE CONFIRM DIALOG ═══
+    // Hộp thoại xác nhận xóa
     if (uiState.showDeleteDialog) {
         AlertDialog(
             onDismissRequest = { viewModel.dismissDeleteConfirm() },
@@ -325,11 +323,7 @@ fun FoodDetailScreen(
         )
     }
 }
-
-// ═══════════════════════════════════════════
-// SUB-COMPOSABLES
-// ═══════════════════════════════════════════
-
+// Thành phần giao diện phụ (Sub-composables)
 @Composable
 private fun NutrientInfo(
     label: String,

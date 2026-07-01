@@ -1,4 +1,4 @@
-package com.team.smartnutrition.pantry.viewmodel
+﻿package com.team.smartnutrition.pantry.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -19,9 +19,7 @@ import java.time.ZoneId
 import java.time.ZoneOffset
 
 /**
- * ═══════════════════════════════════════════
- * FOOD RESULT VIEW MODEL
- * ═══════════════════════════════════════════
+ * FoodResultViewModel
  *
  * Xử lý:
  * - Hiển thị kết quả AI nhận diện (pre-filled)
@@ -104,7 +102,7 @@ class FoodResultViewModel : ViewModel() {
         }
     }
 
-    // ═══ FIELD UPDATES ═══
+    // Cập nhật các trường dữ liệu
 
     fun updateName(value: String) {
         _uiState.update { it.copy(name = value, errorMessage = null) }

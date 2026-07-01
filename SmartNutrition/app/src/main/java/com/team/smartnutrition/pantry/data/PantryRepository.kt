@@ -1,4 +1,4 @@
-package com.team.smartnutrition.pantry.data
+﻿package com.team.smartnutrition.pantry.data
 
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
@@ -11,9 +11,7 @@ import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.tasks.await
 
 /**
- * ═══════════════════════════════════════════
- * PANTRY REPOSITORY - Lớp dữ liệu kho thực phẩm
- * ═══════════════════════════════════════════
+ * Pantry Repository - Lớp dữ liệu kho thực phẩm
  *
  * Đóng gói toàn bộ Firestore operations cho collection:
  *   users/{uid}/pantry/{autoId}
@@ -31,13 +29,13 @@ class PantryRepository {
     val currentUid: String?
         get() = FirebaseAuth.getInstance().currentUser?.uid
 
-    // ═══ HELPER ═══
+    // Các hàm hỗ trợ
 
     /** Reference tới pantry collection của user */
     private fun pantryRef(uid: String) =
         firestore.collection("users").document(uid).collection("pantry")
 
-    // ═══ CREATE ═══
+    // Thêm mới dữ liệu
 
     /**
      * Thêm thực phẩm mới vào kho.
@@ -55,7 +53,7 @@ class PantryRepository {
         return docRef.id
     }
 
-    // ═══ READ ═══
+    // Đọc dữ liệu
 
     /**
      * Lấy realtime danh sách tất cả thực phẩm trong kho.
@@ -126,7 +124,7 @@ class PantryRepository {
         }
     }
 
-    // ═══ UPDATE ═══
+    // Cập nhật dữ liệu
 
     /**
      * Cập nhật fields cụ thể của 1 thực phẩm.
@@ -137,7 +135,7 @@ class PantryRepository {
         pantryRef(uid).document(itemId).update(updates)
     }
 
-    // ═══ DELETE ═══
+    // Xóa thực phẩm
 
     /**
      * Xóa 1 thực phẩm khỏi kho.
@@ -147,7 +145,7 @@ class PantryRepository {
         pantryRef(uid).document(itemId).delete()
     }
 
-    // ═══ HELPER: Convert PantryItem → Map ═══
+    // Hỗ trợ: Chuyển đổi PantryItem thành Map
 
     /**
      * Convert PantryItem thành Map để lưu Firestore.

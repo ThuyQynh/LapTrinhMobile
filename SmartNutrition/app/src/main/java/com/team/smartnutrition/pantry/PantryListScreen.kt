@@ -1,4 +1,4 @@
-package com.team.smartnutrition.pantry
+﻿package com.team.smartnutrition.pantry
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.background
@@ -34,9 +34,7 @@ import com.team.smartnutrition.pantry.viewmodel.ExpiryFilter
 import com.team.smartnutrition.pantry.viewmodel.PantryListViewModel
 
 /**
- * ═══════════════════════════════════════════
- * MODULE 2 - TV2: DANH SÁCH KHO THỰC PHẨM
- * ═══════════════════════════════════════════
+ * Module 2 - TV2: Danh sách kho thực phẩm
  *
  * Màn hình chính Module 2:
  * - LazyColumn hiển thị thực phẩm với badge hạn sử dụng (Xanh/Vàng/Đỏ)
@@ -70,7 +68,7 @@ fun PantryListScreen(
                 .fillMaxSize()
                 .padding(paddingValues)
         ) {
-            // ═══ HEADER ═══
+            // Phần đầu trang (Header)
             Text(
                 text = "🏪 " + stringResource(R.string.pantry_toolbar_title),
                 style = MaterialTheme.typography.headlineMedium,
@@ -78,7 +76,7 @@ fun PantryListScreen(
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp)
             )
 
-            // ═══ SEARCH BAR ═══
+            // Thanh tìm kiếm
             OutlinedTextField(
                 value = uiState.searchQuery,
                 onValueChange = { viewModel.setSearchQuery(it) },
@@ -102,7 +100,7 @@ fun PantryListScreen(
 
             Spacer(modifier = Modifier.height(12.dp))
 
-            // ═══ FILTER CHIPS ═══
+            // Các nút lọc danh sách
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -128,7 +126,7 @@ fun PantryListScreen(
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            // ═══ CONTENT ═══
+            // Phần nội dung hiển thị
             when {
                 uiState.isLoading -> {
                     LoadingScreen(message = stringResource(R.string.loading_pantry))
@@ -146,7 +144,7 @@ fun PantryListScreen(
                     )
                 }
                 else -> {
-                    // ═══ DANH SÁCH THỰC PHẨM ═══
+                    // Danh sách thực phẩm
                     LazyColumn(
                         modifier = Modifier.fillMaxSize(),
                         contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
@@ -175,7 +173,7 @@ fun PantryListScreen(
         }
     }
 
-    // ═══ ADD BOTTOM SHEET ═══
+    // Khung nhập thêm thực phẩm (Bottom Sheet)
     if (uiState.showAddSheet) {
         ModalBottomSheet(
             onDismissRequest = { viewModel.toggleAddSheet(false) }
@@ -199,7 +197,7 @@ fun PantryListScreen(
         }
     }
 
-    // ═══ DELETE CONFIRM DIALOG ═══
+    // Hộp thoại xác nhận xóa
     if (uiState.showDeleteDialog && uiState.itemToDelete != null) {
         AlertDialog(
             onDismissRequest = { viewModel.dismissDeleteConfirm() },
@@ -221,11 +219,7 @@ fun PantryListScreen(
         )
     }
 }
-
-// ═══════════════════════════════════════════
-// SUB-COMPOSABLES
-// ═══════════════════════════════════════════
-
+// Thành phần giao diện phụ (Sub-composables)
 /**
  * Item thực phẩm với swipe-to-delete.
  */

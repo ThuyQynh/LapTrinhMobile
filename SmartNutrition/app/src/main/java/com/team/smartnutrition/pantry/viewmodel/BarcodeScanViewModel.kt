@@ -1,4 +1,4 @@
-package com.team.smartnutrition.pantry.viewmodel
+﻿package com.team.smartnutrition.pantry.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -12,9 +12,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 /**
- * ═══════════════════════════════════════════
- * BARCODE SCAN VIEW MODEL
- * ═══════════════════════════════════════════
+ * BarcodeScanViewModel
  *
  * Xử lý:
  * - Trạng thái quyền camera

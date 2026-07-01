@@ -1,4 +1,4 @@
-package com.team.smartnutrition.pantry
+﻿package com.team.smartnutrition.pantry
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -25,9 +25,7 @@ import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 
 /**
- * ═══════════════════════════════════════════
  * MODULE 2 - TV2: KẾT QUẢ NHẬN DIỆN AI
- * ═══════════════════════════════════════════
  *
  * Hiển thị kết quả từ Gemini / barcode / empty (manual):
  * - Pre-fill tên, calo, protein
@@ -45,7 +43,7 @@ fun FoodResultScreen(
     var showDatePicker by remember { mutableStateOf(false) }
     var showUnitDropdown by remember { mutableStateOf(false) }
 
-    // ═══ INIT FROM PREVIOUS SCREEN ═══
+    // Khởi tạo từ màn hình trước
     val foodResultJson = navController.previousBackStackEntry
         ?.savedStateHandle?.get<String>("food_result_json")
     val foodSource = navController.previousBackStackEntry
@@ -57,7 +55,7 @@ fun FoodResultScreen(
         viewModel.initFromResult(foodResultJson, foodSource, foodBarcode)
     }
 
-    // ═══ SAVE SUCCESS → NAVIGATE BACK ═══
+    // Lưu thành công và quay lại màn hình trước
     LaunchedEffect(uiState.saveSuccess) {
         if (uiState.saveSuccess) {
             navController.popBackStack(Screen.Pantry.route, inclusive = false)
@@ -84,7 +82,7 @@ fun FoodResultScreen(
                 .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            // ═══ CARD 1: Thông tin dinh dưỡng ═══
+            // Thẻ 1: Thông tin dinh dưỡng
             Card(
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(16.dp),
@@ -153,7 +151,7 @@ fun FoodResultScreen(
                 }
             }
 
-            // ═══ CARD 2: Thông tin kho ═══
+            // Thẻ 2: Chi tiết kho thực phẩm
             Card(
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(16.dp),
@@ -259,7 +257,7 @@ fun FoodResultScreen(
                 }
             }
 
-            // ═══ ERROR MESSAGE ═══
+            // Hiển thị thông báo lỗi
             if (uiState.errorMessage != null) {
                 Card(
                     modifier = Modifier.fillMaxWidth(),
@@ -277,7 +275,7 @@ fun FoodResultScreen(
                 }
             }
 
-            // ═══ SAVE BUTTON ═══
+            // Nút lưu dữ liệu
             GradientButton(
                 text = if (uiState.isSaving) "Đang lưu..." else "💾 Lưu vào kho",
                 onClick = { viewModel.saveToKho() },
@@ -288,7 +286,7 @@ fun FoodResultScreen(
         }
     }
 
-    // ═══ DATE PICKER DIALOG ═══
+    // Hộp thoại chọn ngày hết hạn
     if (showDatePicker) {
         val datePickerState = rememberDatePickerState(
             initialSelectedDateMillis = uiState.expiryDateMillis

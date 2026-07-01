@@ -1,4 +1,4 @@
-package com.team.smartnutrition.pantry.viewmodel
+﻿package com.team.smartnutrition.pantry.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -14,9 +14,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 /**
- * ═══════════════════════════════════════════
- * PANTRY LIST VIEW MODEL
- * ═══════════════════════════════════════════
+ * PantryListViewModel
  *
  * Xử lý:
  * - Load realtime danh sách thực phẩm từ Firestore
@@ -157,7 +155,7 @@ class PantryListViewModel : ViewModel() {
         _uiState.update { it.copy(errorMessage = null) }
     }
 
-    // ═══ PRIVATE HELPERS ═══
+    // PRIVATE HELPERS
 
     /**
      * Áp dụng bộ lọc + tìm kiếm lên danh sách items.

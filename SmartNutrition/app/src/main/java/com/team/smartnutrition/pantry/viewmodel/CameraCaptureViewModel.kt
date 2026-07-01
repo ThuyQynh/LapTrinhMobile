@@ -1,4 +1,4 @@
-package com.team.smartnutrition.pantry.viewmodel
+﻿package com.team.smartnutrition.pantry.viewmodel
 
 import android.graphics.Bitmap
 import androidx.lifecycle.ViewModel
@@ -13,9 +13,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 /**
- * ═══════════════════════════════════════════
- * CAMERA CAPTURE VIEW MODEL
- * ═══════════════════════════════════════════
+ * CameraCaptureViewModel
  *
  * Xử lý:
  * - Trạng thái quyền camera

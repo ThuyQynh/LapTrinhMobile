@@ -1,4 +1,4 @@
-package com.team.smartnutrition.pantry
+﻿package com.team.smartnutrition.pantry
 
 import android.Manifest
 import android.content.pm.PackageManager
@@ -41,9 +41,7 @@ import com.team.smartnutrition.navigation.Screen
 import com.team.smartnutrition.pantry.viewmodel.CameraCaptureViewModel
 
 /**
- * ═══════════════════════════════════════════
- * MODULE 2 - TV2: CHỤP ẢNH THỰC PHẨM
- * ═══════════════════════════════════════════
+ * Module 2 - TV2: Chụp ảnh thực phẩm
  *
  * CameraX Preview toàn màn hình + nút chụp.
  * Sau khi chụp → gửi Gemini Vision API → navigate FoodResult.
@@ -64,7 +62,7 @@ fun CameraCaptureScreen(
             .build()
     }
 
-    // ═══ PERMISSION HANDLING ═══
+    // Xử lý quyền truy cập camera
     val permissionLauncher = rememberLauncherForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { granted ->
@@ -83,7 +81,7 @@ fun CameraCaptureScreen(
         }
     }
 
-    // ═══ NAVIGATION EFFECT ═══
+    // Hiệu ứng điều hướng màn hình (Navigation)
     LaunchedEffect(uiState.navigateToResult) {
         if (uiState.navigateToResult && uiState.resultJson != null) {
             navController.currentBackStackEntry?.savedStateHandle?.apply {
@@ -95,7 +93,7 @@ fun CameraCaptureScreen(
         }
     }
 
-    // ═══ UI ═══
+    // Giao diện UI
     if (!uiState.hasCameraPermission) {
         // Permission denied state
         PermissionDeniedScreen(

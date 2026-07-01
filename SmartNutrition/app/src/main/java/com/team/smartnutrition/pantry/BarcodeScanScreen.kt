@@ -1,4 +1,4 @@
-package com.team.smartnutrition.pantry
+﻿package com.team.smartnutrition.pantry
 
 import android.Manifest
 import android.content.pm.PackageManager
@@ -46,9 +46,7 @@ import com.team.smartnutrition.navigation.Screen
 import com.team.smartnutrition.pantry.viewmodel.BarcodeScanViewModel
 
 /**
- * ═══════════════════════════════════════════
- * MODULE 2 - TV2: QUÉT MÃ VẠCH
- * ═══════════════════════════════════════════
+ * Module 2 - TV2: Quét mã vạch
  *
  * Camera quét barcode real-time bằng ML Kit.
  * Phát hiện barcode → tra cứu BarcodeDatabase → navigate FoodResult.
@@ -63,7 +61,7 @@ fun BarcodeScanScreen(
     val lifecycleOwner = LocalLifecycleOwner.current
     val uiState by viewModel.uiState.collectAsState()
 
-    // ═══ PERMISSION ═══
+    // Xử lý quyền truy cập camera
     val permissionLauncher = rememberLauncherForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { granted ->
@@ -82,7 +80,7 @@ fun BarcodeScanScreen(
         }
     }
 
-    // ═══ NAVIGATION EFFECT ═══
+    // Hiệu ứng điều hướng màn hình (Navigation)
     LaunchedEffect(uiState.navigateToResult) {
         if (uiState.navigateToResult) {
             navController.currentBackStackEntry?.savedStateHandle?.apply {
@@ -97,7 +95,7 @@ fun BarcodeScanScreen(
         }
     }
 
-    // ═══ UI ═══
+    // Giao diện UI
     if (!uiState.hasCameraPermission) {
         // Reuse permission denied pattern
         Box(
@@ -241,7 +239,7 @@ fun BarcodeScanScreen(
         }
     }
 
-    // ═══ RESULT BOTTOM SHEET ═══
+    // Khung hiển thị kết quả
     if (uiState.showResultSheet && uiState.lookupResult != null) {
         ModalBottomSheet(
             onDismissRequest = { viewModel.dismissResultSheet() }
@@ -325,7 +323,7 @@ fun BarcodeScanScreen(
         }
     }
 
-    // ═══ NOT FOUND DIALOG ═══
+    // Hộp thoại không tìm thấy
     if (uiState.showNotFoundDialog) {
         AlertDialog(
             onDismissRequest = { viewModel.dismissNotFoundDialog() },
