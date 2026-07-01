@@ -83,7 +83,7 @@ Quy tắc:
 
         Log.d(TAG, "Gemini response: $responseText")
 
-        // 3. Parse JSON (strip markdown wrapper nếu có)
+        // 3. Phân tách chuỗi văn bản thành Object dữ liệu
         return parseResponse(responseText)
     }
 

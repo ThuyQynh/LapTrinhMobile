@@ -124,7 +124,7 @@ fun FoodDetailScreen(
                         .padding(16.dp),
                     verticalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
-                    // Huy hiệu trạng thái hạn sử dụng
+                    // trạng thái hạn sử dụng
                     Surface(
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(16.dp),
@@ -325,6 +325,7 @@ fun FoodDetailScreen(
 }
 // Thành phần giao diện phụ (Sub-composables)
 @Composable
+//Nhận nhãn, giá trị, đơn vị và màu sắc rồi tự động xếp dọc, căn giữa chỉnh chu. Chuyên dùng vẽ các cột chỉ số dinh dưỡng (Calo, Protein)
 private fun NutrientInfo(
     label: String,
     value: String,

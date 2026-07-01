@@ -149,7 +149,7 @@ fun BarcodeScanScreen(
                         it.setSurfaceProvider(previewView.surfaceProvider)
                     }
                     val imageAnalysis = ImageAnalysis.Builder()
-                        .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
+                        .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST) // Chiến lược chống ùn ứ dữ liệu
                         .build()
                         .also {
                             it.setAnalyzer(
@@ -350,6 +350,7 @@ fun BarcodeScanScreen(
  * Scan frame overlay: semi-transparent background + scan window ở giữa.
  */
 @Composable
+// Khung Quét
 private fun ScanFrameOverlay() {
     Canvas(modifier = Modifier.fillMaxSize()) {
         val scanWidth = size.width * 0.75f
@@ -421,10 +422,11 @@ private class BarcodeAnalyzer(
     )
 
     @androidx.annotation.OptIn(ExperimentalGetImage::class)
+    //Hàm này chạy liên tục
     override fun analyze(imageProxy: ImageProxy) {
         val mediaImage = imageProxy.image
         if (mediaImage == null) {
-            imageProxy.close()
+            imageProxy.close() // Giải phóng frame hình nếu rỗng
             return
         }
 
@@ -435,7 +437,7 @@ private class BarcodeAnalyzer(
         scanner.process(inputImage)
             .addOnSuccessListener { barcodes ->
                 barcodes.firstOrNull()?.rawValue?.let { value ->
-                    onBarcodeDetected(value)
+                    onBarcodeDetected(value) // Bắn mã vạch tìm được về ViewModel
                 }
             }
             .addOnCompleteListener {

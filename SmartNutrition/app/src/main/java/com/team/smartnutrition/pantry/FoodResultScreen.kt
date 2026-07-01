@@ -50,7 +50,8 @@ fun FoodResultScreen(
         ?.savedStateHandle?.get<String>("food_source")
     val foodBarcode = navController.previousBackStackEntry
         ?.savedStateHandle?.get<String>("food_barcode")
-
+        
+    // Theo dõi biến saveSuccess để điều hướng quay về kho
     LaunchedEffect(Unit) {
         viewModel.initFromResult(foodResultJson, foodSource, foodBarcode)
     }

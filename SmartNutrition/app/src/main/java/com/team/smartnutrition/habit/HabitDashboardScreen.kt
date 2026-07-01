@@ -163,7 +163,7 @@ private fun HabitDashboardContent(
         ) {
             Icon(Icons.Default.Settings, contentDescription = null)
             Spacer(Modifier.width(8.dp))
-            Text("⚙️ " + stringResource(R.string.reminder_settings_btn))
+            Text(stringResource(R.string.reminder_settings_btn))
         }
 
         // Bottom spacing
